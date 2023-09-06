@@ -1,0 +1,332 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="utf-8" />
+        <title>Registrate</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta content="Free HTML Templates" name="keywords" />
+        <meta content="Free HTML Templates" name="description" />
+
+        <!-- Favicon -->
+        <link href="img/equipo.png" rel="icon" />
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+
+        <!-- Font Awesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
+
+        <!-- Flaticon Font -->
+        <link href="lib/flaticon/font/flaticon.css" rel="stylesheet" />
+
+        <!-- Libraries Stylesheet -->
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet" />
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="css/style.css" rel="stylesheet" />
+
+
+
+        <!-- Google Font 
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"> -->
+            <!-- CSS -->
+            <link rel="stylesheet" type="text/css" href="src/plugins/jquery-steps/jquery.steps.css"/>
+                <link rel="stylesheet" type="text/css" href="vendors/styles/style.css"/>
+
+                    <!-- Global site tag (gtag.js) - Google Analytics 
+                    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+                    <script>
+                            window.dataLayer = window.dataLayer || [];
+                            function gtag(){dataLayer.push(arguments);}
+                            gtag('js', new Date());
+
+                            gtag('config', 'UA-119386393-1');
+                    </script>-->
+    </h:head>
+    <h:body>
+        <!-- Navbar Start -->
+        <div class="container-fluid bg-light position-relative shadow">
+            <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5">
+                <a href="index.html" class="navbar-brand font-weight-bold text-secondary" style="font-size: 50px">
+                    <i class=""> <img src="img/DoggyAtHome (1).jpg" alt="" height="70px" width="80px"/></i>
+                    <span class="text-primary">Doggy At Home</span>
+                </a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav font-weight-bold mx-auto py-0">
+                        <a href="index.xhtml" class="nav-item nav-link">Inicio</a>
+                        <a href="Nosotros.xhtml" class="nav-item nav-link">Nosotros</a>
+                        <a href="Perritos.xhtml" class="nav-item nav-link">Perritos</a>
+                        <a href="Noticias.xhtml" class="nav-item nav-link">Noticias</a>
+                        <a href="Donaciones.xhtml" class="nav-item nav-link">Donaciones</a>
+                        <a href="TrabajaConNosotros.xhtml" class="nav-item nav-link">Trabaja con nosotros</a>
+                    </div>
+                    <a href="login.xhtml" class="btn btn-primary px-4 active">Ingresar</a>
+                </div>
+            </nav>
+        </div>
+        <!-- Navbar End -->
+        
+        <div class="register-page-wrap d-flex align-items-center flex-wrap justify-content-center">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 col-lg-7">
+                        <img src="img/imagenRegistro.png" alt=""/>
+                    </div>
+                    <div class="col-md-6 col-lg-5">
+                        <div class="register-box bg-white box-shadow border-radius-10">
+                            <div class="wizard-content">
+                                <form style="font-family: Nunito;" class="tab-wizard2 wizard-circle wizard" action="registrar.php" method="post">
+                                    <h5> Datos básicos</h5>
+                                    <section>
+                                        <div class="form-wrap max-width-600 mx-auto">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Email*</label>
+                                                <div class="col-sm-8">
+                                                    <input type="email" class="form-control" name="correo"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Usuario*</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" name="usuario"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Contraseña*</label>
+                                                <div class="col-sm-8">
+                                                    <input type="password" class="form-control" name="contraseña"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Confirma la contraseña*</label>
+                                                <div class="col-sm-8">
+                                                    <input type="password" class="form-control" name="confirmarContraseña"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <!-- Step 2 -->
+                                    <h5>Información personal</h5>
+                                    <section>
+                                        <div class="form-wrap max-width-600 mx-auto">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Nombres*</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" name="nombres"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Apellidos*</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" name="apellidos"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row align-items-center">
+                                                <label class="col-sm-4 col-form-label">Tipo de documento*</label>
+                                                <div class="col-sm-8">
+                                                    <div class="custom-control custom-radio custom-control-inline pb-0">
+                                                        <input type="radio" id="CE" value="CE" name="tipoDocumento" class="custom-control-input"/>
+                                                            <label class="custom-control-label" for="CE">CE</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio custom-control-inline pb-0">
+                                                        <input type="radio" id="CC" value="CC" name="tipoDocumento" class="custom-control-input"/>
+                                                            <label class="custom-control-label" for="CC">CC</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio custom-control-inline pb-0">
+                                                        <input type="radio" id="TI" value="TI" name="tipoDocumento" class="custom-control-input"/>
+                                                            <label class="custom-control-label" for="TI">TI</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Número documento</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" name="documento"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <!-- Step 3 -->
+                                    <h5>Datos de contacto</h5>
+                                    <section>
+                                        <div class="form-wrap max-width-600 mx-auto">
+                                            <div class="form-group row align-items-center">
+                                                <label class="col-sm-4 col-form-label">Número de celular</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" name="celular"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row align-items-center">
+                                                <label class="col-sm-4 col-form-label">Dirección</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" name="direccion"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row align-items-center">
+                                                <label class="col-sm-4 col-form-label">Ciudad</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" name="ciudad"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <button type="submit" value="registrar" id="success-modal-btn" data-backdrop="static">Launch modal</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- success Popup html Start -->
+        <button type="button" id="success-modal-btn" data-backdrop="static">Launch modal</button>
+        <div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered max-width-400" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center font-18">
+                        <h3 class="mb-20">¡Bien hecho!</h3>
+                        <div class="mb-30 text-center"><img src="img/exito.png"/></div>
+                        Registro satisfactorio
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <a href="login.html" class="btn btn-primary">Realizado</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- success Popup html End -->
+        <!-- js -->
+        <script src="vendors/scripts/core.js"></script>
+        <script src="vendors/scripts/script.min.js"></script>
+        <script src="vendors/scripts/process.js"></script>
+        <script src="vendors/scripts/layout-settings.js"></script>
+        <script src="src/plugins/jquery-steps/jquery.steps.js"></script>
+        <script src="vendors/scripts/steps-setting.js"></script>
+        
+        <!-- Footer Start -->
+        <div
+            class="container-fluid bg-secondary text-white mt-5 py-5 px-sm-3 px-md-5"
+            >
+            <div class="row pt-5 ">
+                <div class="col-lg-4 col-md-6 mb-5 form">
+                    <a
+                        href=""
+                        >
+                        <!--<span class="text-primary mb-4 text-center">Doggy At Home</span>-->
+                        <h3 class="text-primary mb-4 text-center">Doggy At Home</h3>
+                    </a>
+                    <p class="text-center">
+                        Aquí encontrarás los medios por los cuales te podrás comunicar con la fundación, siguenos en nuestras redes sociales donde se estará publicando la información más relevante acerca de nuevos eventos, campañas, entre otros.
+                    </p>
+                    <div style="margin-left: 130px;" class=" justify-content-start mt-4 ">
+                        <a
+                            class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
+                            style="width: 38px; height: 38px"
+                            href="https://twitter.com/?lang=es"
+                            ><i class="fab fa-twitter"></i
+                            ></a>
+                        <a
+                            class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
+                            style="width: 38px; height: 38px"
+                            href="https://www.facebook.com/"
+                            ><i class="fab fa-facebook-f"></i
+                            ></a>
+                        <a
+                            class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
+                            style="width: 38px; height: 38px"
+                            href="https://www.instagram.com/"
+                            ><i class="fab fa-instagram"></i
+                            ></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-5 form">
+                    <h3 class="text-primary mb-4 text-center">Contactos</h3>
+                    <div class="d-flex">
+                        <h4 class="fa fa-map-marker-alt text-primary pl-6"></h4>
+                        <div class="pl-3 ">
+                            <h5 class="text-white ">Nos encuentras en</h5>
+                            <p>Calle 40e sur #1-28</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <h4 class="fa fa-envelope text-primary pl-6"></h4>
+                        <div class="pl-3">
+                            <h5 class="text-white">Correo</h5>
+                            <p>corazonpeludo@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <h4 class="fa fa-phone-alt text-primary pl-6"></h4>
+                        <div class="pl-3">
+                            <h5 class="text-white">Telefono</h5>
+                            <p>322 458 7948</p>
+                            <p>641 7484</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-5 ">
+                    <h3 class="text-primary mb-4 text-center">Enlaces rapidos</h3>
+                    <div class="d-flex flex-column justify-content-start align-items-center">
+                        <a class="text-white mb-2" href="index.html"
+                           ><i class="fa fa-angle-right mr-2"></i>Inicio</a
+                        >
+                        <a class="text-white mb-2" href="Nosotros.html"
+                           ><i class="fa fa-angle-right mr-2"></i>Nosotros</a
+                        >
+                        <a class="text-white mb-2" href="Perritos.html"
+                           ><i class="fa fa-angle-right mr-2"></i>Perritos</a
+                        >
+                        <a class="text-white mb-2" href="Noticias.html"
+                           ><i class="fa fa-angle-right mr-2"></i>Noticias</a
+                        >
+                        <a class="text-white mb-2" href="Donaciones.html"
+                           ><i class="fa fa-angle-right mr-2"></i>Donaciones</a
+                        >
+                        <a class="text-white mb-2" href="TrabajaConNosotros.html"
+                           ><i class="fa fa-angle-right mr-2"></i>Trabaja con nosotros</a
+                        >
+                    </div>
+                </div>
+            </div>
+            <div
+                class="container-fluid pt-5"
+                style="border-top: 1px solid rgba(23, 162, 184, 0.2) ;"
+                >
+                <p class="m-0 text-center text-white">
+                    &copy;
+                    <a class="text-primary font-weight-bold" href="#">Doggy At Home</a>.
+                    All Rights Reserved.
+                </p>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary p-3 back-to-top"
+           ><i class="fa fa-angle-double-up"></i
+            ></a>
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/isotope/isotope.pkgd.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+
+        <!-- Contact Javascript File -->
+        <script src="mail/jqBootstrapValidation.min.js"></script>
+        <script src="mail/contact.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+    </h:body>
+</html>
