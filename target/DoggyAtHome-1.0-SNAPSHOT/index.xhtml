@@ -2,9 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang ="es"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
         <meta charset="utf-8" />
         <title>Doggy At Home</title>
@@ -63,14 +61,14 @@
                     id="navbarCollapse"
                     >
                     <div class="navbar-nav font-weight-bold mx-auto py-0">
-                        <a href="index.xhtml" class="nav-item nav-link active">Inicio</a>
-                        <a href="Nosotros.xhtml" class="nav-item nav-link">Nosotros</a>
-                        <a href="Perritos.xhtml" class="nav-item nav-link">Perritos</a>
-                        <a href="Noticias.xhtml" class="nav-item nav-link">Noticias</a>
-                        <a href="Donaciones.xhtml" class="nav-item nav-link">Donaciones</a>
-                        <a href="TrabajaConNosotros.xhtml" class="nav-item nav-link">Trabaja con nosotros</a>
+                        <h:link class="nav-item nav-link active" id="linkInicio" outcome="index">Inicio</h:link>
+                        <h:link class="nav-item nav-link" id="linkNosotros" outcome="Nosotros">Nosotros</h:link>
+                        <h:link class="nav-item nav-link" id="linkPerritos" outcome="Perritos">Perritos</h:link>
+                        <h:link class="nav-item nav-link" id="linkNoticias" outcome="Noticias">Noticias</h:link>
+                        <h:link class="nav-item nav-link" id="linkDonaciones" outcome="Donaciones">Donaciones</h:link>
+                        <h:link class="nav-item nav-link" id="linkTCN" outcome="TrabajaConNosotros">Trabaja con nosotros</h:link>
                     </div>
-                    <a href="login.xhtml" class="btn btn-primary px-4">Ingresar</a>
+                    <h:button class="btn btn-primary px-4" value="Ingresar" outcome="login"></h:button>
                 </div>
             </nav>
         </div>
@@ -88,7 +86,7 @@
                         brindale la oportunidad de tener un nuevo hogar a alguno de
                         nuestros peluditos.
                     </p>
-                    <a href="Nosotros.html" class="btn btn-secondary mt-1 py-3 px-5 myl">Nosotros</a>
+                    <h:link class="btn btn-secondary mt-1 py-3 px-5 myl" outcome="Nosotros">Nosotros</h:link>
                 </div>
                 <div class="col-lg-6 text-center text-lg-right">
                     <img class="img-fluid mt-5" src="img/PosibleHeader.png" alt="" />
@@ -143,7 +141,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <a href="register.html" class="btn btn-primary mt-2 py-2 px-4 myl">Regístrate</a>
+                        <h:link class="btn btn-primary mt-2 py-2 px-4 myl" outcome="register">Registrate</h:link>
                     </div>
                 </div>
             </div>
@@ -191,7 +189,7 @@
                                     <div class="col-6 py-1">Macho</div>
                                 </div>
                             </div>
-                            <a href="Perritos.html" class="btn btn-primary px-4 mx-auto mb-4">Buscar más</a>
+                            <h:link class="btn btn-primary px-4 mx-auto mb-4" outcome="Perritos">Buscar más</h:link>
                         </div>
                     </div>
                     <div class="col-lg-4 mb-5">
@@ -224,7 +222,7 @@
                                     <div class="col-6 py-1">Macho</div>
                                 </div>
                             </div>
-                            <a href="Perritos.xhtml" class="btn btn-primary px-4 mx-auto mb-4">Buscar más</a>
+                            <h:link class="btn btn-primary px-4 mx-auto mb-4" outcome="Perritos">Buscar más</h:link>
                         </div>
                     </div>
                     <div class="col-lg-4 mb-5">
@@ -257,7 +255,7 @@
                                     <div class="col-6 py-1">Hembra</div>
                                 </div>
                             </div>
-                            <a href="Perritos.xhtml" class="btn btn-primary px-4 mx-auto mb-4">Buscar más</a>
+                            <h:link class="btn btn-primary px-4 mx-auto mb-4" outcome="Perritos">Buscar más</h:link>
                         </div>
                     </div>
                 </div>
@@ -285,9 +283,7 @@
                                     considerado el mejor amigo del hombre. Te invitamos a participar en las
                                     actividades propuestas por la fundación.
                                 </p>
-                                <a href="Noticias.xhtml" class="btn btn-primary px-4 mx-auto my-2"
-                                   >Más Noticias</a
-                                >
+                                <h:link class="btn btn-primary px-4 mx-auto my-2" outcome="Noticias">Mas Noticias</h:link>
                             </div>
                         </div>
                     </div>
@@ -301,9 +297,7 @@
                                     fomentar la adopción de más perritos, esta campaña durara 20 días y se espera
                                     encontrarle hogar a más de 30 perritos cariñosos y juguetones.
                                 </p>
-                                <a href="Noticias.xhtml" class="btn btn-primary px-4 mx-auto my-2"
-                                   >Más Noticias</a
-                                >
+                                <h:link class="btn btn-primary px-4 mx-auto my-2" outcome="Noticias">Mas Noticias</h:link>
                             </div>
                         </div>
                     </div>
@@ -317,9 +311,7 @@
                                     actividad para obtener donaciones de accesorios para los perritos, te invitamos
                                     a participar y si puedes contribuir, no te lo pierdas. 
                                 </p>
-                                <a href="Noticias.xhtml" class="btn btn-primary px-4 mx-auto my-2"
-                                   >Más Noticias</a
-                                >
+                                <h:link class="btn btn-primary px-4 mx-auto my-2" outcome="Noticias">Mas Noticias</h:link>
                             </div>
                         </div>
                     </div>
@@ -351,7 +343,7 @@
                                 <i class="fa fa-check text-primary mr-3"></i>En dinero
                             </li>
                         </ul>
-                        <a href="Donaciones.xhtml" class="btn btn-primary mt-4 py-2 px-4 myl-2">Mas información</a>
+                        <h:link class="btn btn-primary mt-4 py-2 px-4 myl-2" outcome="Donaciones">Mas información</h:link>
                     </div>
                     <div class="col-lg-5">
                         <div class="card border-0">
@@ -385,13 +377,8 @@
                                             />
                                     </div>
                                     <div>
-                                        <button
-                                            class="btn btn-secondary btn-block border-0 py-3"
-                                            type="submit"
-                                            >
-                                            Enviar
-                                        </button>
-                                        <a href="TrabajaConNosotros.xhtml" class="btn btn-secondary btn-block border-0 py-3">Ingresar </a>
+                                        <h:button class="btn btn-secondary btn-block border-0 py-3" value="Enviar" id="btnCorreo"></h:button>
+                                        <h:link class="btn btn-secondary btn-block border-0 py-3" outcome="TrabajaConNosotros">Ingresar</h:link>
                                     </div>
                                 </form>
                             </div>
@@ -486,9 +473,7 @@
             >
             <div class="row pt-5 ">
                 <div class="col-lg-4 col-md-6 mb-5 form">
-                    <a
-                        href=""
-                        >
+                    <a>
                         <!--<span class="text-primary mb-4 text-center">Doggy At Home</span>-->
                         <h3 class="text-primary mb-4 text-center">Doggy At Home</h3>
                     </a>
