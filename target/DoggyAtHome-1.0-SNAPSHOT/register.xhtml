@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <meta charset="utf-8" />
         <title>Registrate</title>
@@ -34,46 +35,53 @@
 
         <!-- Google Font 
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"> -->
-            <!-- CSS -->
-            <link rel="stylesheet" type="text/css" href="src/plugins/jquery-steps/jquery.steps.css"/>
-                <link rel="stylesheet" type="text/css" href="vendors/styles/style.css"/>
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="src/plugins/jquery-steps/jquery.steps.css"/>
+        <link rel="stylesheet" type="text/css" href="vendors/styles/style.css"/>
 
-                    <!-- Global site tag (gtag.js) - Google Analytics 
-                    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
-                    <script>
-                            window.dataLayer = window.dataLayer || [];
-                            function gtag(){dataLayer.push(arguments);}
-                            gtag('js', new Date());
+        <!-- Global site tag (gtag.js) - Google Analytics 
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+        <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
 
-                            gtag('config', 'UA-119386393-1');
-                    </script>-->
+                gtag('config', 'UA-119386393-1');
+        </script>-->
     </h:head>
     <h:body>
         <!-- Navbar Start -->
         <div class="container-fluid bg-light position-relative shadow">
             <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5">
-                <a href="index.html" class="navbar-brand font-weight-bold text-secondary" style="font-size: 50px">
+                <h:link
+                    outcome="index"
+                    class="navbar-brand font-weight-bold text-secondary"
+                    style="font-size: 50px"
+                    >
                     <i class=""> <img src="img/DoggyAtHome (1).jpg" alt="" height="70px" width="80px"/></i>
                     <span class="text-primary">Doggy At Home</span>
-                </a>
+                </h:link>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div
+                    class="collapse navbar-collapse justify-content-between"
+                    id="navbarCollapse"
+                    >
                     <div class="navbar-nav font-weight-bold mx-auto py-0">
-                        <a href="index.xhtml" class="nav-item nav-link">Inicio</a>
-                        <a href="Nosotros.xhtml" class="nav-item nav-link">Nosotros</a>
-                        <a href="Perritos.xhtml" class="nav-item nav-link">Perritos</a>
-                        <a href="Noticias.xhtml" class="nav-item nav-link">Noticias</a>
-                        <a href="Donaciones.xhtml" class="nav-item nav-link">Donaciones</a>
-                        <a href="TrabajaConNosotros.xhtml" class="nav-item nav-link">Trabaja con nosotros</a>
+                        <h:link class="nav-item nav-link" id="linkInicio" outcome="index">Inicio</h:link>
+                        <h:link class="nav-item nav-link" id="linkNosotros" outcome="Nosotros">Nosotros</h:link>
+                        <h:link class="nav-item nav-link" id="linkPerritos" outcome="Perritos">Perritos</h:link>
+                        <h:link class="nav-item nav-link" id="linkNoticias" outcome="Noticias">Noticias</h:link>
+                        <h:link class="nav-item nav-link" id="linkDonaciones" outcome="Donaciones">Donaciones</h:link>
+                        <h:link class="nav-item nav-link" id="linkTCN" outcome="TrabajaConNosotros">Trabaja con nosotros</h:link>
                     </div>
-                    <a href="login.xhtml" class="btn btn-primary px-4 active">Ingresar</a>
+                    <h:button class="btn btn-primary px-4 active" value="Ingresar" outcome="login"></h:button>
                 </div>
             </nav>
         </div>
         <!-- Navbar End -->
-        
+
         <div class="register-page-wrap d-flex align-items-center flex-wrap justify-content-center">
             <div class="container">
                 <div class="row align-items-center">
@@ -83,103 +91,80 @@
                     <div class="col-md-6 col-lg-5">
                         <div class="register-box bg-white box-shadow border-radius-10">
                             <div class="wizard-content">
-                                <form style="font-family: Nunito;" class="tab-wizard2 wizard-circle wizard" action="registrar.php" method="post">
+                                <h:form style="font-family: Nunito;" class="tab-wizard2 wizard-circle wizard">
+                                    <p:messages id="mensaje"/>
                                     <h5> Datos básicos</h5>
                                     <section>
-                                        <div class="form-wrap max-width-600 mx-auto">
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Email*</label>
-                                                <div class="col-sm-8">
-                                                    <input type="email" class="form-control" name="correo"/>
+                                        <h:panelGrid id="grid" columns="2" styleClass="ui-noborder">
+                                            <div class="form-wrap max-width-600 mx-auto">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-12 col-form-label">Email</label>
+                                                    <p:inputText class="form-control" id="correo" required="true" style="width: 230PX"/>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-8 col-form-label">Usuario</label>
+                                                    <p:inputText class="form-control" id="usuario" required="true"/>
+                                                </div>
+                                                <div class="form-group row"> 
+                                                    <label class="col-sm-8 col-form-label">Contraseña</label>
+                                                    <p:password class="form-control" id="contraseña" match="confirmarContraseña" required="true"/>                                                    
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-8 col-form-label">Confirma la contraseña</label>
+                                                    <p:password class="form-control" id="confirmarContraseña" required="true"/>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Usuario*</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" name="usuario"/>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Contraseña*</label>
-                                                <div class="col-sm-8">
-                                                    <input type="password" class="form-control" name="contraseña"/>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Confirma la contraseña*</label>
-                                                <div class="col-sm-8">
-                                                    <input type="password" class="form-control" name="confirmarContraseña"/>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </h:panelGrid>
                                     </section>
                                     <!-- Step 2 -->
                                     <h5>Información personal</h5>
                                     <section>
-                                        <div class="form-wrap max-width-600 mx-auto">
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Nombres*</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" name="nombres"/>
+                                        <h:panelGrid id="grid2" columns="2" styleClass="ui-noborder">
+                                            <div class="form-wrap max-width-600 mx-auto">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label">Nombres</label>
+                                                    <p:inputText class="form-control" id="nombres" required="true" style="width: 250PX"/>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label">Apellidos</label>
+                                                    <p:inputText class="form-control" id="apellidos" required="true"/>
+                                                </div>
+                                                <div class="form-group row align-items-center">
+                                                    <label class="col-sm-8 col-form-label">Tipo de documento</label>
+                                                    <p:selectOneRadio id="selectDocumento" required="true" class="col-sm-12">
+                                                        <f:selectItem id="CC" class="custom-control-input" itemValue="CC" itemLabel="CC"/>
+                                                        <f:selectItem id="CE" class="custom-control-input" itemValue="CE" itemLabel="CE"/>
+                                                        <f:selectItem id="TI" class="custom-control-input" itemValue="TI" itemLabel="TI"/>
+                                                    </p:selectOneRadio>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label">Número documento</label>
+                                                    <p:inputText class="form-control" id="documento" required="true"/>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Apellidos*</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" name="apellidos"/>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row align-items-center">
-                                                <label class="col-sm-4 col-form-label">Tipo de documento*</label>
-                                                <div class="col-sm-8">
-                                                    <div class="custom-control custom-radio custom-control-inline pb-0">
-                                                        <input type="radio" id="CE" value="CE" name="tipoDocumento" class="custom-control-input"/>
-                                                            <label class="custom-control-label" for="CE">CE</label>
-                                                    </div>
-                                                    <div class="custom-control custom-radio custom-control-inline pb-0">
-                                                        <input type="radio" id="CC" value="CC" name="tipoDocumento" class="custom-control-input"/>
-                                                            <label class="custom-control-label" for="CC">CC</label>
-                                                    </div>
-                                                    <div class="custom-control custom-radio custom-control-inline pb-0">
-                                                        <input type="radio" id="TI" value="TI" name="tipoDocumento" class="custom-control-input"/>
-                                                            <label class="custom-control-label" for="TI">TI</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Número documento</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" name="documento"/>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </h:panelGrid>
                                     </section>
                                     <!-- Step 3 -->
                                     <h5>Datos de contacto</h5>
                                     <section>
-                                        <div class="form-wrap max-width-600 mx-auto">
-                                            <div class="form-group row align-items-center">
-                                                <label class="col-sm-4 col-form-label">Número de celular</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" name="celular"/>
+                                        <h:panelGrid id="grid3" columns="2" styleClass="ui-noborder">
+                                            <div class="form-wrap max-width-600 mx-auto">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-12 col-form-label">Número de celular</label>
+                                                    <p:inputText class="form-control" id="celular" required="true" style="width: 280PX"/>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-8 col-form-label">Dirección</label>
+                                                    <p:inputText class="form-control" id="direccion" required="true"/>
+                                                </div>
+                                                <div class="form-group row"> 
+                                                    <label class="col-sm-8 col-form-label">Ciudad</label>
+                                                    <p:inputText class="form-control" id="ciudad" required="true"/>                                                  
                                                 </div>
                                             </div>
-                                            <div class="form-group row align-items-center">
-                                                <label class="col-sm-4 col-form-label">Dirección</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" name="direccion"/>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row align-items-center">
-                                                <label class="col-sm-4 col-form-label">Ciudad</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" name="ciudad"/>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </h:panelGrid>
                                     </section>
-                                    <button type="submit" value="registrar" id="success-modal-btn" data-backdrop="static">Launch modal</button>
-                                </form>
+                                </h:form>
                             </div>
                         </div>
                     </div>
@@ -187,7 +172,7 @@
             </div>
         </div>
         <!-- success Popup html Start -->
-        <button type="button" id="success-modal-btn" data-backdrop="static">Launch modal</button>
+        <button type="button" id="success-modal-btn" hidden="true" data-toggle="modal" data-target="#success-modal" data-backdrop="static">Launch modal</button>
         <div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered max-width-400" role="document">
                 <div class="modal-content">
@@ -210,7 +195,7 @@
         <script src="vendors/scripts/layout-settings.js"></script>
         <script src="src/plugins/jquery-steps/jquery.steps.js"></script>
         <script src="vendors/scripts/steps-setting.js"></script>
-        
+
         <!-- Footer Start -->
         <div
             class="container-fluid bg-secondary text-white mt-5 py-5 px-sm-3 px-md-5"

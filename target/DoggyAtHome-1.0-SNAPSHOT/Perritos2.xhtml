@@ -2,9 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang ="es"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
         <meta charset="utf-8" />
         <title>Perritos</title>
@@ -43,14 +41,14 @@
             <nav
                 class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5"
                 >
-                <a
-                    href="index.html"
+                <h:link
+                    outcome="index"
                     class="navbar-brand font-weight-bold text-secondary"
                     style="font-size: 50px"
                     >
                     <i class=""> <img src="img/DoggyAtHome (1).jpg" alt="" height="70px" width="80px"/></i>
                     <span class="text-primary">Doggy At Home</span>
-                </a>
+                </h:link>
                 <button
                     type="button"
                     class="navbar-toggler"
@@ -64,14 +62,14 @@
                     id="navbarCollapse"
                     >
                     <div class="navbar-nav font-weight-bold mx-auto py-0">
-                        <a href="index.xhtml" class="nav-item nav-link active">Inicio</a>
-                        <a href="Nosotros.xhtml" class="nav-item nav-link">Nosotros</a>
-                        <a href="Perritos.xhtml" class="nav-item nav-link active">Perritos</a>
-                        <a href="Noticias.xhtml" class="nav-item nav-link">Noticias</a>
-                        <a href="Donaciones.xhtml" class="nav-item nav-link">Donaciones</a>
-                        <a href="TrabajaConNosotros.xhtml" class="nav-item nav-link">Trabaja con nosotros</a>
+                        <h:link class="nav-item nav-link" id="linkInicio" outcome="index">Inicio</h:link>
+                        <h:link class="nav-item nav-link" id="linkNosotros" outcome="Nosotros">Nosotros</h:link>
+                        <h:link class="nav-item nav-link active" id="linkPerritos" outcome="Perritos">Perritos</h:link>
+                        <h:link class="nav-item nav-link" id="linkNoticias" outcome="Noticias">Noticias</h:link>
+                        <h:link class="nav-item nav-link" id="linkDonaciones" outcome="Donaciones">Donaciones</h:link>
+                        <h:link class="nav-item nav-link" id="linkTCN" outcome="TrabajaConNosotros">Trabaja con nosotros</h:link>
                     </div>
-                    <a href="login.xhtml" class="btn btn-primary px-4">Ingresar</a>
+                    <h:button class="btn btn-primary px-4" value="Ingresar" outcome="login"></h:button>
                 </div>
             </nav>
         </div>
@@ -385,18 +383,18 @@
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center mb-0">
                     <li class="page-item">
-                        <a class="page-link" href="Perritos.html" aria-label="Previous">
+                        <a class="page-link" href="Perritos.xhtml" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">Previous</span>
                         </a>
                     </li>
                     <li class="page-item ">
-                        <a class="page-link" href="Perritos.html">1</a>
+                        <h:link class="page-link dis" outcome="Perritos">1</h:link>
                     </li>
-                    <li class="page-item active"><a class="page-link" href="Perritos2.html">2</a></li>
-                    <li class="page-item"><a class="page-link" href="Perritos3.html">3</a></li>
+                    <li class="page-item active"><h:link class="page-link dis" outcome="Perritos2">2</h:link></li>
+                    <li class="page-item"><h:link class="page-link" outcome="Perritos3">3</h:link></li>
                     <li class="page-item">
-                        <a class="page-link" href="Perritos3.html" aria-label="Next">
+                        <a class="page-link" href="Perritos3.xhtml" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                             <span class="sr-only">Next</span>
                         </a>
