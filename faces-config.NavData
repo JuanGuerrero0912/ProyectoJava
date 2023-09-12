@@ -2,20 +2,20 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
-        <Node id="index.xhtml" x="483" y="262" zoom="false"/>
-        <Node id="Inicio/Nosotros.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="Nosotros.xhtml" x="724" y="88" zoom="true"/>
+        <Node id="index.xhtml" x="318" y="79" zoom="true"/>
+        <Node id="Donaciones.xhtml" x="150" y="300" zoom="true"/>
         <Node id="layoutAdmin/src/plugins/bootstrap-select/test.html" x="1060" y="29" zoom="true"/>
-        <Node id="Inicio/Perritos3.xhtml" x="185" y="63" zoom="true"/>
-        <Node id="Inicio/TrabajaConNosotros.xhtml" x="400" y="600" zoom="true"/>
-        <Node id="Inicio/Perritos2.xhtml" x="445" y="53" zoom="true"/>
-        <Node id="Inicio/login.xhtml" x="150" y="450" zoom="true"/>
-        <Node id="Inicio/register.xhtml" x="190" y="215" zoom="true"/>
-        <Node id="Inicio/Donaciones.xhtml" x="724" y="87" zoom="false"/>
-        <Node id="Inicio/Noticias.xhtml" x="814" y="376" zoom="true"/>
-        <Node id="Inicio/Perritos.xhtml" x="150" y="600" zoom="true"/>
-        <Node id="src/plugins/bootstrap-select/test.html" x="1063" y="130" zoom="true"/>
+        <Node id="login.xhtml" x="421" y="285" zoom="true"/>
+        <Node id="Noticias.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="Perritos3.xhtml" x="725" y="192" zoom="true"/>
+        <Node id="Perritos2.xhtml" x="725" y="226" zoom="true"/>
+        <Node id="TrabajaConNosotros.xhtml" x="720" y="304" zoom="true"/>
+        <Node id="Perritos.xhtml" x="724" y="158" zoom="true"/>
+        <Node id="src/plugins/bootstrap-select/test.html" x="1061" y="90" zoom="true"/>
+        <Node id="register.xhtml" x="767" y="468" zoom="true"/>
         <Node id="lib/flaticon/font/flaticon.html" x="1062" y="61" zoom="true"/>
-        <Node id="layoutAdmin/inicioAdmin.xhtml" x="1063" y="95" zoom="true"/>
+        <Node id="layoutAdmin/inicioAdmin.xhtml" x="1067" y="139" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>
