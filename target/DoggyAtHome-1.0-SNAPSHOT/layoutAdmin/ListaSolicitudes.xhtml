@@ -246,7 +246,7 @@
                     <div class="card-box mb-30">
                         <div class="pd-20">
                             <h4 class="text-blue h4">Nueva solicitud</h4><br/>
-                            <h:link style="background-color: #1b00ff;"  class="btn btn-success">Registrar nueva solicitud</h:link><br/>
+                            <h:link style="background-color: #1b00ff;"  class="btn btn-success" outcome="RegistroSolicitud">Registrar nueva solicitud</h:link><br/>
                         </div>
                         <div class="pb-20">
                             <table class="table hover multiple-select-row data-table-export nowrap">
@@ -275,8 +275,8 @@
                                                     <i class="dw dw-more"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                    <h:link class="dropdown-item"><i class="dw dw-eye"></i>Ver</h:link>
-                                                    <h:link class="dropdown-item"><i class="dw dw-edit2"></i>Editar</h:link>
+                                                    <h:link class="dropdown-item" outcome="VerSolicitud"><i class="dw dw-eye"></i>Ver</h:link>
+                                                    <h:link class="dropdown-item" outcome="ActualizarSolicitud"><i class="dw dw-edit2"></i>Editar</h:link>
                                                     <h:link class="dropdown-item"><i class="dw dw-delete-3"></i>Inhabilitar</h:link>
                                                 </div>
                                             </div>

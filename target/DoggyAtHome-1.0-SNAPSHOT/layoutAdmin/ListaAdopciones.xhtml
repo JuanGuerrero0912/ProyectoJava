@@ -1,9 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
         <meta charset="utf-8"/>
         <title>Adopciones</title>
@@ -244,7 +242,7 @@
                     <div class="card-box mb-30">
                         <div class="pd-20">
                             <h4 class="text-blue h4">Listado de adopciones</h4><br/>
-                            <h:link style="background-color: #1b00ff;"  class="btn btn-success">Registrar nueva adopcion</h:link><br/>
+                            <h:link style="background-color: #1b00ff;"  class="btn btn-success" outcome="RegistroAdopcion">Registrar nueva adopcion</h:link><br/>
                         </div>		
                         <div class="pd-20">
                         </div>
@@ -273,8 +271,8 @@
                                                     <i class="dw dw-more"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                    <h:link class="dropdown-item"><i class="dw dw-eye"></i>Ver</h:link>
-                                                    <h:link class="dropdown-item"><i class="dw dw-edit2"></i>Editar</h:link>
+                                                    <h:link class="dropdown-item" outcome="VerAdopcion"><i class="dw dw-eye"></i>Ver</h:link>
+                                                    <h:link class="dropdown-item" outcome="ActualizarAdopcion"><i class="dw dw-edit2"></i>Editar</h:link>
                                                     <h:link class="dropdown-item"><i class="dw dw-delete-3"></i>Inhabilitar</h:link>
                                                 </div>
                                             </div>

@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta charset="utf-8"/>
         <title>Usuarios</title>
@@ -240,7 +241,7 @@
                     <div class="card-box mb-30">
                         <div class="pd-20">
                             <h4 class="text-blue h4">Listado de usuarios</h4><br/>
-                            <h:link style="background-color: #1b00ff;"  class="btn btn-success">Registrar nuevo usuario</h:link><br/>
+                            <h:link style="background-color: #1b00ff;" outcome="RegistroUsuario" class="btn btn-success">Registrar nuevo usuario</h:link><br/>
                         </div>				
                         <div class="pb-20">
                             <table class="table hover multiple-select-row data-table-export nowrap">
@@ -274,8 +275,8 @@
                                                     <i class="dw dw-more"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                    <h:link class="dropdown-item"><i class="dw dw-eye"></i>Ver</h:link>
-                                                    <h:link class="dropdown-item"><i class="dw dw-edit2"></i>Editar</h:link>
+                                                    <h:link class="dropdown-item" outcome="VerUsuario"><i class="dw dw-eye"></i>Ver</h:link>
+                                                    <h:link class="dropdown-item" outcome="ActualizarUsuario"><i class="dw dw-edit2"></i>Editar</h:link>
                                                     <h:link class="dropdown-item"><i class="dw dw-delete-3"></i>Inhabilitar</h:link>
                                                 </div>
                                             </div>
