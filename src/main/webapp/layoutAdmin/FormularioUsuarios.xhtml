@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta charset="utf-8"/>
+        <title>Usuarios</title>
+
+        <!-- Site favicon -->
+        <link rel="website icon" href="vendors/images/logoLigth.png"/>
+
+        <!-- Mobile Specific Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+        <!-- Google Font 
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"> -->
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="vendors/styles/core.css"/>
+        <link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css"/>
+        <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css"/>
+        <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css"/>
+        <link rel="stylesheet" type="text/css" href="vendors/styles/style.css"/>
+
+        <!-- comment Global site tag (gtag.js) - Google Analytics 
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+        <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'UA-119386393-1');
+        </script> -->
+    </h:head>
+    <h:body>
+        <p:growl id="msj"/>
+        <h:form id="principal" style="background-color:">
+            <p:fieldset legend="Usuarios" toggleable="true">
+                <h1 style="font-family: Nunito; color: #1b00ff; text-align: center">Bienvenido al apartado de usuarios</h1>
+                <h5 style="text-align: center; ">¿Que quires hacer hoy?</h5><br/>
+                <h:link outcome="Usuarios" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link>
+                <h:commandLink>
+                    <h:graphicImage value="vendors/images/pdf.png" width="30" style="margin-left: 1rem"/>
+                    <p:dataExporter type="pdf" target="tabla" fileName="Usuariospdf"/>
+                </h:commandLink>
+                <h:commandLink>
+                    <h:graphicImage value="vendors/images/excel.png" width="30" style="margin-left: 1rem"/>
+                    <p:dataExporter type="xls" target="tabla" fileName="Usuariosexcel"/>
+                </h:commandLink>
+                <p:commandButton styleClass="btn btn-primary" style="margin-left: 54.5rem; height: 45px" value="Nuevo usuario" onclick="PF('valor').show();"/>
+
+                <p:dataTable id="tabla" emptyMessage="No se ha registrado ningun usuario" value="#{managedUsuario.listaUsuario}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
+                    <p:column headerText="Id" filterBy="#{usu.idUsuario}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.idUsuario}"/>
+                    </p:column>
+                    <p:column headerText="Nombres" filterBy="#{usu.nombres}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.nombres}"/>
+                    </p:column>
+                    <p:column headerText="Apellidos" filterBy="#{usu.apellidos}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.apellidos}"/>
+                    </p:column>
+                    <p:column headerText="Documento" filterBy="#{usu.documento}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.documento}"/>
+                    </p:column>
+                    <p:column headerText="Rol" filterBy="#{usu.rol_idRol.nombreRol}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.rol_idRol.nombreRol}"/>
+                    </p:column>
+                    <p:column headerText="Estado" filterBy="#{usu.estadoUsuario}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.estadoUsuario}"/>
+                    </p:column>
+                    <p:column headerText="Acciones" exportable="false">
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedUsuario.cargarDatos(usu)}" update=":tabla :msj" onclick="PF('valor').show();"><i class="dw dw-edit2"></i></p:commandLink>
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedUsuario.eliminar(usu)}" update="principal :msj "><i class="dw dw-delete-3"></i></p:commandLink>
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+        </h:form>
+        <p:dialog widgetVar="valor" header="Nuevo usuario" modal="true" resizable="true" closeOnEscape="true" draggable="false">
+            <p:ajax event="close" listener="#{managedUsuario.limpiar()}" update="tabla"/>
+            <h:form id="tabla">
+                <p:panelGrid columns="4" styleClass="ui-noborder">
+                    <p:outputLabel for="txtNombres" value="Nombres" styleClass="col-sm-12 col-md-2 col-form-label"  />
+                    <p:inputText id="txtNombres"  value="#{managedUsuario.usuario.nombres}" styleClass="form-control" required="true" requiredMessage="Campo Obligatori!"/>
+                    <p:outputLabel for="txtApellidos" value="Apellidos" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:inputText id="txtApellidos" value="#{managedUsuario.usuario.apellidos}" styleClass="form-control" required="true" requiredMessage="Campo Obligatori!"/>
+                    <p:outputLabel for="txtTipoDocumento" value="Tipo Documento"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtTipoDocumento" value="#{managedUsuario.usuario.tipoDocumento}" required="true" requiredMessage="Campo Obligatori!">
+                        <f:selectItem itemLabel="CC" itemValue="CC"/>
+                        <f:selectItem itemLabel="CE" itemValue="CE"/>
+                        <f:selectItem itemLabel="TI" itemValue="TI"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="txtDocumento" value="Documento" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:inputText id="txtDocumento" value="#{managedUsuario.usuario.documento}" styleClass="form-control" required="true" requiredMessage="Campo Obligatori!"/>
+                    <p:outputLabel for="txtCorreo" value="Correo" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:inputText id="txtCorreo" value="#{managedUsuario.usuario.correo}" styleClass="form-control" required="true" requiredMessage="Campo Obligatori!"/>
+                    <p:outputLabel for="txtUsuario" value="Usuario" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:inputText id="txtUsuario" value="#{managedUsuario.usuario.usuario}" styleClass="form-control" required="true" requiredMessage="Campo Obligatori!"/>
+                    <p:outputLabel for="txtContraseña" value="Contraseña" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:password id="txtContraseña" value="#{managedUsuario.usuario.contraseña}" feedback="true" match="txtConfirmarContraseña" required="true" requiredMessage="Campo Obligatori!"/>
+                    <p:outputLabel for="txtConfirmarContraseña" value="Confirmar Contraseña" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:password id="txtConfirmarContraseña" value="#{managedUsuario.usuario.confirmarContraseña}" feedback="true"  required="true" requiredMessage="Campo Obligatori!"/>
+                    <p:outputLabel for="txtCelular" value="Celular" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:inputText id="txtCelular" value="#{managedUsuario.usuario.celular}" styleClass="form-control" required="true" requiredMessage="Campo Obligatori!"/>
+                    <p:outputLabel for="txtCiudad" value="Ciudad" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:inputText id="txtCiudad" value="#{managedUsuario.usuario.ciudad}" styleClass="form-control"/>
+                    <p:outputLabel for="txtDireccion" value="Dirección" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:inputText id="txtDireccion" value="#{managedUsuario.usuario.direccion}" styleClass="form-control"/>
+                    <p:outputLabel for="txtEstado" value="Estado"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtEstado" value="#{managedUsuario.usuario.estadoUsuario}">
+                        <f:selectItem itemLabel="Activo" itemValue="Activo"/>
+                        <f:selectItem itemLabel="Inactivo" itemValue="Inactivo"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="txtRol" value="Rol"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtRol" value="#{managedUsuario.rol.idRol}" required="true" requiredMessage="Campo Obligatori!">
+                        <f:selectItems value="#{managedRol.listaRol}" var="r" itemValue="#{r.idRol}" itemLabel="#{r.nombreRol}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton style="float: right" value="Registrar" update=":principal :msj" actionListener="#{managedUsuario.registrar()}" rendered="#{managedUsuario.usuario.idUsuario == 0}" oncomplete="PF('valor').hide();"/>
+                    <p:commandButton style="float: right" value="Actualizar" update=":principal :msj" actionListener="#{managedUsuario.actualizar()}" rendered="#{managedUsuario.usuario.idUsuario != 0}" oncomplete="PF('valor').hide();"/>
+                    <p:commandButton style="float: left; background-color: red; border-color: red" value="Cancelar" immediate="true"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

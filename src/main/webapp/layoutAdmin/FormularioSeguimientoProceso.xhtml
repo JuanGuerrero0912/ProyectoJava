@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta charset="utf-8"/>
+        <title>Seguimiento Proceso</title>
+
+        <!-- Site favicon -->
+        <link rel="website icon" href="vendors/images/logoLigth.png"/>
+
+        <!-- Mobile Specific Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+        <!-- Google Font 
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"> -->
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="vendors/styles/core.css"/>
+        <link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css"/>
+        <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css"/>
+        <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css"/>
+        <link rel="stylesheet" type="text/css" href="vendors/styles/style.css"/>
+
+        <!-- comment Global site tag (gtag.js) - Google Analytics 
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+        <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'UA-119386393-1');
+        </script> -->
+    </h:head>
+    <h:body>
+        <p:growl id="msj"/>
+        <h:form id="principal" style="background-color:">
+            <p:fieldset legend="Seguimiento proceso" toggleable="true">
+                <h1 style="font-family: Nunito; color: #1b00ff; text-align: center">Bienvenido al apartado de seguimiento de proceso</h1>
+                <h5 style="text-align: center; ">¿Que quires hacer hoy?</h5><br/>
+                <h:link outcome="ListaAdopciones" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link>
+                <h:commandLink>
+                    <h:graphicImage value="vendors/images/pdf.png" width="30" style="margin-left: 1rem"/>
+                    <p:dataExporter type="pdf" target="tabla" fileName="Usuariospdf"/>
+                </h:commandLink>
+                <h:commandLink>
+                    <h:graphicImage value="vendors/images/excel.png" width="30" style="margin-left: 1rem"/>
+                    <p:dataExporter type="xls" target="tabla" fileName="Usuariosexcel"/>
+                </h:commandLink>
+                <p:commandButton styleClass="btn btn-primary" style="margin-left: 54.5rem; height: 45px" value="Nuevo usuario" onclick="PF('valor').show();"/>
+
+                <p:dataTable id="tabla" emptyMessage="No se ha registrado ningun usuario" value="#{managedSeguimientoProceso.listaSeguimientoProceso}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
+                    <p:column headerText="Id" filterBy="#{usu.idSeguimientoProceso}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.idSeguimientoProceso}"/>
+                    </p:column>
+                    <p:column headerText="Fase" filterBy="#{usu.faseDelSeguimiento}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.faseDelSeguimiento}"/>
+                    </p:column>
+                    <p:column headerText="Estado" filterBy="#{usu.estado}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.estado}"/>
+                    </p:column>
+                    <p:column headerText="Fecha" filterBy="#{usu.fecha}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.fecha}">
+                            <f:convertDateTime parent="YYYY-MM-dd"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Mascota" filterBy="#{usu.solicitudAdopcion_idSolicitudAdopcion.mascota_idMascota.nombre}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.solicitudAdopcion_idSolicitudAdopcion.mascota_idMascota.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Estado del seguimiento" filterBy="#{usu.estadoSeguimiento}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.estadoSeguimiento}"/>
+                    </p:column>
+                    <p:column headerText="Acciones" exportable="false">
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedUsuario.cargarDatos(usu)}" update=":tabla :msj" onclick="PF('valor').show();"><i class="dw dw-edit2"></i></p:commandLink>
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedUsuario.eliminar(usu)}" update="principal :msj "><i class="dw dw-delete-3"></i></p:commandLink> 
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+        </h:form>
+        <p:dialog widgetVar="valor" header="Nuevo usuario" modal="true" resizable="true" closeOnEscape="true" draggable="false">
+            <p:ajax event="close" listener="#{managedUsuario.limpiar()}" update="tabla"/>
+            <h:form id="tabla">
+                <p:panelGrid columns="4" styleClass="ui-noborder">
+                    <!-- Crear el formulario -->
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>
