@@ -95,9 +95,9 @@ public class ManagedSeguimientoProceso implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
      }
      
-     public void eliminar(SeguimientoProceso eli) {
+     public void eliminar() {
         try {
-            seguimientoProcesoFacade.remove(eli);
+            seguimientoProcesoFacade.remove(seguimientoProceso);
             listaSeguimientoProceso = seguimientoProcesoFacade.findAll();
             this.seguimientoProceso = new SeguimientoProceso();
             this.msj = "Eliminado correctamente";
