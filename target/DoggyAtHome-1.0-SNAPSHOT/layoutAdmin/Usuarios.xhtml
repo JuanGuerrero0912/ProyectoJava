@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
         <meta charset="utf-8"/>
         <title>Usuarios</title>
@@ -226,7 +225,7 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-12">
                                 <div class="title">
-                                    <h4>Usuarios</h4>
+                                    <h4>Apartado de usuarios</h4>
                                 </div>
                                 <nav aria-label="breadcrumb" role="navigation">
                                     <ol class="breadcrumb">
@@ -237,56 +236,36 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Export Datatable start -->
-                    <div class="card-box mb-30">
-                        <div class="pd-20">
-                            <h4 class="text-blue h4">Listado de usuarios</h4><br/>
-                            <h:link style="background-color: #1b00ff;" outcome="RegistroUsuario" class="btn btn-success">Registrar nuevo usuario</h:link><br/>
-                        </div>				
-                        <div class="pb-20">
-                            <table class="table hover multiple-select-row data-table-export nowrap">
-                                <thead>
-                                    <tr>
-                                        <th class="table-plus datatable-nosort">id</th>
-                                        <th>Nombres</th>
-                                        <th>Apellidos</th>
-                                        <th>Documento</th>
-                                        <th>Celular</th>
-                                        <th>Correo</th>
-                                        <th>Rol</th>
-                                        <th>Estado</th>
-                                        <th class="datatable-nosort">Acción</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="table-plus">1</td>
-                                        <td>Jose</td>
-                                        <td>Perez</td>
-                                        <td>1007564213</td>
-                                        <td>3228574896</td>
-                                        <td>joseP@gmail.com</td>
-                                        <td>Administrador</td>
-                                        <td>Activo</td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                                    <i class="dw dw-more"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                    <h:link class="dropdown-item" outcome="VerUsuario"><i class="dw dw-eye"></i>Ver</h:link>
-                                                    <h:link class="dropdown-item" outcome="ActualizarUsuario"><i class="dw dw-edit2"></i>Editar</h:link>
-                                                    <h:link class="dropdown-item"><i class="dw dw-delete-3"></i>Inhabilitar</h:link>
-                                                </div>
+                    <div class="product-wrap">
+                        <div class="product-list">
+                            <ul class="row">
+                                <li class="col-lg-4 col-md-6 col-sm-12" style="margin-left: 8rem">
+                                    <div class="product-box">
+                                        <div class="producct-img"><img style="height: 290px;" src="vendors/images/AdoptanteAdmin.jpg" alt="AdoptanteAdmin"/></div>
+                                        <div style="text-align: center;" class="product-caption">
+                                            <h4><h:link outcome="FormularioUsuarios">Administradores y Veterinarios</h:link></h4>
+                                            <div class="price">
+                                                <ins>Gestiona administradores y veterinarios</ins>
                                             </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            <h:link class="btn btn-outline-primary" outcome="FormularioUsuarios">Ir</h:link>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="col-lg-4 col-md-6 col-sm-12" style="margin-left: 5rem">
+                                    <div class="product-box">
+                                        <div class="producct-img"><img style="height: 290px;" src="vendors/images/VeterinarioAdmin.jpg" alt=""/></div>
+                                        <div style="text-align: center;" class="product-caption">
+                                            <h4><h:link outcome="FormularioAdoptante">Adoptantes</h:link></h4>
+                                            <div class="price">
+                                                <ins>Gestiona la información de los adoptantes</ins>
+                                            </div>
+                                            <h:link class="btn btn-outline-primary" outcome="FormularioAdoptante">Ir</h:link>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <!-- Export Datatable End -->
                 </div>
             </div>
         </div>
