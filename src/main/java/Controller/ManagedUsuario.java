@@ -73,6 +73,7 @@ public class ManagedUsuario implements Serializable{
     public void limpiar(){
         this.usuario = new Usuario();
         this.rol = new Rol();
+       
     }
     
     public void cargarDatos(Usuario us){

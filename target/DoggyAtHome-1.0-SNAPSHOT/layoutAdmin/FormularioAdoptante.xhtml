@@ -35,21 +35,23 @@
     </h:head>
     <h:body>
         <p:growl id="msj"/>
-        <h:form id="principal" style="background-color:">
+        <h:form id="principal">
             <p:fieldset legend="Adoptantes" toggleable="true">
                 <h1 style="font-family: Nunito; color: #1b00ff; text-align: center">Bienvenido al apartado de adoptantes</h1>
-                <h5 style="text-align: center; ">¿Que quires hacer hoy?</h5><br/>
+                <h5 style="text-align: center; ">¿Que quieres hacer hoy?</h5><br/>
 
-                <h:link outcome="Adoptantes" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link>
+                <h:link outcome="inicioAdmin" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link>
                 <h:commandLink>
                     <h:graphicImage value="vendors/images/pdf.png" width="30" style="margin-left: 1rem"/>
                     <p:dataExporter type="pdf" target="tabla" fileName="Usuariospdf"/>
                 </h:commandLink>
                 <h:commandLink>
-                    <h:graphicImage value="vendors/images/excel.png" width="30" style="margin-left: 1rem"/>
+                    <h:graphicImage value="vendors/images/excel.png" width="40" style="margin-left: 1rem"/>
                     <p:dataExporter type="xls" target="tabla" fileName="Usuariosexcel"/>
                 </h:commandLink>
-                <p:commandButton styleClass="btn btn-primary" style="margin-left: 54.5rem; height: 45px" value="Nuevo usuario" onclick="PF('valor').show();"/>
+                
+                <p:commandButton styleClass="btn btn-primary" style="margin-left: 54.5rem; height: 45px" value="Nuevo adoptante" onclick="PF('valor').show();"/>
+                
                 <p:dataTable id="tabla" emptyMessage="No se ha registrado ningun adoptante" value="#{managedAdoptante.listaAdoptante}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
                     <p:column headerText="Id" filterBy="#{usu.idAdoptante}" filterMatchMode="contains">
                         <h:outputText value="#{usu.idAdoptante}"/>
@@ -70,14 +72,14 @@
                         <h:outputText value="#{usu.estadoAdoptante}"/>
                     </p:column>
                     <p:column headerText="Acciones" exportable="false">
-                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedUsuario.cargarDatos(usu)}" update=":tabla :msj" onclick="PF('valor').show();"><i class="dw dw-edit2"></i></p:commandLink>
-                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedUsuario.eliminar(usu)}" update="principal :msj "><i class="dw dw-delete-3"></i></p:commandLink>
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedAdoptante.cargarDatos(usu)}" update=":tabla :msj" onclick="PF('valor').show();"><i class="dw dw-edit2"></i></p:commandLink>
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedAdoptante.eliminar(usu)}" update="principal :msj "><i class="dw dw-delete-3"></i></p:commandLink>
                     </p:column>
                 </p:dataTable>
             </p:fieldset>
         </h:form>
-        <p:dialog widgetVar="valor" header="Nuevo usuario" modal="true" resizable="true" closeOnEscape="true" draggable="false">
-            <p:ajax event="close" listener="#{managedUsuario.limpiar()}" update="tabla"/> <!-- Cambiar el listener  -->
+        <p:dialog widgetVar="valor" header="Nuevo Adoptante" modal="true" resizable="true" closeOnEscape="true" draggable="false">
+            <p:ajax event="close" listener="#{managedAdoptante.limpiar()}" update="tabla"/> <!-- Cambiar el listener  -->
             <h:form id="tabla">
                 <p:panelGrid columns="4" styleClass="ui-noborder">
                     <p:outputLabel for="txtNombres" value="Nombres" styleClass="col-sm-12 col-md-2 col-form-label"  />
@@ -91,17 +93,17 @@
                         <f:selectItem itemLabel="TI" itemValue="TI"/>
                     </p:selectOneMenu>
                     <p:outputLabel for="txtDocumento" value="Documento" styleClass="col-sm-12 col-md-2 col-form-label"/>
-                    <p:inputText id="txtDocumento" value="#{managedAdoptante.adoptante.documento}" styleClass="form-control" required="true" requiredMessage="Campo Obligatori!"/>
+                    <p:inputText id="txtDocumento" value="#{managedAdoptante.adoptante.documento}" styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!"/>
                     <p:outputLabel for="txtCorreo" value="Correo" styleClass="col-sm-12 col-md-2 col-form-label"/>
-                    <p:inputText id="txtCorreo" value="#{managedAdoptante.adoptante.correo}" styleClass="form-control" required="true" requiredMessage="Campo Obligatori!"/>
+                    <p:inputText id="txtCorreo" value="#{managedAdoptante.adoptante.correo}" styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!"/>
                     <p:outputLabel for="txtUsuario" value="Usuario" styleClass="col-sm-12 col-md-2 col-form-label"/>
-                    <p:inputText id="txtUsuario" value="#{managedAdoptante.adoptante.usuario}" styleClass="form-control" required="true" requiredMessage="Campo Obligatori!"/>
+                    <p:inputText id="txtUsuario" value="#{managedAdoptante.adoptante.usuario}" styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!"/>
                     <p:outputLabel for="txtContraseña" value="Contraseña" styleClass="col-sm-12 col-md-2 col-form-label"/>
-                    <p:password id="txtContraseña" value="#{managedAdoptante.adoptante.contraseña}" feedback="true" match="txtConfirmarContraseña" required="true" requiredMessage="Campo Obligatori!"/>
+                    <p:password id="txtContraseña" value="#{managedAdoptante.adoptante.contraseña}" feedback="true" match="txtConfirmarContraseña" required="true" requiredMessage="Campo Obligatorio!"/>
                     <p:outputLabel for="txtConfirmarContraseña" value="Confirmar Contraseña" styleClass="col-sm-12 col-md-2 col-form-label"/>
-                    <p:password id="txtConfirmarContraseña" value="#{managedAdoptante.adoptante.confirmarContraseña}" feedback="true"  required="true" requiredMessage="Campo Obligatori!"/>
+                    <p:password id="txtConfirmarContraseña" value="#{managedAdoptante.adoptante.confirmarContraseña}" feedback="true"  required="true" requiredMessage="Campo Obligatorio!"/>
                     <p:outputLabel for="txtCelular" value="Celular" styleClass="col-sm-12 col-md-2 col-form-label"/>
-                    <p:inputText id="txtCelular" value="#{managedAdoptante.adoptante.celular}" styleClass="form-control" required="true" requiredMessage="Campo Obligatori!"/>
+                    <p:inputText id="txtCelular" value="#{managedAdoptante.adoptante.celular}" styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!"/>
                     <p:outputLabel for="txtCiudad" value="Ciudad" styleClass="col-sm-12 col-md-2 col-form-label"/>
                     <p:inputText id="txtCiudad" value="#{managedAdoptante.adoptante.ciudad}" styleClass="form-control"/>
                     <p:outputLabel for="txtDireccion" value="Dirección" styleClass="col-sm-12 col-md-2 col-form-label"/>
@@ -111,8 +113,8 @@
                         <f:selectItem itemLabel="Activo" itemValue="Activo"/>
                         <f:selectItem itemLabel="Inactivo" itemValue="Inactivo"/>
                     </p:selectOneMenu>
-                    <p:commandButton style="float: right" value="Registrar" update=":principal :msj" actionListener="#{managedUsuario.registrar()}" rendered="#{managedAdoptante.adoptante.idAdoptante == 0}" oncomplete="PF('valor').hide();"/> <!-- Cambiar la funcion del accion listener-->
-                    <p:commandButton style="float: right" value="Actualizar" update=":principal :msj" actionListener="#{managedUsuario.actualizar()}" rendered="#{managedAdoptante.adoptante.idAdoptante != 0}" oncomplete="PF('valor').hide();"/><!-- Cambiar la funcion del accion listener-->
+                    <p:commandButton style="float: right" value="Registrar" update=":principal :msj" actionListener="#{managedAdoptante.registrar()}" rendered="#{managedAdoptante.adoptante.idAdoptante == 0}" oncomplete="PF('valor').hide();"/> <!-- Cambiar la funcion del accion listener-->
+                    <p:commandButton style="float: right" value="Actualizar" update=":principal :msj" actionListener="#{managedAdoptante.actualizar()}" rendered="#{managedAdoptante.adoptante.idAdoptante != 0}" oncomplete="PF('valor').hide();"/><!-- Cambiar la funcion del accion listener-->
                     <p:commandButton style="float: left; background-color: red; border-color: red" value="Cancelar" immediate="true"/>
                 </p:panelGrid>
             </h:form>

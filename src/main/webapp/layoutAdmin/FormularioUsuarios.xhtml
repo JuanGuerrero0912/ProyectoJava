@@ -38,16 +38,17 @@
         <h:form id="principal" style="background-color:">
             <p:fieldset legend="Usuarios" toggleable="true">
                 <h1 style="font-family: Nunito; color: #1b00ff; text-align: center">Bienvenido al apartado de usuarios</h1>
-                <h5 style="text-align: center; ">¿Que quires hacer hoy?</h5><br/>
+                <h5 style="text-align: center; ">¿Que quieres hacer hoy?</h5><br/>
                 <h:link outcome="Usuarios" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link>
                 <h:commandLink>
                     <h:graphicImage value="vendors/images/pdf.png" width="30" style="margin-left: 1rem"/>
                     <p:dataExporter type="pdf" target="tabla" fileName="Usuariospdf"/>
                 </h:commandLink>
                 <h:commandLink>
-                    <h:graphicImage value="vendors/images/excel.png" width="30" style="margin-left: 1rem"/>
+                    <h:graphicImage value="vendors/images/excel.png" width="40" style="margin-left: 1rem"/>
                     <p:dataExporter type="xls" target="tabla" fileName="Usuariosexcel"/>
                 </h:commandLink>
+                
                 <p:commandButton styleClass="btn btn-primary" style="margin-left: 54.5rem; height: 45px" value="Nuevo usuario" onclick="PF('valor').show();"/>
 
                 <p:dataTable id="tabla" emptyMessage="No se ha registrado ningun usuario" value="#{managedUsuario.listaUsuario}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">

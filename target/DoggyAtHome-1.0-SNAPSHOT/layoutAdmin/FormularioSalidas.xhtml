@@ -38,19 +38,19 @@
         <h:form id="principal" style="background-color:">
             <p:fieldset legend="Salidas" toggleable="true">
                 <h1 style="font-family: Nunito; color: #1b00ff; text-align: center">Bienvenido al apartado de salidas</h1>
-                <h5 style="text-align: center; ">¿Que quires hacer hoy?</h5><br/>
-                <h:link outcome="ListaAdopciones" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link>
+                <h5 style="text-align: center; ">¿Que quieres hacer hoy?</h5><br/>
+                <h:link outcome="inicioAdmin" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link>
                 <h:commandLink>
                     <h:graphicImage value="vendors/images/pdf.png" width="30" style="margin-left: 1rem"/>
-                    <p:dataExporter type="pdf" target="tabla" fileName="Usuariospdf"/>
+                    <p:dataExporter type="pdf" target="tabla" fileName="Salidaspdf"/>
                 </h:commandLink>
                 <h:commandLink>
-                    <h:graphicImage value="vendors/images/excel.png" width="30" style="margin-left: 1rem"/>
-                    <p:dataExporter type="xls" target="tabla" fileName="Usuariosexcel"/>
+                    <h:graphicImage value="vendors/images/excel.png" width="40" style="margin-left: 1rem"/>
+                    <p:dataExporter type="xls" target="tabla" fileName="Salidasexcel"/>
                 </h:commandLink>
-                <p:commandButton styleClass="btn btn-primary" style="margin-left: 54.5rem; height: 45px" value="Nuevo usuario" onclick="PF('valor').show();"/>
+                <p:commandButton styleClass="btn btn-primary" style="margin-left: 54.5rem; height: 45px" value="Nueva Salida" onclick="PF('valor').show();"/>
 
-                <p:dataTable id="tabla" emptyMessage="No se ha registrado ningun usuario" value="#{managedSalidaArticulos.listaSalidaArticulos}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
+                <p:dataTable id="tabla" emptyMessage="No se ha registrado ninguna salida" value="#{managedSalidaArticulos.listaSalidaArticulos}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
                     <p:column headerText="Id" filterBy="#{usu.idSalidasArticulos}" filterMatchMode="contains">
                         <h:outputText value="#{usu.idSalidasArticulos}"/>
                     </p:column>
@@ -72,17 +72,39 @@
                         <h:outputText value="#{usu.estadoSalida}"/>
                     </p:column>
                     <p:column headerText="Acciones" exportable="false">
-                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedUsuario.cargarDatos(usu)}" update=":tabla :msj" onclick="PF('valor').show();"><i class="dw dw-edit2"></i></p:commandLink>
-                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedUsuario.eliminar(usu)}" update="principal :msj "><i class="dw dw-delete-3"></i></p:commandLink> 
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedSalidaArticulos.cargarDatos(usu)}" update=":tabla :msj" onclick="PF('valor').show();"><i class="dw dw-edit2"></i></p:commandLink>
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedSalidaArticulos.eliminar(usu)}" update="principal :msj "><i class="dw dw-delete-3"></i></p:commandLink> 
                     </p:column>
                 </p:dataTable>
             </p:fieldset>
         </h:form>
-        <p:dialog widgetVar="valor" header="Nuevo usuario" modal="true" resizable="true" closeOnEscape="true" draggable="false">
-            <p:ajax event="close" listener="#{managedUsuario.limpiar()}" update="tabla"/>
+        <p:dialog widgetVar="valor" header="Nueva Salida" modal="true" resizable="true" closeOnEscape="true" draggable="false">
+            <p:ajax event="close" listener="#{managedSalidaArticulos.limpiar()}" update="tabla"/>
             <h:form id="tabla">
-                <p:panelGrid columns="4" styleClass="ui-noborder">
-                    <!-- Crear el formulario -->
+                <p:panelGrid columns="2" styleClass="ui-noborder">
+                    <p:outputLabel for="txtCantidad" value="Cantidad" styleClass="col-sm-12 col-md-2 col-form-label"  />
+                    <p:inputText id="txtCantidad"  value="#{managedSalidaArticulos.salidaArticulos.cantidadSalidas}" styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!"/>
+
+                    <p:outputLabel value="Articulo" styleClass="col-sm-12 col-md-2 col-form-label" />
+                    <p:selectOneMenu value="#{managedSalidaArticulos.articulos.idArticulos}" styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!">
+                        <f:selectItems value="#{managedArticulos.listaArticulos}" var="art" itemValue="#{art.idArticulos}" itemLabel="#{art.referenciaArticulo} #{art.nombreArticulo}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Estado" styleClass="col-sm-12 col-md-2 col-form-label" />
+                    <p:selectOneMenu id="txtEstado" value="#{managedSalidaArticulos.salidaArticulos.estadoSalida}">
+                        <f:selectItem itemLabel="Activo" itemValue="Activo"/>
+                        <f:selectItem itemLabel="Inactivo" itemValue="Inactivo"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Fecha" styleClass="col-sm-12 col-md-2 col-form-label" />
+                    <p:selectOneMenu value="#{managedSalidaArticulos.salidas.idSalidas}" styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!">
+                        <f:selectItems value="#{managedSalidas.listaSalidas}" var="art" itemValue="#{art.idSalidas}" itemLabel="#{art.fechaSalida}">
+                        </f:selectItems>
+                    </p:selectOneMenu>
+
+                    <p:commandButton style="float: right" value="Registrar" update=":principal :msj" actionListener="#{managedSalidaArticulos.registrar()}" rendered="#{managedSalidaArticulos.salidaArticulos.idSalidasArticulos ==0}" oncomplete="PF('valor').hide();"/>
+                    <p:commandButton style="float: right" value="Actualizar" update=":principal :msj" actionListener="#{managedSalidaArticulos.actualizar()}" rendered="#{managedSalidaArticulos.salidaArticulos.idSalidasArticulos !=0}" oncomplete="PF('valor').hide();"/>
+                    <p:commandButton style="float: left; background-color: red; border-color: red" value="Cancelar" immediate="true"/>
                 </p:panelGrid>
             </h:form>
         </p:dialog>

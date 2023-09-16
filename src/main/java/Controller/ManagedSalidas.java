@@ -1,4 +1,3 @@
-
 package Controller;
 
 import EJB.SalidasFacadeLocal;
@@ -12,8 +11,8 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class ManagedSalidas implements Serializable{
-    
+public class ManagedSalidas implements Serializable {
+
     @EJB
     private SalidasFacadeLocal salidasFacade;
     private List<Salidas> listaSalidas;
@@ -21,11 +20,11 @@ public class ManagedSalidas implements Serializable{
     private String msj;
 
     public List<Salidas> getListaSalidas() {
+        this.listaSalidas = this.salidasFacade.findAll();
         return listaSalidas;
     }
 
     public void setListaSalidas(List<Salidas> listaSalidas) {
-        this.listaSalidas = this.salidasFacade.findAll();
         this.listaSalidas = listaSalidas;
     }
 
@@ -36,10 +35,10 @@ public class ManagedSalidas implements Serializable{
     public void setSalidas(Salidas salidas) {
         this.salidas = salidas;
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         this.salidas = new Salidas();
     }
-    
+
 }

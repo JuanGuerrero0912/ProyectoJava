@@ -7,8 +7,10 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @SessionScoped
@@ -40,6 +42,55 @@ public class ManagedAdoptante implements Serializable{
     @PostConstruct
     public void init(){
         this.adoptante = new Adoptante();
+    }
+    public void registrar() {
+        try {
+            this.adoptanteFacade.create(adoptante);
+            this.msj = "Registro creado correctamente";
+            this.adoptante = new Adoptante();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.msj = "Error " + e.getMessage();
+        }
+        FacesMessage mensaje = new FacesMessage(this.msj);
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+    }
+
+    public void limpiar() {
+        this.adoptante = new Adoptante();
+    }
+
+    public void cargarDatos(Adoptante adop) {
+        this.adoptante = adop;
+
+    }
+
+    public void actualizar() {
+        try {
+            this.adoptanteFacade.edit(adoptante);
+            this.msj = "Actualizado correctamente";
+            this.adoptante = new Adoptante();
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.msj = "Error " + e.getMessage();
+        }
+        FacesMessage mensaje = new FacesMessage(this.msj);
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+    }
+
+    public void eliminar(Adoptante elim) {
+        try {
+            adoptanteFacade.remove(elim);
+            listaAdoptante = adoptanteFacade.findAll();
+            this.adoptante = new Adoptante();
+            this.msj = "Registro eliminado correctamente";
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.msj = "Error " + e.getMessage();
+        }
+        FacesMessage mensaje = new FacesMessage(this.msj);
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
     
 }

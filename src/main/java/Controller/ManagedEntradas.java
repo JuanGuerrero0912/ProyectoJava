@@ -1,4 +1,3 @@
-
 package Controller;
 
 import EJB.EntradasFacadeLocal;
@@ -13,7 +12,7 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class ManagedEntradas implements Serializable {
-    
+
     @EJB
     private EntradasFacadeLocal entradasFacade;
     private List<Entradas> listaEntradas;
@@ -21,6 +20,7 @@ public class ManagedEntradas implements Serializable {
     private String msj;
 
     public List<Entradas> getListaEntradas() {
+        this.listaEntradas = this.entradasFacade.findAll();
         return listaEntradas;
     }
 
@@ -35,9 +35,9 @@ public class ManagedEntradas implements Serializable {
     public void setEntradas(Entradas entradas) {
         this.entradas = entradas;
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         this.entradas = new Entradas();
     }
 }

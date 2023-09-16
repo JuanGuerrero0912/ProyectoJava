@@ -119,4 +119,8 @@ public class Donaciones implements Serializable{
     public String toString() {
         return "Donaciones{" + "idDonaciones=" + idDonaciones + '}';
     }
+
+    public void setIdAdoptante(int idAdoptante) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

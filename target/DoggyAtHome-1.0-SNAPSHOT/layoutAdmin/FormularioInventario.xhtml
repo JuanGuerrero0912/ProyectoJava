@@ -37,18 +37,19 @@
         <h:form id="principal" style="background-color:">
             <p:fieldset legend="Inventario" toggleable="true">
                 <h1 style="font-family: Nunito; color: #1b00ff; text-align: center">Bienvenido al apartado de inventario</h1>
-                <h5 style="text-align: center; ">¿Que quires hacer hoy?</h5><br/>
-                <h:link outcome="ListaAdopciones" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link>
+                <h5 style="text-align: center; ">¿Qué quieres hacer hoy?</h5><br/>
+                <h:link outcome="ListaAdopciones" class="btn btn-primary"  style="border-color: black; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link>
                 <h:commandLink>
                     <h:graphicImage value="vendors/images/pdf.png" width="30" style="margin-left: 1rem"/>
                     <p:dataExporter type="pdf" target="tabla" fileName="Usuariospdf"/>
                 </h:commandLink>
                 <h:commandLink>
-                    <h:graphicImage value="vendors/images/excel.png" width="30" style="margin-left: 1rem"/>
+                    <h:graphicImage value="vendors/images/excel.png" width="40" style="margin-left: 1rem"/>
                     <p:dataExporter type="xls" target="tabla" fileName="Usuariosexcel"/>
                 </h:commandLink>
-                <h:link outcome="FormularioEntradas" class="btn btn-primary"  style=" width: 173px; height: 40px; text-align: center; margin-left: 40.5rem">Entradas</h:link>
-                <h:link outcome="FormularioSalidas" class="btn btn-primary"  style=" width: 173px; height: 40px; text-align: center; margin-left: 2rem">Salidas</h:link>
+                <h:link outcome="FormularioSalidas" class="btn btn-primary"   style=" width: 173px; height: 40px; text-align: center; margin-left: 45.5rem">Salidas </h:link>
+
+                <h:link outcome="FormularioEntradas" class="btn btn-primary"  style=" width: 173px; height: 40px; text-align: center; margin-left: 45.5rem">Entradas</h:link>
 
 
                 <p:dataTable id="tabla" emptyMessage="No se ha registrado ningun usuario" value="#{managedArticulos.listaArticulos}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
