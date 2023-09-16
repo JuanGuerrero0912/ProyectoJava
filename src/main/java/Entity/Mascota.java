@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,8 +33,11 @@ public class Mascota implements Serializable{
     private Date fechaIngreso;
     @Column(name="edad")
     private String edad;
+    @Column(name="nombreFoto")
+    private String nombreFoto;
+    @Lob
     @Column(name="fotoMascota")
-    private String fotoMascota;
+    private byte[] fotoMascota;
     @Column(name="raza")
     private String raza;
     @Column(name="estadoPerfilMascota")
@@ -95,14 +99,21 @@ public class Mascota implements Serializable{
         this.edad = edad;
     }
 
-    public String getFotoMascota() {
+    public String getNombreFoto() {
+        return nombreFoto;
+    }
+
+    public void setNombreFoto(String nombreFoto) {
+        this.nombreFoto = nombreFoto;
+    }
+    
+    public byte[] getFotoMascota() {
         return fotoMascota;
     }
 
-    public void setFotoMascota(String fotoMascota) {
+    public void setFotoMascota(byte[] fotoMascota) {
         this.fotoMascota = fotoMascota;
     }
-
     public String getRaza() {
         return raza;
     }

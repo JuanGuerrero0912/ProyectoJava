@@ -9,8 +9,10 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @SessionScoped
@@ -62,5 +64,67 @@ public class ManagedHistorialMedico implements Serializable{
         this.historialMedico = new HistorialMedico();
         this.mascota = new Mascota();
         this.usuario = new Usuario();
+    }
+    
+    public void registrar(){
+        try{
+            this.historialMedico.setMascota_idMascota(mascota);
+            this.historialMedico.setUsuario_idUsuario(usuario);
+            this.historialMedicoFacade.create(historialMedico);
+            this.msj = "Almacenado con exito";
+            this.historialMedico = new HistorialMedico();
+            this.mascota = new Mascota();
+            this.usuario = new Usuario();         
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.msj = "Error " + e.getMessage();
+        }
+        FacesMessage mensaje = new FacesMessage(this.msj);
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+    }
+    
+    public void limpiar(){
+        this.historialMedico = new HistorialMedico();
+        this.mascota = new Mascota();
+        this.usuario = new Usuario();
+    }
+    
+    public void cargarDatos(HistorialMedico us){
+        this.mascota.setIdMascota(us.getMascota_idMascota().getIdMascota());
+        this.usuario.setIdUsuario(us.getUsuario_idUsuario().getIdUsuario());
+        this.historialMedico = us;
+    }
+    
+    public void actualizar(){
+        try{
+            this.historialMedico.setMascota_idMascota(mascota);
+            this.historialMedico.setUsuario_idUsuario(usuario);
+            this.historialMedicoFacade.edit(historialMedico);
+            this.msj = "Almacenado con exito";
+            this.historialMedico = new HistorialMedico();
+            this.mascota = new Mascota();
+            this.usuario = new Usuario();         
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.msj = "Error " + e.getMessage();
+        }
+        FacesMessage mensaje = new FacesMessage(this.msj);
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+    }
+    
+    public void eliminar(HistorialMedico us){
+        
+        try {
+            historialMedicoFacade.remove(us);
+            listaHistorialMedico = historialMedicoFacade.findAll();
+            this.historialMedico = new HistorialMedico();
+            this.msj = "Registro eliminado correctamente";
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.msj = "Error " + e.getMessage();
+        }
+        FacesMessage mensaje = new FacesMessage(this.msj);
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        
     }
 }

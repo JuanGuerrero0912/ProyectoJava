@@ -38,17 +38,17 @@
         <h:form id="principal" style="background-color:">
             <p:fieldset legend="Mascotas" toggleable="true">
                 <h1 style="font-family: Nunito; color: #1b00ff; text-align: center">Bienvenido al apartado de mascotas</h1>
-                <h5 style="text-align: center; ">¿Que quires hacer hoy?</h5><br/>
+                <h5 style="text-align: center; ">¿Que quieres hacer hoy?</h5><br/>
                 <h:link outcome="Usuarios" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link>
                 <h:commandLink>
                     <h:graphicImage value="vendors/images/pdf.png" width="30" style="margin-left: 1rem"/>
                     <p:dataExporter type="pdf" target="tabla" fileName="Usuariospdf"/>
                 </h:commandLink>
                 <h:commandLink>
-                    <h:graphicImage value="vendors/images/excel.png" width="30" style="margin-left: 1rem"/>
+                    <h:graphicImage value="vendors/images/excel.png" width="40" style="margin-left: 1rem"/>
                     <p:dataExporter type="xls" target="tabla" fileName="Usuariosexcel"/>
                 </h:commandLink>
-                <p:commandButton styleClass="btn btn-primary" style="margin-left: 54.5rem; height: 45px" value="Nuevo usuario" onclick="PF('valor').show();"/>
+                <p:commandButton styleClass="btn btn-primary" style="margin-left: 54.5rem; height: 45px" value="Nueva mascota" onclick="PF('valor').show();"/>
 
                 <p:dataTable id="tabla" emptyMessage="No se ha registrado ninguna mascota" value="#{managedMascota.listaMascota}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
                     <p:column headerText="Id" filterBy="#{usu.idMascota}" filterMatchMode="contains">
@@ -75,17 +75,59 @@
                         <h:outputText value="#{usu.estadoPerfilMascota}"/>
                     </p:column>
                     <p:column headerText="Acciones" exportable="false">
-                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedUsuario.cargarDatos(usu)}" update=":tabla :msj" onclick="PF('valor').show();"><i class="dw dw-edit2"></i></p:commandLink>
-                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedUsuario.eliminar(usu)}" update="principal :msj "><i class="dw dw-delete-3"></i></p:commandLink>
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedMascota.cargarDatos(usu)}" update=":tabla :msj" onclick="PF('valor').show();"><i class="dw dw-edit2"></i></p:commandLink>
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedMascota.eliminar(usu)}" update="principal :msj "><i class="dw dw-delete-3"></i></p:commandLink>
                     </p:column>
                 </p:dataTable>
             </p:fieldset>
         </h:form>
         <p:dialog widgetVar="valor" header="Nuevo usuario" modal="true" resizable="true" closeOnEscape="true" draggable="false">
-            <p:ajax event="close" listener="#{managedUsuario.limpiar()}" update="tabla"/>
+            <p:ajax event="close" listener="#{managedMascota.limpiar()}" update="tabla"/>
             <h:form id="tabla">
                 <p:panelGrid columns="4" styleClass="ui-noborder">
-                    
+                    <p:outputLabel for="txtNombre" value="Nombre" styleClass="col-sm-12 col-md-2 col-form-label"  />
+                    <p:inputText id="txtNombre"  value="#{managedMascota.mascota.nombre}" styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!"/>
+                    <p:outputLabel for="txtEdad" value="Edad" styleClass="col-sm-12 col-md-2 col-form-label"  />
+                    <p:inputText id="txtEdad"  value="#{managedMascota.mascota.edad}" styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!"/>
+                    <p:outputLabel for="txtEstadoMascota" value="Estado Mascota"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtEstadoMascota" value="#{managedMascota.mascota.estadoMascota}" required="true" requiredMessage="Campo Obligatorio!">
+                        <f:selectItem itemLabel="Para adoptar" itemValue="Para adoptar"/>
+                        <f:selectItem itemLabel="En tratamiento" itemValue="En tratamiento"/>
+                        <f:selectItem itemLabel="En revisión" itemValue="En revisión"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="txtSexo" value="Sexo"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtSexo" value="#{managedMascota.mascota.sexo}" required="true" requiredMessage="Campo Obligatorio!">
+                        <f:selectItem itemLabel="M" itemValue="M"/>
+                        <f:selectItem itemLabel="F" itemValue="F"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="txtFechaIngreso" value="Fecha de ingreso" styleClass="col-sm-12 col-md-2 col-form-label"  />
+                    <p:calendar id="txtFechaIngreso" value="#{managedMascota.mascota.fechaIngreso}"/>
+                    <p:outputLabel for="txtRaza" value="Raza" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtRaza" value="#{managedMascota.mascota.raza}" required="true" requiredMessage="Campo Obligatorio!">
+                        <f:selectItem itemLabel="Beagle" itemValue="Beagle"/>
+                        <f:selectItem itemLabel="Bóxer" itemValue="Bóxer"/>
+                        <f:selectItem itemLabel="Chihuahua" itemValue="Chihuahua"/>
+                        <f:selectItem itemLabel="Criollo" itemValue="Criollo"/>
+                        <f:selectItem itemLabel="Golden" itemValue="Golden"/>
+                        <f:selectItem itemLabel="Labrador" itemValue="Labrador"/>
+                        <f:selectItem itemLabel="Pastor aleman" itemValue="Pastor aleman"/>
+                        <f:selectItem itemLabel="Pinscher" itemValue="Pinscher"/>
+                        <f:selectItem itemLabel="Pug" itemValue="Pug"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="txtNombreFoto" value="Nombre Foto" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:inputText id="txtNombreFoto" value="#{managedMascota.mascota.nombreFoto}" styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!"/>
+                    <p:outputLabel for="txtFoto" value="Foto" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:fileUpload id="txtFoto" value="#{managedMascota.file}" accept=".png,.jpg" mode="simple" skinSimple="true"/>
+                    <p:outputLabel for="txtCaracteristicas" value="Descripción" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:inputTextarea id="txtCaracteristicas" value="#{managedMascota.mascota.caracteristicas}"/>
+                    <p:outputLabel for="txtEstadoPerfil" value="Estado perfil" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtEstadoPerfil" value="#{managedMascota.mascota.estadoPerfilMascota}" required="true" requiredMessage="Campo Obligatorio!">
+                        <f:selectItem itemLabel="Activo" itemValue="Activo"/>
+                        <f:selectItem itemLabel="Inactivo" itemValue="Inactivo"/>
+                    </p:selectOneMenu>
+                    <p:commandButton style="float: right" value="Registrar" update=":principal :msj" actionListener="#{managedMascota.registrar()}" rendered="#{managedMascota.mascota.idMascota == 0}" oncomplete="PF('valor').hide();"/>
+                    <p:commandButton style="float: right" value="Actualizar" update=":principal :msj" actionListener="#{managedMascota.actualizar()}" rendered="#{managedMascota.mascota.idMascota != 0}" oncomplete="PF('valor').hide();"/>
+                    <p:commandButton style="float: left; background-color: red; border-color: red" value="Cancelar" immediate="true"/>
                 </p:panelGrid>
             </h:form>
         </p:dialog>

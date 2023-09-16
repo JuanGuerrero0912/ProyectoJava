@@ -1,4 +1,3 @@
-
 package Controller;
 
 import EJB.SolicitudAdopcionPorAdoptanteFacadeLocal;
@@ -9,13 +8,15 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @SessionScoped
-public class ManagedSolicitudAdopcionPorAdoptante implements Serializable{
-    
+public class ManagedSolicitudAdopcionPorAdoptante implements Serializable {
+
     @EJB
     private SolicitudAdopcionPorAdoptanteFacadeLocal solicitudAdopcionPorAdoptanteFacade;
     private List<SolicitudAdopcionPorAdoptante> listaSolicitudAdopcionPorAdoptante;
@@ -56,13 +57,71 @@ public class ManagedSolicitudAdopcionPorAdoptante implements Serializable{
     public void setSolicitudAdopcion(SolicitudAdopcion solicitudAdopcion) {
         this.solicitudAdopcion = solicitudAdopcion;
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
+        this.solicitudAdopcionPorAdoptante = new SolicitudAdopcionPorAdoptante();
+        this.solicitudAdopcion = new SolicitudAdopcion();
+        this.adoptante = new Adoptante();
+    }
+
+    public void registrar() {
+        try {
+            this.solicitudAdopcionPorAdoptante.setSolicitudAdopcion_idSolicitudAdopcion(solicitudAdopcion);
+            this.solicitudAdopcionPorAdoptante.setAdoptante_idAdoptante(adoptante);
+            this.solicitudAdopcionPorAdoptanteFacade.create(solicitudAdopcionPorAdoptante);
+            this.msj = "Almacenado con exito";
+            this.solicitudAdopcionPorAdoptante = new SolicitudAdopcionPorAdoptante();
+            this.solicitudAdopcion = new SolicitudAdopcion();
+            this.adoptante = new Adoptante();
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.msj = "Error " + e.getMessage();
+        }
+        FacesMessage mensaje = new FacesMessage(this.msj);
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+    }
+
+    public void limpiar() {
         this.solicitudAdopcionPorAdoptante = new SolicitudAdopcionPorAdoptante();
         this.solicitudAdopcion = new SolicitudAdopcion();
         this.adoptante = new Adoptante();
     }
     
+    public void cargarDatos(SolicitudAdopcionPorAdoptante us){
+        this.adoptante.setIdAdoptante(us.getAdoptante_idAdoptante().getIdAdoptante());
+        this.solicitudAdopcion.setIdSolicitudAdopcion(us.getSolicitudAdopcion_idSolicitudAdopcion().getIdSolicitudAdopcion());
+        this.solicitudAdopcionPorAdoptante = us;
+    }
     
+    public void actualizar(){
+        try {
+            this.solicitudAdopcionPorAdoptante.setSolicitudAdopcion_idSolicitudAdopcion(solicitudAdopcion);
+            this.solicitudAdopcionPorAdoptante.setAdoptante_idAdoptante(adoptante);
+            this.solicitudAdopcionPorAdoptanteFacade.edit(solicitudAdopcionPorAdoptante);
+            this.msj = "Almacenado con exito";
+            this.solicitudAdopcionPorAdoptante = new SolicitudAdopcionPorAdoptante();
+            this.solicitudAdopcion = new SolicitudAdopcion();
+            this.adoptante = new Adoptante();
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.msj = "Error " + e.getMessage();
+        }
+        FacesMessage mensaje = new FacesMessage(this.msj);
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+    }
+    
+    public void eliminar(SolicitudAdopcionPorAdoptante eli) {
+        try {
+            solicitudAdopcionPorAdoptanteFacade.remove(eli);
+            listaSolicitudAdopcionPorAdoptante = solicitudAdopcionPorAdoptanteFacade.findAll();
+            this.solicitudAdopcionPorAdoptante = new SolicitudAdopcionPorAdoptante();
+            this.msj = "Registro eliminado correctamente";
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.msj = "Error " + e.getMessage();
+        }
+        FacesMessage mensaje = new FacesMessage(this.msj);
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+    }
 }

@@ -38,14 +38,14 @@
         <h:form id="principal" style="background-color:">
             <p:fieldset legend="Seguimiento proceso" toggleable="true">
                 <h1 style="font-family: Nunito; color: #1b00ff; text-align: center">Bienvenido al apartado de seguimiento de proceso</h1>
-                <h5 style="text-align: center; ">¿Que quires hacer hoy?</h5><br/>
+                <h5 style="text-align: center; ">¿Que quieres hacer hoy?</h5><br/>
                 <h:link outcome="ListaAdopciones" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link>
                 <h:commandLink>
                     <h:graphicImage value="vendors/images/pdf.png" width="30" style="margin-left: 1rem"/>
                     <p:dataExporter type="pdf" target="tabla" fileName="Usuariospdf"/>
                 </h:commandLink>
                 <h:commandLink>
-                    <h:graphicImage value="vendors/images/excel.png" width="30" style="margin-left: 1rem"/>
+                    <h:graphicImage value="vendors/images/excel.png" width="40" style="margin-left: 1rem"/>
                     <p:dataExporter type="xls" target="tabla" fileName="Usuariosexcel"/>
                 </h:commandLink>
                 <p:commandButton styleClass="btn btn-primary" style="margin-left: 54.5rem; height: 45px" value="Nuevo usuario" onclick="PF('valor').show();"/>
@@ -72,17 +72,44 @@
                         <h:outputText value="#{usu.estadoSeguimiento}"/>
                     </p:column>
                     <p:column headerText="Acciones" exportable="false">
-                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedUsuario.cargarDatos(usu)}" update=":tabla :msj" onclick="PF('valor').show();"><i class="dw dw-edit2"></i></p:commandLink>
-                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedUsuario.eliminar(usu)}" update="principal :msj "><i class="dw dw-delete-3"></i></p:commandLink> 
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedSeguimientoProceso.cargarDatos(usu)}" update=":tabla :msj" onclick="PF('valor').show();"><i class="dw dw-edit2"></i></p:commandLink>
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedSeguimientoProceso.eliminar(usu)}" update="principal :msj "><i class="dw dw-delete-3"></i></p:commandLink> 
                     </p:column>
                 </p:dataTable>
             </p:fieldset>
         </h:form>
-        <p:dialog widgetVar="valor" header="Nuevo usuario" modal="true" resizable="true" closeOnEscape="true" draggable="false">
-            <p:ajax event="close" listener="#{managedUsuario.limpiar()}" update="tabla"/>
+        <p:dialog widgetVar="valor" header="Seguimiento proceso" modal="true" resizable="true" closeOnEscape="true" draggable="false">
+            <p:ajax event="close" listener="#{managedSeguimientoProceso.limpiar()}" update="tabla"/>
             <h:form id="tabla">
-                <p:panelGrid columns="4" styleClass="ui-noborder">
-                    <!-- Crear el formulario -->
+                <p:panelGrid columns="2" styleClass="ui-noborder">
+                    <p:outputLabel for="txtFase" value="Fase"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtFase" value="#{managedSeguimientoProceso.seguimientoProceso.faseDelSeguimiento}" required="true" requiredMessage="Campo Obligatori!">
+                        <f:selectItem itemLabel="Fase 1" itemValue="Fase 1"/>
+                        <f:selectItem itemLabel="Fase 2" itemValue="Fase 2"/>
+                        <f:selectItem itemLabel="Fase 3" itemValue="Fase 3"/>
+                        <f:selectItem itemLabel="Fase 4" itemValue="Fase 4"/>
+                        <f:selectItem itemLabel="Fase 5" itemValue="Fase 5"/>
+                        <f:selectItem itemLabel="Fase 6" itemValue="Fase 6"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="txtEstado" value="Estado"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtEstado" value="#{managedSeguimientoProceso.seguimientoProceso.estado}" required="true" requiredMessage="Campo Obligatorio">
+                        <f:selectItem itemLabel="En proceso" itemValue="En proceso"/>
+                        <f:selectItem itemLabel="Terminado" itemValue="Terminado"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="txtFecha" value="Fecha" styleClass="col-sm-12 col-md-2 col-form-label"  />
+                    <p:calendar id="txtFecha" value="#{managedSeguimientoProceso.seguimientoProceso.fecha}" required="true" requiredMessage="Campo Obligatorio!"/>
+                    <p:outputLabel for="txtSolicitud" value="Solicitud"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtSolicitud" value="#{managedSeguimientoProceso.solicitudAdopcion.idSolicitudAdopcion}" required="true" requiredMessage="Campo Obligatorio!">
+                        <f:selectItems value="#{managedSolicitudAdopcion.listaSolicitudAdopcion}" var="r" itemValue="#{r.idSolicitudAdopcion}" itemLabel="#{r.mascota_idMascota.nombre} #{r.estado}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="txtEstadoSeguimiento" value="Estado seguimiento" styleClass="col-sm-12 col-md-2 col-form-label"  />
+                    <p:selectOneMenu id="txtEstadoSeguimiento" value="#{managedSeguimientoProceso.seguimientoProceso.estadoSeguimiento}">
+                        <f:selectItem itemLabel="Activo" itemValue="Activo"/>
+                        <f:selectItem itemLabel="Inactivo" itemValue="Inactivo"/>
+                    </p:selectOneMenu>
+                    <p:commandButton style="float: right" value="Registrar" update=":principal :msj" actionListener="#{managedSeguimientoProceso.registrar()}" rendered="#{managedSeguimientoProceso.seguimientoProceso.idSeguimientoProceso == 0}" oncomplete="PF('valor').hide();"/>
+                    <p:commandButton style="float: right" value="Actualizar" update=":principal :msj" actionListener="#{managedSeguimientoProceso.actualizar()}" rendered="#{managedSeguimientoProceso.seguimientoProceso.idSeguimientoProceso != 0}" oncomplete="PF('valor').hide();"/>
+                    <p:commandButton style="float: left; background-color: red; border-color: red" value="Cancelar" immediate="true"/>
                 </p:panelGrid>
             </h:form>
         </p:dialog>

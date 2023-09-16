@@ -38,14 +38,14 @@
         <h:form id="principal" style="background-color:">
             <p:fieldset legend="Adopciones" toggleable="true">
                 <h1 style="font-family: Nunito; color: #1b00ff; text-align: center">Bienvenido al apartado de adopciones</h1>
-                <h5 style="text-align: center; ">¿Que quires hacer hoy?</h5><br/>
+                <h5 style="text-align: center; ">¿Que quieres hacer hoy?</h5><br/>
                 <h:link outcome="ListaAdopciones" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link>
                 <h:commandLink>
                     <h:graphicImage value="vendors/images/pdf.png" width="30" style="margin-left: 1rem"/>
                     <p:dataExporter type="pdf" target="tabla" fileName="Usuariospdf"/>
                 </h:commandLink>
                 <h:commandLink>
-                    <h:graphicImage value="vendors/images/excel.png" width="30" style="margin-left: 1rem"/>
+                    <h:graphicImage value="vendors/images/excel.png" width="40" style="margin-left: 1rem"/>
                     <p:dataExporter type="xls" target="tabla" fileName="Usuariosexcel"/>
                 </h:commandLink>
                 <p:commandButton styleClass="btn btn-primary" style="margin-left: 54.5rem; height: 45px" value="Nuevo usuario" onclick="PF('valor').show();"/>
@@ -72,17 +72,34 @@
                         <h:outputText value="#{usu.estadoAdopcion}"/>
                     </p:column>
                     <p:column headerText="Acciones" exportable="false">
-                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedUsuario.cargarDatos(usu)}" update=":tabla :msj" onclick="PF('valor').show();"><i class="dw dw-edit2"></i></p:commandLink>
-                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedUsuario.eliminar(usu)}" update="principal :msj "><i class="dw dw-delete-3"></i></p:commandLink> 
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedAdopciones.cargarDatos(usu)}" update=":tabla :msj" onclick="PF('valor').show();"><i class="dw dw-edit2"></i></p:commandLink>
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedAdopciones.eliminar(usu)}" update="principal :msj "><i class="dw dw-delete-3"></i></p:commandLink> 
                     </p:column>
                 </p:dataTable>
             </p:fieldset>
         </h:form>
         <p:dialog widgetVar="valor" header="Nuevo usuario" modal="true" resizable="true" closeOnEscape="true" draggable="false">
-            <p:ajax event="close" listener="#{managedUsuario.limpiar()}" update="tabla"/>
+            <p:ajax event="close" listener="#{managedAdopciones.limpiar()}" update="tabla"/>
             <h:form id="tabla">
-                <p:panelGrid columns="4" styleClass="ui-noborder">
-                    <!-- Crear el formulario -->
+                <p:panelGrid columns="2" styleClass="ui-noborder">
+                    <p:outputLabel for="txtFecha" value="Fecha" styleClass="col-sm-12 col-md-2 col-form-label"  />
+                    <p:calendar id="txtFecha" value="#{managedAdopciones.adopciones.fecha}" required="true" requiredMessage="Campo Obligatorio!"/>
+                    <p:outputLabel for="txtMascota" value="Mascota"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtMascota" value="#{managedAdopciones.mascota.idMascota}" required="true" requiredMessage="Campo Obligatorio!">
+                        <f:selectItems value="#{managedMascota.listaMascota}" var="re" itemValue="#{re.idMascota}" itemLabel="#{re.nombre}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="txtAdoptante" value="Adoptante"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtAdoptante" value="#{managedAdopciones.adoptante.idAdoptante}" required="true" requiredMessage="Campo Obligatorio!">
+                        <f:selectItems value="#{managedAdoptante.listaAdoptante}" var="r"  itemValue="#{r.idAdoptante}" itemLabel="#{r.nombresAdoptante} #{r.apellidosAdoptante}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="txtEstado" value="Estado"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtEstado" value="#{managedAdopciones.adopciones.estadoAdopcion}">
+                        <f:selectItem itemLabel="Activa" itemValue="Activo"/>
+                        <f:selectItem itemLabel="Inactiva" itemValue="Inactivo"/>
+                    </p:selectOneMenu>
+                    <p:commandButton style="float: right" value="Registrar" update=":principal :msj" actionListener="#{managedAdopciones.registrar()}" rendered="#{managedAdopciones.adopciones.idAdopciones == 0}" oncomplete="PF('valor').hide();"/>
+                    <p:commandButton style="float: right" value="Actualizar" update=":principal :msj" actionListener="#{managedAdopciones.actualizar()}" rendered="#{managedAdopciones.adopciones.idAdopciones != 0}" oncomplete="PF('valor').hide();"/>
+                    <p:commandButton style="float: left; background-color: red; border-color: red" value="Cancelar" immediate="true"/>
                 </p:panelGrid>
             </h:form>
         </p:dialog>

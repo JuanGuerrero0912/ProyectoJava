@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta charset="utf-8"/>
+        <title>Solicitud de adopción</title>
+
+        <!-- Site favicon -->
+        <link rel="website icon" href="vendors/images/logoLigth.png"/>
+
+        <!-- Mobile Specific Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+        <!-- Google Font 
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"> -->
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="vendors/styles/core.css"/>
+        <link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css"/>
+        <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css"/>
+        <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css"/>
+        <link rel="stylesheet" type="text/css" href="vendors/styles/style.css"/>
+
+        <!-- comment Global site tag (gtag.js) - Google Analytics 
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+        <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'UA-119386393-1');
+        </script> -->
+    </h:head>
+    <h:body>
+        <p:growl id="msj"/>
+        <h:form id="principal" style="background-color:">
+            <p:fieldset legend="Solicitudes de adopción" toggleable="true">
+                <h1 style="font-family: Nunito; color: #1b00ff; text-align: center">Bienvenido al apartado de solicitudes de adopción</h1>
+                <h5 style="text-align: center; ">¿Que quieres hacer hoy?</h5><br/>
+                <h:link outcome="Usuarios" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link>
+                <h:commandLink>
+                    <h:graphicImage value="vendors/images/pdf.png" width="30" style="margin-left: 1rem"/>
+                    <p:dataExporter type="pdf" target="tabla" fileName="Usuariospdf"/>
+                </h:commandLink>
+                <h:commandLink>
+                    <h:graphicImage value="vendors/images/excel.png" width="40" style="margin-left: 1rem"/>
+                    <p:dataExporter type="xls" target="tabla" fileName="Usuariosexcel"/>
+                </h:commandLink>
+                <p:commandButton styleClass="btn btn-primary" style="margin-left: 54.5rem; height: 45px" value="Nueva mascota" onclick="PF('valor').show();"/>
+
+                <p:dataTable id="tabla" emptyMessage="No se ha registrado ninguna mascota" value="#{managedSolicitudAdopcion.listaSolicitudAdopcion}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
+                    <p:column headerText="Id" filterBy="#{usu.idSolicitudAdopcion}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.idSolicitudAdopcion}"/>
+                    </p:column>
+                    <p:column headerText="Fecha" filterBy="#{usu.fechaSolicitud}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.fechaSolicitud}">
+                            <f:convertDateTime parent="YYYY-MM-dd"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Estado" filterBy="#{usu.estado}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.estado}"/>
+                    </p:column>
+                    <p:column headerText="Mascota" filterBy="#{usu.mascota_idMascota.nombre}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.mascota_idMascota.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Estado" filterBy="#{usu.estadoSolicitud}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.estadoSolicitud}"/>
+                    </p:column>
+
+                    <p:column headerText="Acciones" exportable="false">
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedSolicitudAdopcion.cargarDatos(usu)}" update=":tabla :msj" onclick="PF('valor').show();"><i class="dw dw-edit2"></i></p:commandLink>
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedSolicitudAdopcion.eliminar(usu)}" update="principal :msj "><i class="dw dw-delete-3"></i></p:commandLink>
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+        </h:form>
+        <p:dialog widgetVar="valor" header="Nuevo usuario" modal="true" resizable="true" closeOnEscape="true" draggable="false">
+            <p:ajax event="close" listener="#{managedSolicitudAdopcion.limpar()}" update="tabla"/>
+            <h:form id="tabla">
+                <p:panelGrid columns="2" styleClass="ui-noborder">
+                    <p:outputLabel for="txtEstado" value="Estado"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtEstado" value="#{managedSolicitudAdopcion.solicitudAdopcion.estado}" required="true" requiredMessage="Campo Obligatorio!">
+                        <f:selectItem itemLabel="Aceptada" itemValue="Aceptada"/>
+                        <f:selectItem itemLabel="Rechazada" itemValue="Rechazada"/>
+                        <f:selectItem itemLabel="En tramite" itemValue="En tramite"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="txtFecha" value="Fecha solicitud" styleClass="col-sm-12 col-md-2 col-form-label"  />
+                    <p:calendar id="txtFecha" value="#{managedSolicitudAdopcion.solicitudAdopcion.fechaSolicitud}" required="true" requiredMessage="Campo Obligatorio!"/>
+                    <p:outputLabel for="txtDocumento" value="Solicitud" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:fileUpload id="txtDocumento" value="#{managedSolicitudAdopcion.solicitudAdopcion.documentoSolicitudAdopcion}" accept=".pdf" mode="simple" skinSimple="true"/>
+                    <p:outputLabel for="txtMascota" value="Mascota"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtMascota" value="#{managedSolicitudAdopcion.mascota.idMascota}" required="true" requiredMessage="Campo Obligatorio!">
+                        <f:selectItems value="#{managedMascota.listaMascota}" var="re" itemValue="#{re.idMascota}" itemLabel="#{re.nombre}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="txtEstadoSolicitud" value="Estado solicitud"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtEstadoSolicitud" value="#{managedSolicitudAdopcion.solicitudAdopcion.estadoSolicitud}">
+                        <f:selectItem itemLabel="Activo" itemValue="Activo"/>
+                        <f:selectItem itemLabel="Inactivo" itemValue="Inactivo"/>
+                    </p:selectOneMenu>
+
+                    <p:commandButton style="float: right" value="Registrar" update=":principal :msj" actionListener="#{managedSolicitudAdopcion.registrar()}" rendered="#{managedSolicitudAdopcion.solicitudAdopcion.idSolicitudAdopcion == 0}" oncomplete="PF('valor').hide();"/>
+                    <p:commandButton style="float: right" value="Actualizar" update=":principal :msj" actionListener="#{managedSolicitudAdopcion.actualizar()}" rendered="#{managedSolicitudAdopcion.solicitudAdopcion.idSolicitudAdopcion != 0}" oncomplete="PF('valor').hide();"/>
+                    <p:commandButton style="float: left; background-color: red; border-color: red" value="Cancelar" immediate="true"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

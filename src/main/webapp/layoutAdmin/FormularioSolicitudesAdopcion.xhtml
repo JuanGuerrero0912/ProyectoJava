@@ -36,21 +36,22 @@
     <h:body>
         <p:growl id="msj"/>
         <h:form id="principal" style="background-color:">
-            <p:fieldset legend="Solicitud de Adopción" toggleable="true">
-                <h1 style="font-family: Nunito; color: #1b00ff; text-align: center">Bienvenido al apartado de solicitud de adopción </h1>
-                <h5 style="text-align: center; ">¿Que quires hacer hoy?</h5><br/>
-                <h:link outcome="ListaAdopciones" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link>
+            <p:fieldset legend="Solicitudes de adopción" toggleable="true">
+                <h1 style="font-family: Nunito; color: #1b00ff; text-align: center">Bienvenido al apartado de solicitudes de adopción</h1>
+                <h5 style="text-align: center; ">¿Que quieres hacer hoy?</h5><br/>
+                <h:link outcome="Usuarios" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link>
+                <h:link outcome="FormularioSolicitud" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Ir</h:link>
                 <h:commandLink>
                     <h:graphicImage value="vendors/images/pdf.png" width="30" style="margin-left: 1rem"/>
                     <p:dataExporter type="pdf" target="tabla" fileName="Usuariospdf"/>
                 </h:commandLink>
                 <h:commandLink>
-                    <h:graphicImage value="vendors/images/excel.png" width="30" style="margin-left: 1rem"/>
+                    <h:graphicImage value="vendors/images/excel.png" width="40" style="margin-left: 1rem"/>
                     <p:dataExporter type="xls" target="tabla" fileName="Usuariosexcel"/>
                 </h:commandLink>
-                <p:commandButton styleClass="btn btn-primary" style="margin-left: 54.5rem; height: 45px" value="Nuevo usuario" onclick="PF('valor').show();"/>
+                <p:commandButton styleClass="btn btn-primary" style="margin-left: 54.5rem; height: 45px" value="Nueva mascota" onclick="PF('valor').show();"/>
 
-                <p:dataTable id="tabla" emptyMessage="No se ha registrado ningun usuario" value="#{managedSolicitudAdopcionPorAdoptante.listaSolicitudAdopcionPorAdoptante}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
+                <p:dataTable id="tabla" emptyMessage="No se ha registrado ninguna mascota" value="#{managedSolicitudAdopcionPorAdoptante.listaSolicitudAdopcionPorAdoptante}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
                     <p:column headerText="Id" filterBy="#{usu.solicitudAdopcion_idSolicitudAdopcion.idSolicitudAdopcion}" filterMatchMode="contains">
                         <h:outputText value="#{usu.solicitudAdopcion_idSolicitudAdopcion.idSolicitudAdopcion}"/>
                     </p:column>
@@ -75,17 +76,27 @@
                         <h:outputText value="#{usu.solicitudAdopcion_idSolicitudAdopcion.estadoSolicitud}"/>
                     </p:column>
                     <p:column headerText="Acciones" exportable="false">
-                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedUsuario.cargarDatos(usu)}" update=":tabla :msj" onclick="PF('valor').show();"><i class="dw dw-edit2"></i></p:commandLink>
-                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedUsuario.eliminar(usu)}" update="principal :msj "><i class="dw dw-delete-3"></i></p:commandLink> 
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedSolicitudAdopcionPorAdoptante.cargarDatos(usu)}" update=":tabla :msj" onclick="PF('valor').show();"><i class="dw dw-edit2"></i></p:commandLink>
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedSolicitudAdopcionPorAdoptante.eliminar(usu)}" update="principal :msj "><i class="dw dw-delete-3"></i></p:commandLink>
                     </p:column>
                 </p:dataTable>
-            </p:fieldset>
+            </p:fieldset>s
         </h:form>
         <p:dialog widgetVar="valor" header="Nuevo usuario" modal="true" resizable="true" closeOnEscape="true" draggable="false">
-            <p:ajax event="close" listener="#{managedUsuario.limpiar()}" update="tabla"/>
+            <p:ajax event="close" listener="#{managedSolicitudAdopcionPorAdoptante.limpiar()}" update="tabla"/>
             <h:form id="tabla">
-                <p:panelGrid columns="4" styleClass="ui-noborder">
-                    <!-- Crear el formulario -->
+                <p:panelGrid columns="2" styleClass="ui-noborder">
+                    <p:outputLabel for="txtAdoptante" value="Adoptante" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtAdoptante" value="#{managedSolicitudAdopcionPorAdoptante.adoptante.idAdoptante}" required="true" requiredMessage="Campo Obligatorio!">
+                        <f:selectItems value="#{managedAdoptante.listaAdoptante}" var="re" itemValue="#{re.idAdoptante}" itemLabel="#{re.nombresAdoptante} #{re.apellidosAdoptante}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="txtMascota" value="Solicitud" styleClass="col-sm-12 col-md-2 col-form-label"  />
+                    <p:selectOneMenu id="txtMascota" value="#{managedSolicitudAdopcionPorAdoptante.solicitudAdopcion.idSolicitudAdopcion}" required="true" requiredMessage="Campo Obligatorio!">
+                        <f:selectItems value="#{managedSolicitudAdopcion.listaSolicitudAdopcion}" var="r" itemValue="#{r.idSolicitudAdopcion}" itemLabel="#{r.mascota_idMascota.nombre}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton style="float: right" value="Registrar" update=":principal :msj" actionListener="#{managedSolicitudAdopcionPorAdoptante.registrar()}" rendered="#{managedSolicitudAdopcionPorAdoptante.solicitudAdopcionPorAdoptante.idSolicitudAdopcionPorAdoptante == 0}" oncomplete="PF('valor').hide();"/>
+                    <p:commandButton style="float: right" value="Actualizar" update=":principal :msj" actionListener="#{managedSolicitudAdopcionPorAdoptante.actualizar()}" rendered="#{managedSolicitudAdopcionPorAdoptante.solicitudAdopcionPorAdoptante.idSolicitudAdopcionPorAdoptante != 0}" oncomplete="PF('valor').hide();"/>
+                    <p:commandButton style="float: left; background-color: red; border-color: red" value="Cancelar" immediate="true"/>
                 </p:panelGrid>
             </h:form>
         </p:dialog>
