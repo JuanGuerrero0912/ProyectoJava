@@ -176,10 +176,7 @@
                                 <span class="micon dw dw-library"></span><span class="mtext">Usuarios</span>
                             </a>
                             <ul class="submenu">
-                                <li><h:link outcome="Usuarios">Gestión de Usuarios</h:link></li>
-                            </ul>
-                            <ul class="submenu">
-                                <li><h:link outcome="Adoptantes">Gestión de Adoptantes</h:link></li>
+                                <li><h:link outcome="Usuarios">Usuarios</h:link></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -187,12 +184,7 @@
                                 <span class="micon dw dw-edit2"></span><span class="mtext">Adopciones</span>
                             </a>
                             <ul class="submenu">
-                                <li><h:link outcome="ListaAdopciones">Lista de adopciones</h:link></li>
-                                <li><h:link outcome="Mascota">Mascotas</h:link></li>
-                                <li><h:link outcome="ListaMascotas">Lista de mascotas</h:link></li>
-                                <li><h:link outcome="HistorialMedico">Historial Medico</h:link></li>
-                                <li><h:link outcome="ListaSolicitudes">Lista de solicitudes</h:link></li>
-                                <li><h:link outcome="SeguimientoProceso">Seguimiento de proceso</h:link></li>
+                                <li><h:link outcome="Adopciones">Adopciones</h:link></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -200,7 +192,7 @@
                                 <span class="micon dw dw-library"></span><span class="mtext">Donaciones</span>
                             </a>
                             <ul class="submenu">
-                                <li><h:link outcome="ListaDonaciones">Lista de donaciones</h:link></li>
+                                <li><h:link outcome="Donaciones">Donaciones</h:link></li>
                             </ul>
                         </li>
 
@@ -209,8 +201,7 @@
                                 <span class="micon dw dw-apartment"></span><span class="mtext">Inventario</span>
                             </a>
                             <ul class="submenu">
-                                <li><h:link outcome="Inventario">Consultar inventario</h:link></li>
-                                <li><h:link outcome="ListaArticulos">Lista de articulos</h:link></li>
+                                <li><h:link outcome="Inventario">Inventario</h:link></li>
                             </ul>
                         </li>
                     </ul>
@@ -226,7 +217,7 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-12">
                                 <div class="title">
-                                    <h2>Inventario</h2>
+                                    <h4>Apartado de inventario</h4>
                                 </div>
                                 <nav aria-label="breadcrumb" role="navigation">
                                     <ol class="breadcrumb">
@@ -235,53 +226,66 @@
                                     </ol>
                                 </nav>
                             </div>
-                            <div class="col-md-6 col-sm-12 text-right">
-                                <div class="dropdown">
-
-                                </div>
-                            </div>
                         </div>
                     </div>
-                    <div class="card-box mb-30">
-                        <div class="pd-20">
-                        </div>
-                        <div class="card-box mb-30">
-                            <div class="pd-20">
-                                <h4 class="text-blue h4">Inventario</h4><br/>
-                                <h:link style="background-color: #1b00ff;"  class="btn btn-success" outcome="Entradas">Entradas Articulos</h:link>
-                                <h:link style="background-color: #1b00ff;"  class="btn btn-success" outcome="Salidas">Salidas Articulos</h:link><br/>
-
-                            </div>
-                            <div class="pb-20">
-                                <table class="table hover multiple-select-row data-table-export nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th class="table-plus datatable-nosort">Id</th>
-                                            <th>Nombre Articulo</th>
-                                            <th>Descripcion</th>
-                                            <th>Referencia</th>
-                                            <th >Stock</th>
-
-                                            <th class="datatable-nosort">Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="table-plus"></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>Sin acciones</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div class="product-wrap">
+                        <div class="product-list">
+                            <ul class="row">
+                                <li class="col-lg-4 col-md-6 col-sm-12" style="margin-left: 8rem">
+                                    <div class="product-box">
+                                        <div class="producct-img"><img style="height: 290px;" src="vendors/images/InventarioInicioAdmin.jpg" alt=""/></div>
+                                        <div style="text-align: center;" class="product-caption">
+                                            <h4><h:link outcome="FormularioInventario">Inventario</h:link></h4>
+                                            <div class="price">
+                                                <ins>Apartado para consultar el inventario</ins>
+                                            </div>
+                                            <h:link class="btn btn-outline-primary" outcome="FormularioInventario">Ir</h:link>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="col-lg-4 col-md-6 col-sm-12" style="margin-left: 5rem">
+                                    <div class="product-box">
+                                        <div class="producct-img"><img style="height: 290px;" src="vendors/images/Articulos.jpg" alt=""/></div>
+                                        <div style="text-align: center;" class="product-caption">
+                                            <h4><h:link outcome="FormularioArticulos">Articulos</h:link></h4>
+                                            <div class="price">
+                                                <ins>Apartado para gestionar los articulos</ins>
+                                            </div>
+                                            <h:link class="btn btn-outline-primary" outcome="FormularioArticulos">Ir</h:link>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="col-lg-4 col-md-6 col-sm-12" style="margin-left: 8rem">
+                                    <div class="product-box">
+                                        <div class="producct-img"><img style="width: 570px; height: 290px;" src="vendors/images/Entradas.jpg" alt=""/></div>
+                                        <div style="text-align: center;" class="product-caption">
+                                            <h4><h:link outcome="FormularioEntradas">Entradas</h:link></h4>
+                                            <div class="price">
+                                                <ins>Apartado para gestionar las entradas</ins>
+                                            </div>
+                                            <h:link class="btn btn-outline-primary" outcome="FormularioEntradas">Ir</h:link>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="col-lg-4 col-md-6 col-sm-12" style="margin-left: 5rem">
+                                    <div class="product-box">
+                                        <div class="producct-img"><img style="width: 570px; height: 290px;" src="vendors/images/Salidas.jpg" alt=""/></div>
+                                        <div style="text-align: center;" class="product-caption">
+                                            <h4><h:link outcome="FormularioSalidas">Salidas</h:link></h4>
+                                            <div class="price">
+                                                <ins>Apartado para gestionar las salidas</ins>
+                                            </div>
+                                            <h:link class="btn btn-outline-primary" outcome="FormularioSalidas">Ir</h:link>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="footer-wrap pd-20 mb-20 card-box">
             Doggy At Home <a href="#" target="_blank">All Rights Reserved.</a>
         </div>

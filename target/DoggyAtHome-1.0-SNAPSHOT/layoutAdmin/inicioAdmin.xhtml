@@ -187,12 +187,6 @@
                             </a>
                             <ul class="submenu">
                                 <li><h:link outcome="Adopciones">Adopciones</h:link></li>
-                                <li><h:link outcome="FormularioAdopciones">Lista de adopciones</h:link></li>
-                                <li><h:link outcome="Mascota">Mascotas</h:link></li>
-                                <li><h:link outcome="FormularioMascota">Lista de mascotas</h:link></li>
-                                <li><h:link outcome="FormularioHistorialMedico">Historial Medico</h:link></li>
-                                <li><h:link outcome="FormularioSolicitudesAdopcion">Lista de solicitudes</h:link></li>
-                                <li><h:link outcome="FormularioSeguimientoProceso">Seguimiento de proceso</h:link></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -200,7 +194,7 @@
                                 <span class="micon dw dw-library"></span><span class="mtext">Donaciones</span>
                             </a>
                             <ul class="submenu">
-                                <li><h:link outcome="FormularioDonaciones">Lista de donaciones</h:link></li>
+                                <li><h:link outcome="Donaciones">Donaciones</h:link></li>
                             </ul>
                         </li>
 
@@ -209,8 +203,7 @@
                                 <span class="micon dw dw-apartment"></span><span class="mtext">Inventario</span>
                             </a>
                             <ul class="submenu">
-                                <li><h:link outcome="FormularioInventario">Consultar inventario</h:link></li>
-                                <li><h:link outcome="FormularioArticulos">Lista de articulos</h:link></li>
+                                <li><h:link outcome="Inventario">Inventario</h:link></li>
                             </ul>
                         </li>
                     </ul>
@@ -253,11 +246,11 @@
                                 <div class="product-box">
                                     <div class="producct-img"><img style="height: 290px;" src="vendors/images/PerritoInicioAdmin.jpg" alt=""/></div>
                                     <div style="text-align: center;" class="product-caption">
-                                        <h4><h:link outcome="Usuarios">Adopciones</h:link></h4>
+                                        <h4><h:link outcome="Adopciones">Adopciones</h:link></h4>
                                         <div class="price">
                                             <ins>Apartado para gestionar adopciones</ins>
                                         </div>
-                                        <h:link class="btn btn-outline-primary">Ir</h:link>
+                                        <h:link class="btn btn-outline-primary" outcome="Adopciones">Ir</h:link>
                                     </div>
                                 </div>
                             </li>
@@ -265,11 +258,11 @@
                                 <div class="product-box">
                                     <div class="producct-img"><img style="width: 570px; height: 290px;" src="vendors/images/DonacionesInicioAdmin.jpg" alt=""/></div>
                                     <div style="text-align: center;" class="product-caption">
-                                        <h4><h:link outcome="Usuarios">Donaciones</h:link></h4>
+                                        <h4><h:link outcome="Donaciones">Donaciones</h:link></h4>
                                         <div class="price">
                                             <ins>Apartado para gestionar las donaciones</ins>
                                         </div>
-                                        <h:link class="btn btn-outline-primary">Ir</h:link>
+                                        <h:link class="btn btn-outline-primary" outcome="Donaciones">Ir</h:link>
                                     </div>
                                 </div>
                             </li>
@@ -281,7 +274,7 @@
                                         <div class="price">
                                             <ins>Apartado para gestionar el inventario</ins>
                                         </div>
-                                        <a href="historiaRescatado4.html" class="btn btn-outline-primary">Ir</a>
+                                        <h:link class="btn btn-outline-primary" outcome="Inventario">Ir</h:link>
                                     </div>
                                 </div>
                             </li>
