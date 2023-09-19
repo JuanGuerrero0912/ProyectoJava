@@ -110,9 +110,9 @@ public class ManagedMascota implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
 
-    public void eliminar(Mascota us) {
+    public void eliminar() {
         try {
-            this.mascotaFacade.remove(us);
+            this.mascotaFacade.remove(mascota);
             listaMascota = mascotaFacade.findAll();
             this.mascota = new Mascota();
             this.msj = "Mascota eliminada correctamente";

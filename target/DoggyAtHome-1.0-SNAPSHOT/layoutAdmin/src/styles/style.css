@@ -1796,19 +1796,7 @@ body.IE .register-page-wrap .container{
     background-position: center center;
     border-color: rgba(24, 31, 72, .3);
 }
-.register-page-wrap .wizard-content .wizard.wizard-circle>.steps>ul>li:after,
-.register-page-wrap .wizard-content .wizard.wizard-circle>.steps>ul>li:before{
-	/*display: none;*/
-	background: rgba(24, 31, 72, .3);
-}
-.wizard-content .wizard.wizard-circle>.steps>ul>li.current~li:before,
-.wizard-content .wizard.wizard-circle>.steps>ul>li.current~li:after{
-	background: rgba(24, 31, 72, .3);
-}
-.wizard-content .wizard.vertical.wizard-circle>.steps>ul>li.current~li:before,
-.wizard-content .wizard.vertical.wizard-circle>.steps>ul>li.current~li:after{
-	background-color: transparent;
-}
+
 .register-page-wrap .wizard-content .wizard > .steps > ul > li.current .step{
 	border-color: #1b00ff;
 	color: #181f48;
@@ -3802,15 +3790,7 @@ body.IE .register-page-wrap .container{
 	background-color: #1b00ff;
 	font-weight: 600;
 }
-.wizard-content .wizard>.actions>ul>li>a[href="#previous"]{
-	border-color: #1b00ff;
-	border-width: 2px;
-	color: #1b00ff;
-}
-.wizard-content .wizard>.actions>ul>li.disabled>a[href="#previous"]{
-	display: none;
-	border-color: #1b00ff;
-}
+
 
 .widget-style1{
 	padding: 10px;

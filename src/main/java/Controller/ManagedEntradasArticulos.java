@@ -113,9 +113,9 @@ public class ManagedEntradasArticulos implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
     
-    public void eliminar(EntradasArticulos elim) {
+    public void eliminar() {
         try {
-            entradasArticulosFacade.remove(elim);
+            entradasArticulosFacade.remove(entradasArticulos);
             listaEntradasArticulos = entradasArticulosFacade.findAll();
             this.entradasArticulos = new EntradasArticulos();
             this.msj = "Registro eliminado correctamente";

@@ -112,9 +112,9 @@ public class ManagedAdopciones implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
     
-    public void eliminar(Adopciones eli) {
+    public void eliminar() {
         try {
-            adopcionesFacade.remove(eli);
+            adopcionesFacade.remove(adopciones);
             listaAdopciones = adopcionesFacade.findAll();
             this.adopciones = new Adopciones();
             this.msj = "Registro eliminado correctamente";

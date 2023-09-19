@@ -79,9 +79,9 @@ public class ManagedAdoptante implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
 
-    public void eliminar(Adoptante elim) {
+    public void eliminar() {
         try {
-            adoptanteFacade.remove(elim);
+            adoptanteFacade.remove(adoptante);
             listaAdoptante = adoptanteFacade.findAll();
             this.adoptante = new Adoptante();
             this.msj = "Registro eliminado correctamente";

@@ -111,9 +111,9 @@ public class ManagedSolicitudAdopcionPorAdoptante implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
     
-    public void eliminar(SolicitudAdopcionPorAdoptante eli) {
+    public void eliminar() {
         try {
-            solicitudAdopcionPorAdoptanteFacade.remove(eli);
+            solicitudAdopcionPorAdoptanteFacade.remove(solicitudAdopcionPorAdoptante);
             listaSolicitudAdopcionPorAdoptante = solicitudAdopcionPorAdoptanteFacade.findAll();
             this.solicitudAdopcionPorAdoptante = new SolicitudAdopcionPorAdoptante();
             this.msj = "Registro eliminado correctamente";

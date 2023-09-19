@@ -95,10 +95,10 @@ public class ManagedUsuario implements Serializable{
         FacesMessage mensaje = new FacesMessage(this.msj);
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
-    
-    public void eliminar(Usuario eli) {
+   
+    public void eliminar() {
         try {
-            usuarioFacade.remove(eli);
+            usuarioFacade.remove(usuario);
             listaUsuario = usuarioFacade.findAll();
             this.usuario = new Usuario();
             this.msj = "Registro eliminado correctamente";

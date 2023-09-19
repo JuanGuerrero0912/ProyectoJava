@@ -112,10 +112,10 @@ public class ManagedHistorialMedico implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
     
-    public void eliminar(HistorialMedico us){
+    public void eliminar(){
         
         try {
-            historialMedicoFacade.remove(us);
+            historialMedicoFacade.remove(historialMedico);
             listaHistorialMedico = historialMedicoFacade.findAll();
             this.historialMedico = new HistorialMedico();
             this.msj = "Registro eliminado correctamente";

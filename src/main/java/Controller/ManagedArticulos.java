@@ -79,9 +79,9 @@ public class ManagedArticulos implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
 
-    public void eliminar(Articulos elim) {
+    public void eliminar() {
         try {
-            articulosFacade.remove(elim);
+            articulosFacade.remove(articulos);
             listaArticulos = articulosFacade.findAll();
             this.articulos = new Articulos();
             this.msj = "Registro eliminado correctamente";

@@ -117,9 +117,9 @@ public class ManagedDonaciones implements Serializable {
 
     }
 
-    public void eliminar(Donaciones elim) {
+    public void eliminar() {
         try {
-            donacionesFacade.remove(elim);
+            donacionesFacade.remove(donaciones);
             listaDonaciones = donacionesFacade.findAll();
             this.donaciones = new Donaciones();
             this.msj = "Registro eliminado correctamente";
