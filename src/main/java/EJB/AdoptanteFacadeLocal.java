@@ -26,6 +26,8 @@ public interface AdoptanteFacadeLocal {
     List<Adoptante> findAll();
 
     List<Adoptante> findRange(int[] range);
+    
+    public Adoptante acceder(Adoptante us);
 
     int count();
     

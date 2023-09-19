@@ -93,4 +93,23 @@ public class ManagedAdoptante implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
     
+    public String validar() {
+        String ruta = "";
+        Adoptante valor;
+
+        try {
+            valor = this.adoptanteFacade.acceder(this.adoptante);
+            if (valor != null) {
+                System.out.println("per" + valor.getUsuario());
+                ruta = "inicioAdoptante";
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario NO registrado", "Admin"));
+            }
+
+        } catch (Exception e) {
+            throw e;
+        }
+        return ruta;
+    }
+    
 }

@@ -110,4 +110,35 @@ public class ManagedUsuario implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
     
+    public String iniciarSesion(){
+        System.out.println("Verificando usuario");
+        String redireccion = null;
+        FacesContext context = FacesContext.getCurrentInstance();
+        try{
+            usuario = usuarioFacade.acceder(usuario);
+            if(usuario != null){
+                context.getExternalContext().getSessionMap().put("usuario", usuario);
+                redireccion = redireccionarUsuario(usuario.getRol_idRol().getIdRol());
+            } else{
+                FacesMessage message;
+                message = new FacesMessage("Usuario y/o contraseña incorrecta.");
+                context.addMessage(null, message);
+                redireccion = "LoginPrueba";
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            this.msj = "Error " + e.getMessage();
+        }
+        return redireccion;
+    }
+    
+    public String redireccionarUsuario(int rol){
+        switch(rol){
+            case 1:
+                return "inicioAdmin";
+            default:
+            return "Entradas";
+        }
+    }
+    
 }

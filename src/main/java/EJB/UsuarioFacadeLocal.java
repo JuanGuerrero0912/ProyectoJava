@@ -26,6 +26,8 @@ public interface UsuarioFacadeLocal {
     List<Usuario> findAll();
 
     List<Usuario> findRange(int[] range);
+    
+    public Usuario acceder(Usuario us);
 
     int count();
     

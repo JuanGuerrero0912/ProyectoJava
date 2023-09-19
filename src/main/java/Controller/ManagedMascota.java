@@ -61,10 +61,10 @@ public class ManagedMascota implements Serializable {
     public void registrar() {
         try {
             String rutaCarpeta = "C:\\Users\\LAPTOP\\Documents\\NetBeansProjects\\Doggy\\ProyectoJava\\src\\main\\webapp\\Resources\\Imagenes";
-                mascota.setNombreFoto(file.getFileName());
-                mascota.setFotoMascota(file.getContent());
+            mascota.setNombreFoto(file.getFileName());
+            mascota.setFotoMascota(file.getContent());
                 this.mascotaFacade.create(mascota);
-                escribirBytes(IOUtils.toByteArray(file.getInputStream()), rutaCarpeta, file.getFileName());
+            escribirBytes(IOUtils.toByteArray(file.getInputStream()), rutaCarpeta, file.getFileName());
                 this.msj = "Mascota creada correctamente";
                 this.mascota = new Mascota();
         }catch (IOException e) {
