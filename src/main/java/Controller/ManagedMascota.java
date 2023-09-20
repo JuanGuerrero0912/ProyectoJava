@@ -58,24 +58,21 @@ public class ManagedMascota implements Serializable {
         this.mascota = new Mascota();
     }
 
-    public void registrar() {
-        try {
-            String rutaCarpeta = "C:\\Users\\LAPTOP\\Documents\\NetBeansProjects\\Doggy\\ProyectoJava\\src\\main\\webapp\\Resources\\Imagenes";
+    public void registrar(){
+        String rutaCarpeta = "C:\\Users\\LAPTOP\\Documents\\NetBeansProjects\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\Imagenes";
+        try{
             mascota.setNombreFoto(file.getFileName());
             mascota.setFotoMascota(file.getContent());
-                this.mascotaFacade.create(mascota);
-            escribirBytes(IOUtils.toByteArray(file.getInputStream()), rutaCarpeta, file.getFileName());
-                this.msj = "Mascota creada correctamente";
-                this.mascota = new Mascota();
-        }catch (IOException e) {
-            e.printStackTrace();
-            this.msj = "Error " + e.getMessage();
+            mascotaFacade.create(mascota);
+            this.msj = "Mascota creada correctamente";
+            escribirBytes(IOUtils.toByteArray(file.getInputStream()), rutaCarpeta,file.getFileName());
+        }catch(IOException ex){
+            ex.printStackTrace();
+            this.msj = "Error " + ex.getMessage();
         }
         FacesMessage mensaje = new FacesMessage(this.msj);
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
-
-
 
     public void escribirBytes(byte[] bytes, String carpeta, String nombreFoto) {
         try {

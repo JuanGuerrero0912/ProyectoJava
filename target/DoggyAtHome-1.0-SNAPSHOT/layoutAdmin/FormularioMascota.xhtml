@@ -83,7 +83,7 @@
         </h:form>
         <p:dialog widgetVar="valor" header="Nuevo usuario" modal="true" resizable="true" closeOnEscape="true" draggable="false">
             <p:ajax event="close" listener="#{managedMascota.limpiar()}" update="tabla"/>
-            <h:form id="tabla">
+            <h:form id="tabla" enctype="multipart/form-data">
                 <p:panelGrid columns="4" styleClass="ui-noborder">
                     <p:outputLabel for="txtNombre" value="Nombre" styleClass="col-sm-12 col-md-2 col-form-label"  />
                     <p:inputText id="txtNombre"  value="#{managedMascota.mascota.nombre}" styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!"/>
@@ -115,7 +115,7 @@
                         <f:selectItem itemLabel="Pug" itemValue="Pug"/>
                     </p:selectOneMenu>
                     <p:outputLabel for="txtNombreFoto" value="Nombre Foto" styleClass="col-sm-12 col-md-2 col-form-label"/>
-                    <p:inputText id="txtNombreFoto" value="#{managedMascota.mascota.nombreFoto}" styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!"/>
+                    <p:inputText id="txtNombreFoto" value="#{managedMascota.mascota.nombreFoto}" styleClass="form-control"/>
                     <p:outputLabel for="txtFoto" value="Foto" styleClass="col-sm-12 col-md-2 col-form-label"/>
                     <p:fileUpload id="txtFoto" value="#{managedMascota.file}" accept=".png,.jpg" mode="simple" skinSimple="true"/>
                     <p:outputLabel for="txtCaracteristicas" value="Descripción" styleClass="col-sm-12 col-md-2 col-form-label"/>
