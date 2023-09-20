@@ -2,10 +2,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <meta charset="utf-8" />
-        <title>Login</title>
+        <title>Registro</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="Free HTML Templates" name="keywords" />
         <meta content="Free HTML Templates" name="description" />
@@ -34,6 +35,7 @@
         <link href="../css/style.css" rel="stylesheet" />
     </h:head>
     <h:body>
+        <!-- Navbar Start -->
         <!-- Navbar Start -->
         <div class="container-fluid bg-light position-relative shadow">
             <nav
@@ -73,63 +75,86 @@
         </div>
         <!-- Navbar End -->
 
-        <div class="login-page">
+        <div style="background-image: url('../img/fondo3.png')" class="register-page-wrap d-flex align-items-center flex-wrap justify-content-center"  >
 
-            <div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-6 col-lg-7">
-                            <img  style="width: 800px; height: 600px" src="../img/imagenLogin.png" alt=""/>
-                        </div>
-                        <div class="col-md-6 col-lg-5">
-                            <div class="login-box bg-white box-shadow border-radius-10">
-                                <div class="login-title">
-                                    <h2 class="text-center text-primary">Ingresa con tu cuenta de Adoptante</h2>
-                                </div>
-                                <p:growl id="msj"/>
-                                <h:form id="loginAdoptante">
-                                    <p:ajax event="click" listener="#{managedAdoptante.limpiar()}" update="loginAdoptante"/>
-                                    <div class="input-group custom">
-                                        <p:outputLabel for="txtUser" style="font-size: 18px; color: #007bff" value="Ingresa usuario"/>
-                                        <p:inputText id="txtUser" value="#{managedAdoptante.adoptante.usuario}" styleClass="form-control form-control-lg" required="true" requiredMessage="Ingresa tu usuario"/>
-                                    </div><br/>
-                                    <div class="input-group custom">
-                                        <p:outputLabel for="txtPass" style="font-size: 18px; color: #007bff" value="Ingresa contraseña"/>
-                                        <p:password id="txtPass" value="#{managedAdoptante.adoptante.contraseña}" styleClass="form-control form-control-lg" required="true" requiredMessage="Ingresa tu contraseña"/>
-                                    </div>
+            <div class="row align-items-center">
+                <p:growl id="msj" />
+                <p:ajax event="click" listener="#{managedAdoptante.limpiar()}" update="formularioRegistro"/>
 
-                                    <div class="row pb-30">
-                                        <div class="col-6">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck1"/>
-                                                <label class="custom-control-label" for="customCheck1">Recordar</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="forgot-password"><h:link outcome="/restablecerContraseña">Olvidé la contraseña</h:link></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="input-group mb-0">
-                                                <p:commandButton value="Ingresar" icon="ui-icon-key" style="background: #17a2b8" styleClass="btn btn-primary btn-lg btn-block" action="#{managedAdoptante.validar()}" update=":msj"/>
-                                            </div>
-                                            <div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">Ó</div>
-                                            <div class="input-group mb-0">
-                                                <h:link class="btn btn-outline-primary btn-lg btn-block" outcome="register">Crea una cuenta</h:link>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </h:form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h:form id="formularioRegistro">
+                    <section style="width: 900px; background: #86b7db; padding: 30px; margin: auto; margin-top: 30px; border-radius: 4px; font-family: 'calibri';color: white; box-shadow: 7px 13px 37px #000">
+                        <h2 style="text-align: center; color: black" > Datos Básicos</h2><br/>
+                        <p:panelGrid id="grid1" columns="4" styleClass="ui-noborder" >
+                            <p:outputLabel for="txtCorreo" value="Correo" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                            <p:inputText id="txtCorreo" value="#{managedAdoptante.adoptante.correo}" styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!"/>
+
+                            <p:outputLabel for="txtUsuario" value="Usuario" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                            <p:inputText id="txtUsuario" value="#{managedAdoptante.adoptante.usuario}" styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!"/>
+
+                            <p:outputLabel for="txtContraseña" value="Contraseña" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                            <p:password id="txtContraseña" value="#{managedAdoptante.adoptante.contraseña}" feedback="true" 
+                                        validatorMessage="La clave no coincide" weakLabel="Debil" strongLabel="Fuerte" goodLabel="Bueno" match="txtConfirmarContraseña" required="true" requiredMessage="Campo Obligatorio!"/>
+
+                            <p:outputLabel for="txtConfirmarContraseña" value="Confirmar Contraseña" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                            <p:password id="txtConfirmarContraseña" value="#{managedAdoptante.adoptante.confirmarContraseña}" required="true" requiredMessage="Campo Obligatorio!"/>
+                        </p:panelGrid><br/>
+
+                        <h2 style="text-align: center; color: black" >Información personal</h2><br/>
+
+                        <p:panelGrid id="grid2" columns="4" styleClass="ui-noborder"  >
+                            <p:outputLabel for="Nombre" value="Nombre" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                            <p:inputText id="Nombre" value="#{managedAdoptante.adoptante.nombresAdoptante}"  styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!"/>
+
+                            <p:outputLabel for="Apellidos" value="Primer Apellido" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                            <p:inputText id="Apellidos" value="#{managedAdoptante.adoptante.apellidosAdoptante}"  styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!"/>
+
+                            <p:outputLabel for="txtTipoDocumento" value="Tipo Documento"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                            <p:selectOneRadio id="txtTipoDocumento" value="#{managedAdoptante.adoptante.tipoDocumento}" required="true" requiredMessage="Campo Obligatori!">
+                                <f:selectItem itemLabel="CC" itemValue="CC"/>
+                                <f:selectItem itemLabel="CE" itemValue="CE"/>
+                                <f:selectItem itemLabel="TI" itemValue="TI"/>
+                            </p:selectOneRadio>
+
+                            <p:outputLabel for="txtDocumento" value="Documento" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                            <p:inputText id="txtDocumento" value="#{managedAdoptante.adoptante.documento}"  styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!"/>
+                        </p:panelGrid><br/>
+                        <h2 style="text-align: center; color: black" >Información de contacto</h2><br/>
+
+                        <p:panelGrid id="grid3" columns="4" styleClass="ui-noborder">
+                            <p:outputLabel for="direccion" value="Dirección" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                            <p:inputText id="direccion" value="#{managedAdoptante.adoptante.direccion}" style="margin-left: 4.5rem; width: 200px" styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!"/>
+
+                            <p:outputLabel for="celular" value="Celular" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                            <p:inputText id="celular" value="#{managedAdoptante.adoptante.celular}" style="margin-left: 2.5rem; width: 200px" styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!"/>
+
+
+                            <p:outputLabel for="ciudad" value="Ciudad" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                            <p:inputText id="ciudad" value="#{managedAdoptante.adoptante.ciudad}" style="margin-left: 4.5rem; width: 200px" styleClass="form-control" required="true" requiredMessage="Campo Obligatorio!"/>
+                            
+                            <p:outputLabel for="txtEstado" value="Estado" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                            <p:selectOneMenu  id="txtEstado" style="margin-left: 2.5rem; width: 200px" value="#{managedAdoptante.adoptante.estadoAdoptante}">
+                                <f:selectItem itemLabel="Activo" itemValue="Activo"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid><br/>
+                        <p:commandButton style="float: right; border-color: blue; background-color: #2527eb;" value="Registrarme e ingresar" actionListener="#{managedAdoptante.registrarAdoptante()}" action="inicioAdoptante" update=":msj :formularioRegistro"  />
+                        <p:commandButton style="float: left; background-color: #ef2c2c; border-color: red; float: right; margin-right: 1rem"  value="¿Ya tienes una cuenta? Ingresa aqui" action="LoginAdoptante" immediate="true"/><br/><br/>
+                        
+                    </section>
+                </h:form>
+                
             </div>
         </div>
 
-        <!-- Footer Start -->
 
+        <!-- js -->
+        <script src="vendors/scripts/core.js"></script>
+        <script src="vendors/scripts/script.min.js"></script>
+        <script src="vendors/scripts/process.js"></script>
+        <script src="vendors/scripts/layout-settings.js"></script>
+        <script src="src/plugins/jquery-steps/jquery.steps.js"></script>
+        <script src="vendors/scripts/steps-setting.js"></script>
+
+        <!-- Footer Start -->
         <div class="container-fluid bg-secondary text-white py-5 px-sm-3 px-md-5" >
             <div class="row pt-5 ">
                 <div class="col-lg-4 col-md-6 mb-5 form">

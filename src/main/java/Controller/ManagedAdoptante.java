@@ -43,6 +43,21 @@ public class ManagedAdoptante implements Serializable{
     public void init(){
         this.adoptante = new Adoptante();
     }
+    
+    public void registrarAdoptante(){
+        try{
+        this.adoptanteFacade.create(adoptante);
+            this.msj = "Te has registrado correctamente";
+            this.adoptante = new Adoptante();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.msj = "Error " + e.getMessage();
+        }
+        FacesMessage mensaje = new FacesMessage(this.msj);
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+    }
+    
     public void registrar() {
         try {
             this.adoptanteFacade.create(adoptante);
