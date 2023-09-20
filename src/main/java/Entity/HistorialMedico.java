@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,8 +25,11 @@ public class HistorialMedico implements Serializable{
     @Temporal(TemporalType.DATE)
     @Column(name="fecha")
     private Date fecha;
+    @Lob
     @Column(name="diagnostico")
-    private String diagnostico;
+    private byte[] diagnostico;
+    @Column(name="nombrePdf")
+    private String nombrePdf;
     @ManyToOne
     @JoinColumn(name="mascota_idMascota")
     private Mascota mascota_idMascota;
@@ -51,12 +55,20 @@ public class HistorialMedico implements Serializable{
         this.fecha = fecha;
     }
 
-    public String getDiagnostico() {
+    public byte[] getDiagnostico() {
         return diagnostico;
     }
 
-    public void setDiagnostico(String diagnostico) {
+    public void setDiagnostico(byte[] diagnostico) {
         this.diagnostico = diagnostico;
+    }
+
+    public String getNombrePdf() {
+        return nombrePdf;
+    }
+
+    public void setNombrePdf(String nombrePdf) {
+        this.nombrePdf = nombrePdf;
     }
 
     public Mascota getMascota_idMascota() {

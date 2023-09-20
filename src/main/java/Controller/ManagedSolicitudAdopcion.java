@@ -3,7 +3,11 @@ package Controller;
 import EJB.SolicitudAdopcionFacadeLocal;
 import Entity.Mascota;
 import Entity.SolicitudAdopcion;
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -11,6 +15,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.apache.poi.util.IOUtils;
+import org.primefaces.model.file.UploadedFile;
 
 @ManagedBean
 @SessionScoped
@@ -20,6 +26,7 @@ public class ManagedSolicitudAdopcion implements Serializable {
     private SolicitudAdopcionFacadeLocal solicitudAdopcionFacade;
     private List<SolicitudAdopcion> listaSolicitudAdopcion;
     private SolicitudAdopcion solicitudAdopcion;
+    private UploadedFile file;
     private Mascota mascota;
     private String msj;
 
@@ -48,6 +55,14 @@ public class ManagedSolicitudAdopcion implements Serializable {
         this.mascota = mascota;
     }
 
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
     @PostConstruct
     public void init() {
         this.solicitudAdopcion = new SolicitudAdopcion();
@@ -55,13 +70,29 @@ public class ManagedSolicitudAdopcion implements Serializable {
     }
 
     public void registrar() {
+        String rutaCarpeta = "C:\\Users\\LAPTOP\\Documents\\NetBeansProjects\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\solicitudes";
         try {
             this.solicitudAdopcion.setMascota_idMascota(mascota);
+            solicitudAdopcion.setNombreSolicitud(file.getFileName());
+            solicitudAdopcion.setDocumentoSolicitudAdopcion(file.getContent());
             this.solicitudAdopcionFacade.create(solicitudAdopcion);
+            escribirBytes(IOUtils.toByteArray(file.getInputStream()), rutaCarpeta,file.getFileName());
             this.msj = "Registro creado correctamente";
             this.solicitudAdopcion = new SolicitudAdopcion();
             this.mascota = new Mascota();
-        } catch (Exception e) {
+        } catch (IOException e) {
+            e.printStackTrace();
+            this.msj = "Error " + e.getMessage();
+        }
+        FacesMessage mensaje = new FacesMessage(this.msj);
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+    }
+    
+    public void escribirBytes(byte[] bytes, String carpeta, String nombreFoto) {
+        try {
+            Path path = Paths.get(carpeta, nombreFoto);
+            Files.write(path, bytes);
+        } catch (IOException e) {
             e.printStackTrace();
             this.msj = "Error " + e.getMessage();
         }
@@ -80,13 +111,17 @@ public class ManagedSolicitudAdopcion implements Serializable {
     }
     
     public void actualizar(){
+        String rutaCarpeta = "C:\\Users\\LAPTOP\\Documents\\NetBeansProjects\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\solicitudes";
         try {
             this.solicitudAdopcion.setMascota_idMascota(mascota);
+            solicitudAdopcion.setNombreSolicitud(file.getFileName());
+            solicitudAdopcion.setDocumentoSolicitudAdopcion(file.getContent());
             this.solicitudAdopcionFacade.edit(solicitudAdopcion);
+            escribirBytes(IOUtils.toByteArray(file.getInputStream()), rutaCarpeta,file.getFileName());
             this.msj = "Actualizado correctamente";
             this.solicitudAdopcion = new SolicitudAdopcion();
             this.mascota = new Mascota();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
             this.msj = "Error " + e.getMessage();
         }

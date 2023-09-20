@@ -59,6 +59,9 @@
                             <f:convertDateTime parent="YYYY-MM-dd"/>
                         </h:outputText>
                     </p:column>
+                    <p:column headerText="Solicitud" filterBy="#{usu.nombreSolicitud}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.nombreSolicitud}"/>
+                    </p:column>
                     <p:column headerText="Estado" filterBy="#{usu.estado}" filterMatchMode="contains">
                         <h:outputText value="#{usu.estado}"/>
                     </p:column>
@@ -78,7 +81,7 @@
         </h:form>
         <p:dialog widgetVar="valor" header="Nuevo usuario" modal="true" resizable="true" closeOnEscape="true" draggable="false">
             <p:ajax event="close" listener="#{managedSolicitudAdopcion.limpar()}" update="tabla"/>
-            <h:form id="tabla">
+            <h:form id="tabla" enctype="multipart/form-data">
                 <p:panelGrid columns="2" styleClass="ui-noborder">
                     <p:outputLabel for="txtEstado" value="Estado"  styleClass="col-sm-12 col-md-2 col-form-label"/>
                     <p:selectOneMenu id="txtEstado" value="#{managedSolicitudAdopcion.solicitudAdopcion.estado}" required="true" requiredMessage="Campo Obligatorio!">
@@ -89,7 +92,7 @@
                     <p:outputLabel for="txtFecha" value="Fecha solicitud" styleClass="col-sm-12 col-md-2 col-form-label"  />
                     <p:calendar id="txtFecha" value="#{managedSolicitudAdopcion.solicitudAdopcion.fechaSolicitud}" required="true" requiredMessage="Campo Obligatorio!"/>
                     <p:outputLabel for="txtDocumento" value="Solicitud" styleClass="col-sm-12 col-md-2 col-form-label"/>
-                    <p:fileUpload id="txtDocumento" value="#{managedSolicitudAdopcion.solicitudAdopcion.documentoSolicitudAdopcion}" accept=".pdf" mode="simple" skinSimple="true"/>
+                    <p:fileUpload id="txtDocumento" value="#{managedSolicitudAdopcion.file}" accept=".pdf" mode="simple" skinSimple="true"/>
                     <p:outputLabel for="txtMascota" value="Mascota"  styleClass="col-sm-12 col-md-2 col-form-label"/>
                     <p:selectOneMenu id="txtMascota" value="#{managedSolicitudAdopcion.mascota.idMascota}" required="true" requiredMessage="Campo Obligatorio!">
                         <f:selectItems value="#{managedMascota.listaMascota}" var="re" itemValue="#{re.idMascota}" itemLabel="#{re.nombre}"/>

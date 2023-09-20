@@ -59,8 +59,8 @@
                             <f:convertDateTime parent="YYYY-MM-dd"/>
                         </h:outputText>
                     </p:column>
-                    <p:column headerText="Diagnostico" filterBy="#{usu.diagnostico}" filterMatchMode="contains">
-                        <h:outputText value="#{usu.diagnostico}"/>
+                    <p:column headerText="Diagnostico" filterBy="#{usu.nombrePdf}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.nombrePdf}"/>
                     </p:column>
                     <p:column headerText="Mascota" filterBy="#{usu.mascota_idMascota.nombre}" filterMatchMode="contains">
                         <h:outputText value="#{usu.mascota_idMascota.nombre}"/>
@@ -80,12 +80,12 @@
         </h:form>
         <p:dialog widgetVar="valor" header="Historial Medico" modal="true" resizable="true" closeOnEscape="true" draggable="false">
             <p:ajax event="close" listener="#{managedHistorialMedico.limpiar()}" update="tabla"/>
-            <h:form id="tabla">
+            <h:form id="tabla" enctype="multipart/form-data">
                 <p:panelGrid columns="2" styleClass="ui-noborder">
                     <p:outputLabel for="txtFecha" value="Fecha" styleClass="col-sm-12 col-md-2 col-form-label"  />
                     <p:calendar id="txtFecha" value="#{managedHistorialMedico.historialMedico.fecha}" required="true" requiredMessage="Campo Obligatorio!"/>
                     <p:outputLabel for="txtDiagnostico" value="Diagnostico" styleClass="col-sm-12 col-md-2 col-form-label"/>
-                    <p:fileUpload id="txtDiagnostico" value="#{managedHistorialMedico.historialMedico.diagnostico}" accept=".pdf" mode="simple" skinSimple="true"/>
+                    <p:fileUpload id="txtDiagnostico" value="#{managedHistorialMedico.file}" accept=".pdf" mode="simple" skinSimple="true"/>
                     <p:outputLabel for="txtMascota" value="Mascota"  styleClass="col-sm-12 col-md-2 col-form-label"/>
                     <p:selectOneMenu id="txtMascota" value="#{managedHistorialMedico.mascota.idMascota}" required="true" requiredMessage="Campo Obligatorio!">
                         <f:selectItems value="#{managedMascota.listaMascota}" var="re" itemValue="#{re.idMascota}" itemLabel="#{re.nombre}"/>

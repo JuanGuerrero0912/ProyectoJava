@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,8 +27,11 @@ public class SolicitudAdopcion implements Serializable{
     @Temporal(TemporalType.DATE)
     @Column(name="fechaSolicitud")
     private Date fechaSolicitud;
+    @Column(name="nombreSolicitud")
+    private String nombreSolicitud;
+    @Lob
     @Column(name="documentoSolicitudAdopcion")
-    private String documentoSolicitudAdopcion;
+    private byte[] documentoSolicitudAdopcion;
     @ManyToOne
     @JoinColumn(name="mascota_idMascota")
     private Mascota mascota_idMascota;
@@ -58,11 +62,19 @@ public class SolicitudAdopcion implements Serializable{
         this.fechaSolicitud = fechaSolicitud;
     }
 
-    public String getDocumentoSolicitudAdopcion() {
+    public String getNombreSolicitud() {
+        return nombreSolicitud;
+    }
+
+    public void setNombreSolicitud(String nombreSolicitud) {
+        this.nombreSolicitud = nombreSolicitud;
+    }
+
+    public byte[] getDocumentoSolicitudAdopcion() {
         return documentoSolicitudAdopcion;
     }
 
-    public void setDocumentoSolicitudAdopcion(String documentoSolicitudAdopcion) {
+    public void setDocumentoSolicitudAdopcion(byte[] documentoSolicitudAdopcion) {
         this.documentoSolicitudAdopcion = documentoSolicitudAdopcion;
     }
 
