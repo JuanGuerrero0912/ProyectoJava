@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="utf-8"/>
+        <title>Inventario</title>
+
+        <!-- Site favicon -->
+        <link rel="website icon" href="vendors/images/logoLigth.png"/>
+
+        <!-- Mobile Specific Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+        <!-- Google Font 
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"> -->
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="vendors/styles/core.css"/>
+        <link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css"/>
+        <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css"/>
+        <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css"/>
+        <link rel="stylesheet" type="text/css" href="vendors/styles/style.css"/>
+
+        <!-- comment Global site tag (gtag.js) - Google Analytics 
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+        <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'UA-119386393-1');
+        </script> -->
+    </h:head>
+    <h:body>
+        <p:growl id="msj"/>
+        <h:form id="principal" style="background-color:">
+            <p:fieldset legend="Inventario" toggleable="true">
+                <h1 style="font-family: Nunito; color: #1b00ff; text-align: center">Bienvenido al apartado de inventario</h1>
+                <h5 style="text-align: center; ">¿Qué quieres hacer hoy?</h5><br/>
+                <h:link outcome="inventarioV" class="btn btn-primary"  style="border-color: black; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link>
+                <h:commandLink>
+                    <h:graphicImage value="vendors/images/pdf.png" width="30" style="margin-left: 1rem"/>
+                    <p:dataExporter type="pdf" target="tabla" fileName="Usuariospdf"/>
+                </h:commandLink>
+                <h:commandLink>
+                    <h:graphicImage value="vendors/images/excel.png" width="40" style="margin-left: 1rem"/>
+                    <p:dataExporter type="xls" target="tabla" fileName="Usuariosexcel"/>
+                </h:commandLink>
+
+                <p:dataTable id="tabla" emptyMessage="No se ha registrado ningun usuario" value="#{managedArticulos.listaArticulos}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
+                    <p:column headerText="Id" filterBy="#{usu.idArticulos}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.idArticulos}"/>
+                    </p:column>
+                    <p:column headerText="Nombre" filterBy="#{usu.nombreArticulo}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.nombreArticulo}"/>
+                    </p:column>
+                    <p:column headerText="Descripción" filterBy="#{usu.descripcionArticulo}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.descripcionArticulo}"/>
+                    </p:column>
+                    <p:column headerText="Referencia" filterBy="#{usu.referenciaArticulo}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.referenciaArticulo}"/>
+                    </p:column>
+                    <p:column headerText="Existencias" filterBy="#{usu.stock}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.stock}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+        </h:form>
+    </h:body>
+</html>

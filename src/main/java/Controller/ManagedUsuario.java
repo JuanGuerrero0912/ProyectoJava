@@ -123,7 +123,7 @@ public class ManagedUsuario implements Serializable{
                 FacesMessage message;
                 message = new FacesMessage("Usuario y/o contraseña incorrecta.");
                 context.addMessage(null, message);
-                redireccion = "LoginPrueba";
+                redireccion = "LoginAdministrativo";
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -137,7 +137,7 @@ public class ManagedUsuario implements Serializable{
             case 1:
                 return "inicioAdmin";
             default:
-            return "Entradas";
+            return "inicioVeter";
         }
     }
     

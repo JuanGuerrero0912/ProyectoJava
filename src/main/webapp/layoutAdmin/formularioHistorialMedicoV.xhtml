@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta charset="utf-8"/>
+        <title>Historial medico</title>
+
+        <!-- Site favicon -->
+        <link rel="website icon" href="vendors/images/logoLigth.png"/>
+
+        <!-- Mobile Specific Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+        <!-- Google Font 
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"> -->
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="vendors/styles/core.css"/>
+        <link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css"/>
+        <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css"/>
+        <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css"/>
+        <link rel="stylesheet" type="text/css" href="vendors/styles/style.css"/>
+
+        <!-- comment Global site tag (gtag.js) - Google Analytics 
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+        <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'UA-119386393-1');
+        </script> -->
+    </h:head>
+    <h:body>
+        <p:growl id="msj"/>
+        <h:form id="principal" style="background-color:">
+            <p:fieldset legend="Historial medico" toggleable="true">
+                <h1 style="font-family: Nunito; color: #1b00ff; text-align: center">Bienvenido al apartado de historial medico</h1>
+                <h5 style="text-align: center; ">¿Que quieres hacer hoy?</h5><br/>
+                <h:link outcome="adopcionesV" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link>
+                <h:commandLink>
+                    <h:graphicImage value="vendors/images/pdf.png" width="30" style="margin-left: 1rem"/>
+                    <p:dataExporter type="pdf" target="tabla" fileName="Usuariospdf"/>
+                </h:commandLink>
+                <h:commandLink>
+                    <h:graphicImage value="vendors/images/excel.png" width="40" style="margin-left: 1rem"/>
+                    <p:dataExporter type="xls" target="tabla" fileName="Usuariosexcel"/>
+                </h:commandLink>
+                <p:commandButton styleClass="btn btn-primary" style="margin-left: 54.5rem; height: 45px" value="Nuevo" onclick="PF('valor').show();"/>
+
+                <p:dataTable id="tabla" emptyMessage="No se ha registrado ningun usuario" value="#{managedHistorialMedico.listaHistorialMedico}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
+                    <p:column headerText="Id" filterBy="#{usu.idHistorialMedico}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.idHistorialMedico}"/>
+                    </p:column>
+                    <p:column headerText="Fecha" filterBy="#{usu.fecha}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.fecha}">
+                            <f:convertDateTime parent="YYYY-MM-dd"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Diagnostico" filterBy="#{usu.nombrePdf}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.nombrePdf}"/>
+                    </p:column>
+                    <p:column headerText="Mascota" filterBy="#{usu.mascota_idMascota.nombre}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.mascota_idMascota.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Nombre y apellido" filterBy="#{usu.usuario_idUsuario.nombres}  #{usu.usuario_idUsuario.apellidos}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.usuario_idUsuario.nombres}  #{usu.usuario_idUsuario.apellidos}"/>
+                    </p:column>
+                    <p:column headerText="Estado" filterBy="#{usu.estadoHistorialMedico}" filterMatchMode="contains">
+                        <h:outputText value="#{usu.estadoHistorialMedico}"/>
+                    </p:column>
+                    <p:column headerText="Acciones" exportable="false">
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedHistorialMedico.cargarDatos(usu)}" update=":tabla :msj" onclick="PF('valor').show();"><i class="dw dw-edit2"></i></p:commandLink>
+                        <p:commandLink style="margin-left: 1rem" actionListener="#{managedHistorialMedico.cargarDatos(usu)}" oncomplete="PF('borrar').show();" update="principal :msj "><i class="dw dw-delete-3"></i></p:commandLink> 
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+        </h:form>
+        <p:dialog widgetVar="valor" header="Historial Medico" modal="true" resizable="true" closeOnEscape="true" draggable="false">
+            <p:ajax event="close" listener="#{managedHistorialMedico.limpiar()}" update="tabla"/>
+            <h:form id="tabla" enctype="multipart/form-data">
+                <p:panelGrid columns="2" styleClass="ui-noborder">
+                    <p:outputLabel for="txtFecha" value="Fecha" styleClass="col-sm-12 col-md-2 col-form-label"  />
+                    <p:calendar id="txtFecha" value="#{managedHistorialMedico.historialMedico.fecha}" required="true" requiredMessage="Campo Obligatorio!"/>
+                    <p:outputLabel for="txtDiagnostico" value="Diagnostico" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:fileUpload id="txtDiagnostico" value="#{managedHistorialMedico.file}" accept=".pdf" mode="simple" skinSimple="true"/>
+                    <p:outputLabel for="txtMascota" value="Mascota"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtMascota" value="#{managedHistorialMedico.mascota.idMascota}" required="true" requiredMessage="Campo Obligatorio!">
+                        <f:selectItems value="#{managedMascota.listaMascota}" var="re" itemValue="#{re.idMascota}" itemLabel="#{re.nombre}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="txtUsuario" value="Usuario"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtUsuario" value="#{managedHistorialMedico.usuario.idUsuario}" required="true" requiredMessage="Campo Obligatorio!">
+                        <f:selectItems value="#{managedUsuario.listaUsuario}" var="r"  itemValue="#{r.idUsuario}" itemLabel="#{r.nombres} #{r.apellidos} #{r.rol_idRol.nombreRol}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="txtEstado" value="Estado"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtEstado" value="#{managedHistorialMedico.historialMedico.estadoHistorialMedico}">
+                        <f:selectItem itemLabel="Activo" itemValue="Activo"/>
+                        <f:selectItem itemLabel="Inactivo" itemValue="Inactivo"/>
+                    </p:selectOneMenu>
+                    <p:commandButton style="float: right" value="Registrar" update=":principal :msj" actionListener="#{managedHistorialMedico.registrar()}" rendered="#{managedHistorialMedico.historialMedico.idHistorialMedico == 0}" oncomplete="PF('valor').hide();"/>
+                    <p:commandButton style="float: right" value="Actualizar" update=":principal :msj" actionListener="#{managedHistorialMedico.actualizar()}" rendered="#{managedHistorialMedico.historialMedico.idHistorialMedico != 0}" oncomplete="PF('valor').hide();"/>
+                    <p:commandButton style="float: left; background-color: red; border-color: red" value="Cancelar" immediate="true"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+        <h:form id="borrar">
+            <p:confirmDialog widgetVar="borrar" showEffect="fade" width="300" message="¿Estas seguro de eliminar este seguimiento?" header="Eliminar" severity="warn">
+                <p:commandButton value="Si" icon="pi pi-check" actionListener="#{managedHistorialMedico.eliminar()}" process="@this" update=":msj :principal" oncomplete="PF('borrar').hide();"/>
+                <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"/>
+            </p:confirmDialog>
+        </h:form>
+    </h:body>
+</html>
