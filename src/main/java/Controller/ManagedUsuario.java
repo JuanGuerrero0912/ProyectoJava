@@ -4,6 +4,7 @@ package Controller;
 import EJB.UsuarioFacadeLocal;
 import Entity.Rol;
 import Entity.Usuario;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -12,6 +13,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 @ManagedBean
 @SessionScoped
@@ -22,6 +24,7 @@ public class ManagedUsuario implements Serializable{
     private List<Usuario> listaUsuario;
     private Usuario usuario;
     private Rol rol;
+    private HttpServletRequest httpservelet;
     private String msj;
 
     public List<Usuario> getListaUsuario() {
@@ -51,6 +54,7 @@ public class ManagedUsuario implements Serializable{
     
     @PostConstruct
     public void init(){
+        httpservelet = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         this.usuario = new Usuario();
         this.rol = new Rol();
     }
@@ -115,6 +119,7 @@ public class ManagedUsuario implements Serializable{
         String redireccion = null;
         FacesContext context = FacesContext.getCurrentInstance();
         try{
+            httpservelet = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             usuario = usuarioFacade.acceder(usuario);
             if(usuario != null){
                 context.getExternalContext().getSessionMap().put("usuario", usuario);
@@ -138,6 +143,30 @@ public class ManagedUsuario implements Serializable{
                 return "inicioAdmin";
             default:
             return "inicioVeter";
+        }
+    }
+    
+    public void cerrarSesion(){
+        try{
+            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("LoginAdministrativo.xhtml");
+            this.msj = "Sesion cerrada correctamente";
+        }catch(IOException e){
+            e.printStackTrace();
+            this.msj = "Error " + e.getMessage();
+        }
+    }
+    
+    public void verificarSesion(int nivel) throws IOException{
+        httpservelet = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        Usuario r = (Usuario) httpservelet.getSession().getAttribute("usuario");
+        if(r != null){
+            if(r.getRol_idRol().getIdRol() != nivel){
+                FacesContext.getCurrentInstance().getExternalContext().redirect("Permisos.xhtml");
+            }
+        }else{
+            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("Permisos.xhtml");
         }
     }
     

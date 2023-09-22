@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <meta charset="utf-8"/>
         <title>Inventario</title>
@@ -31,6 +32,7 @@
 
                 gtag('config', 'UA-119386393-1');
         </script> -->
+        <f:event type="preRenderView" listener="#{managedUsuario.verificarSesion(1)}"/>
     </h:head>
     <h:body>
         <p:growl id="msj"/>
@@ -47,9 +49,8 @@
                     <h:graphicImage value="vendors/images/excel.png" width="40" style="margin-left: 1rem"/>
                     <p:dataExporter type="xls" target="tabla" fileName="Usuariosexcel"/>
                 </h:commandLink>
-                <h:link outcome="FormularioSalidas" class="btn btn-primary"   style=" width: 173px; height: 40px; text-align: center; margin-left: 45.5rem">Salidas </h:link>
-
-                <h:link outcome="FormularioEntradas" class="btn btn-primary"  style=" width: 173px; height: 40px; text-align: center; margin-left: 45.5rem">Entradas</h:link>
+                <h:link outcome="FormularioSalidas" class="btn btn-primary"   style=" width: 173px; height: 40px; text-align: center; margin-left: 42rem">Salidas </h:link>
+                <h:link outcome="FormularioEntradas" class="btn btn-primary"  style=" width: 173px; height: 40px; text-align: center; margin-left: 1rem">Entradas</h:link>
 
 
                 <p:dataTable id="tabla" emptyMessage="No se ha registrado ningun usuario" value="#{managedArticulos.listaArticulos}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">

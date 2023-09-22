@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta charset="utf-8"/>
         <title>Adopciones</title>
@@ -30,6 +32,7 @@
 
                 gtag('config', 'UA-119386393-1');
         </script> -->
+        <f:event type="preRenderView" listener="#{managedUsuario.verificarSesion(2)}"/>
     </h:head>
     <h:body>
         <div class="header">
@@ -72,11 +75,14 @@
                             <span class="user-icon">
                                 <img src="vendors/images/photo1.jpg" alt=""/>
                             </span>
-                            <span class="user-name">Usuario</span>
+                            <p:outputLabel style="margin-left: 0.5rem; padding-top: 0.5rem" styleClass="user-name" 
+                                           value="#{managedUsuario.usuario.nombres}"/>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                             <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i>Perfil</a>	
-                            <a class="dropdown-item" href="../index.html"><i class="dw dw-logout"></i>Cerrar Sesion</a>
+                            <h:form>
+                                <h:commandLink styleClass="dropdown-item" value="Cerrar Sesion" actionListener="#{managedUsuario.cerrarSesion()}"><i class="dw dw-logout" style="margin-right: 0.5rem"></i></h:commandLink>
+                            </h:form>
                         </div>
                     </div>
                 </div>

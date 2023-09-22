@@ -32,6 +32,7 @@
 
                 gtag('config', 'UA-119386393-1');
         </script> -->
+        <f:event type="preRenderView" listener="#{managedUsuario.verificarSesion(1)}"/>
     </h:head>
     <h:body>
         <p:growl id="msj"/>
@@ -48,7 +49,7 @@
                     <h:graphicImage value="vendors/images/excel.png" width="40" style="margin-left: 1rem"/>
                     <p:dataExporter type="xls" target="tabla" fileName="Articulosexcel"/>
                 </h:commandLink>
-                <p:commandButton styleClass="btn btn-primary" style="margin-left: 54.5rem; height: 45px" value="Nuevo Articulo" onclick="PF('valor').show();"/>
+                <p:commandButton styleClass="btn btn-primary" style="margin-left: 53.5rem; height: 45px" value="Nuevo Articulo" onclick="PF('valor').show();"/>
 
                 <p:dataTable id="tabla" emptyMessage="No se ha registrado ningun articulo" value="#{managedArticulos.listaArticulos}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
                     <p:column headerText="Id" filterBy="#{usu.idArticulos}" filterMatchMode="contains">
@@ -76,7 +77,7 @@
                 </p:dataTable>
             </p:fieldset>
         </h:form>
-        <p:dialog widgetVar="valor" header="Nuevo articulo" modal="true" resizable="true" closeOnEscape="true" draggable="false">
+        <p:dialog widgetVar="valor" header="Articulos" modal="true" resizable="true" closeOnEscape="true" draggable="false">
             <p:ajax event="close" listener="#{managedArticulos.limpiar()}" update="tabla"/>
             <h:form id="tabla">
                 <p:panelGrid columns="2" styleClass="ui-noborder">
@@ -100,14 +101,14 @@
                     
                     <p:commandButton style="float: right" value="Registrar" update=":principal :msj" actionListener="#{managedArticulos.registrar()}" rendered="#{managedArticulos.articulos.idArticulos ==0}" oncomplete="PF('valor').hide();"/>
                     <p:commandButton style="float: right" value="Actualizar" update=":principal :msj" actionListener="#{managedArticulos.actualizar()}" rendered="#{managedArticulos.articulos.idArticulos !=0}" oncomplete="PF('valor').hide();"/>
-                    <p:commandButton style="float: left; background-color: red; border-color: red" value="Cancelar" immediate="true"/>
+                    <p:commandButton style="float: left; background-color: red; border-color: red" value="Cancelar" immediate="true" onclick="PF('valor').hide();"/>
                 </p:panelGrid>
             </h:form>
         </p:dialog>
         <h:form id="borrar">
             <p:confirmDialog widgetVar="borrar" showEffect="fade" width="300" message="¿Estas seguro de eliminar este seguimiento?" header="Eliminar" severity="warn">
                 <p:commandButton value="Si" icon="pi pi-check" actionListener="#{managedArticulos.eliminar()}" process="@this" update=":msj :principal" oncomplete="PF('borrar').hide();"/>
-                <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"/>
+                <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times" onclick="PF('borrar').hide();"/>
             </p:confirmDialog>
         </h:form>
     </h:body>
