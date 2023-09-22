@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="utf-8"/>
+        <title>Mascotas</title>
+
+        <!-- Site favicon -->
+        <link rel="website icon" href="vendors/images/logoLigth.png"/>
+
+        <!-- Mobile Specific Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+        <!-- Google Font 
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"> -->
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="vendors/styles/core.css"/>
+        <link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css"/>
+        <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css"/>
+        <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css"/>
+        <link rel="stylesheet" type="text/css" href="vendors/styles/style.css"/>
+
+        <!-- comment Global site tag (gtag.js) - Google Analytics 
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+        <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'UA-119386393-1');
+        </script> -->
+    </h:head>
+    <h:body>
+
+        <div class="container-fluid pt-5">
+            <div class="container">
+                <div class="text-center pb-2">
+                    <h1 class="mb-4">Peluditos que buscan un hogar</h1><br/>
+                    <p style="color: black" class="mb-4 large">
+                        Date la oportuidad de conocer al proximo miembro de tu familia,
+                        brindale la oportunidad de tener un nuevo hogar a alguno de
+                        nuestros peluditos. <br/>
+                        Aqui en fundación Corazon peludo queremos salvaguardar y mejorar la v
+                        ida de los perros en situación de abandono, proporcionándoles refugio 
+                        seguro, atención médica adecuada y la oportunidad de encontrar un hogar 
+                        amoroso y permanente. Además, nos esforzamos por encontrar hogares responsables y 
+                        amorosos para cada uno de nuestros perros rescatados<br/><br/>
+                    </p>
+                    <h5> ¿Qué esperas para venir y conocer a tu proximo mejor amigo?</h5><br/><br/>
+                </div>
+                <h:link outcome="inicioAdoptante" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link><br/><br/>
+                <p:growl id="msj" showDetail="true"/>
+                <h:form id="principal" >
+                    <p:dataGrid  paginator="true" rows="6" paginatorPosition="bottom" var="dog" value="#{managedMascota.listaMascota}" id="dogs" styleClass="ui-noborder" >
+                        <p:panel styleClass="card border-0 bg-light shadow-sm pb-2" style="width: 300px; margin-left: 1.3rem" >
+                            <p:graphicImage styleClass="img-fluid rounded mb-5 mb-lg-0" library="Imagenes" name="#{dog.nombreFoto}"  style="height: 250px; width: 300px"/>
+                            <p:outputLabel style="margin-left: 7rem; padding-top: 0.5rem" styleClass="card-title" 
+                                           value="#{dog.nombre}"/>
+                            <div class="card border-0 bg-light shadow-sm pb-2">
+                                <div class=" bg-transparent py-4 px-5">
+                                    <div class="row border-bottom">
+                                        <div class="col-6 py-1 text-right border-right">
+                                            <strong>Edad</strong>
+                                        </div>
+                                        <h:outputText styleClass="col-6 py-1" value="#{dog.edad}"/>
+                                    </div>
+
+                                    <div class="row border-bottom">
+                                        <div class="col-6 py-1 text-right border-right">
+                                            <strong>Raza</strong>
+                                        </div>
+                                        <h:outputText  styleClass="col-6 py-1" value="#{dog.raza}"/><br/><br/><br/> 
+                                    </div>
+
+                                    <div class="row border-bottom">
+                                        <div class="col-6 py-1 text-right border-right">
+                                            <strong>Genero</strong>
+                                        </div>
+                                        <h:outputText styleClass="col-6 py-1" value="#{dog.sexo}"/>
+                                    </div>
+                                </div>        
+                                <p:commandButton value="Conoceme" class="btn btn-primary px-4 mx-auto mb-4" actionListener="#{managedMascota.cargarDatos(dog)}" onclick="PF('valor').show();"/>
+                            </div> 
+                        </p:panel><br/>
+                    </p:dataGrid>
+                </h:form>
+            </div>
+        </div>
+
+        <p:dialog widgetVar="valor" header="¿Quieres conocerme un poco más?" modal="true" resizable="true" closeOnEscape="true" draggable="false">
+            <p:ajax event="close" listener="#{managedMascota.limpiar()}" update="info"/>
+            <h:form id="info">
+                
+                <p:panelGrid  columns="2" styleClass="ui-noborder">
+                    
+                    <p:outputLabel value="Caracteristicas: " />
+                    <p:outputLabel value="#{managedMascota.mascota.caracteristicas}" />
+                    <p:outputLabel value="Fecha Ingreso: "  />
+                    <p:outputLabel value="#{managedMascota.mascota.fechaIngreso}"  />
+                    <p:outputLabel value="Estado Perrito:" />
+                    <p:outputLabel value="#{managedMascota.mascota.estadoMascota}"  />
+                    <p:outputLabel value="Raza: " />
+                    <p:outputLabel value="#{managedMascota.mascota.raza}"   />
+
+                    <p:commandButton style="float: left; background-color: #0059b2; border-color: #0059b2" value="Volver" onclick="PF('valor').hide();" immediate="true"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+    </h:body>
+</html>

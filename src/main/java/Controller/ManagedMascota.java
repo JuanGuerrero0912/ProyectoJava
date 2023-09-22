@@ -59,7 +59,7 @@ public class ManagedMascota implements Serializable {
     }
 
     public void registrar(){
-        String rutaCarpeta = "C:\\Users\\LAPTOP\\Documents\\NetBeansProjects\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\Imagenes";
+        String rutaCarpeta = "C:\\Users\\Danie\\Documents\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\Imagenes";
         try{
             mascota.setNombreFoto(file.getFileName());
             mascota.setFotoMascota(file.getContent());
@@ -96,7 +96,7 @@ public class ManagedMascota implements Serializable {
     }
 
     public void actualizar() {
-        String rutaCarpeta = "C:\\Users\\LAPTOP\\Documents\\NetBeansProjects\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\Imagenes";
+        String rutaCarpeta = "C:\\Users\\Danie\\Documents\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\Imagenes";
         try {
             mascota.setNombreFoto(file.getFileName());
             mascota.setFotoMascota(file.getContent());
