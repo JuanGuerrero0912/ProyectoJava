@@ -32,7 +32,7 @@ public class ManagedSolicitudAdopcion implements Serializable {
     private List<SolicitudAdopcion> listaSolicitudAdopcion;
     private SolicitudAdopcion solicitudAdopcion;
     private UploadedFile file;
-    private StreamedContent file2;
+    private StreamedContent filePdf;
     private Mascota mascota;
     private String msj;
 
@@ -69,22 +69,23 @@ public class ManagedSolicitudAdopcion implements Serializable {
         this.file = file;
     }
 
-    public StreamedContent getFile2() {
-        return file2;
+    public StreamedContent getFilePdf() {
+        return filePdf;
     }
 
-    public void setFile2(StreamedContent file2) {
-        this.file2 = file2;
+    public void setFilePdf(StreamedContent filePdf) {
+        this.filePdf = filePdf;
     }
 
     @PostConstruct
     public void init() {
         this.solicitudAdopcion = new SolicitudAdopcion();
-        this.mascota = new Mascota();
+        this.mascota = new Mascota();   
     }
 
     public void registrar() {
-        String rutaCarpeta = "C:\\Users\\LAPTOP\\Documents\\NetBeansProjects\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\solicitudes";
+        String rutaCarpeta = "C:\\Users\\Danie\\Documents\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\solicitudes";
+        //"C:\\Users\\LAPTOP\\Documents\\NetBeansProjects\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\solicitudes";
         try {
             this.solicitudAdopcion.setMascota_idMascota(mascota);
             solicitudAdopcion.setNombreSolicitud(file.getFileName());
@@ -125,7 +126,8 @@ public class ManagedSolicitudAdopcion implements Serializable {
     }
 
     public void actualizar() {
-        String rutaCarpeta = "C:\\Users\\LAPTOP\\Documents\\NetBeansProjects\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\solicitudes";
+        String rutaCarpeta = "C:\\Users\\Danie\\Documents\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\solicitudes";
+        //"C:\\Users\\LAPTOP\\Documents\\NetBeansProjects\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\solicitudes";
         try {
             this.solicitudAdopcion.setMascota_idMascota(mascota);
             solicitudAdopcion.setNombreSolicitud(file.getFileName());
@@ -157,11 +159,11 @@ public class ManagedSolicitudAdopcion implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
 
-    public void Descargas(){
-        file2 = DefaultStreamedContent.builder()
-                .name("Solicitud_adopcion.pdf")
-                .contentType("application/pdf")
-                .stream(() -> FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("SolicitudAdopcion.pdf"))
+    public ManagedSolicitudAdopcion() {
+        filePdf = DefaultStreamedContent.builder()
+                .name("SolicitudAdopcion.pdf")
+                .contentType("image/pdf")
+                .stream(() -> FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/solicitudes/plantillaSolicitud/SolicitudAdopcion.pdf"))
                 .build();
     }
 }

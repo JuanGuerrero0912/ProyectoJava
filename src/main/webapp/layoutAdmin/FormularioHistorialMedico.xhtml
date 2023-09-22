@@ -79,6 +79,50 @@
                 </p:dataTable>
             </p:fieldset>
         </h:form>
+        <div class="container-fluid py-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5">
+                        <h:graphicImage value="vendors/images/Solicitud.jpg"/>
+                    </div>
+                    <div class="col-lg-7">
+
+                        <h1 style="" class="mb-4">Plantilla Historial Médico</h1>
+                        <div>
+                            <p style="text-align: justify;">
+                                Esta plantilla es para que la llenes los datos de los peluditos rescatados
+                                
+                                <script>
+                                    //<![CDATA[
+                                    function start() {
+                                        PF('statusDialog').show();
+                                    }
+
+                                    function stop() {
+                                        PF('statusDialog').hide();
+                                    }
+                                    //]]>
+                                </script>
+                                
+                                <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false"
+                                          resizable="false">
+                                    <i class="pi pi-spinner pi-spin" style="font-size:3rem"></i>
+                                </p:dialog>
+                                <h:form>
+                                    <p:commandButton value="Descarga" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);"
+                                                     icon="pi pi-arrow-down" styleClass="mr-2">
+                                        <p:fileDownload value="#{managedHistorialMedico.filePdf}"/>
+                                    </p:commandButton>
+                                </h:form>
+                                
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
         <p:dialog widgetVar="valor" header="Historial Medico" modal="true" resizable="true" closeOnEscape="true" draggable="false">
             <p:ajax event="close" listener="#{managedHistorialMedico.limpiar()}" update="tabla"/>
             <h:form id="tabla" enctype="multipart/form-data">

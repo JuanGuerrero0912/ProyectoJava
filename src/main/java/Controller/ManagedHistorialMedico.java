@@ -17,6 +17,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.apache.poi.util.IOUtils;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.file.UploadedFile;
 
 @ManagedBean
@@ -30,6 +32,7 @@ public class ManagedHistorialMedico implements Serializable {
     private UploadedFile file;
     private Mascota mascota;
     private Usuario usuario;
+    private StreamedContent filePdf;
     private String msj;
 
     public List<HistorialMedico> getListaHistorialMedico() {
@@ -72,6 +75,15 @@ public class ManagedHistorialMedico implements Serializable {
     public void setFile(UploadedFile file) {
         this.file = file;
     }
+
+    public StreamedContent getFilePdf() {
+        return filePdf;
+    }
+
+    public void setFilePdf(StreamedContent filePdf) {
+        this.filePdf = filePdf;
+    }
+    
 
     @PostConstruct
     public void init() {
@@ -157,5 +169,13 @@ public class ManagedHistorialMedico implements Serializable {
         FacesMessage mensaje = new FacesMessage(this.msj);
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
 
+    }
+    
+    public ManagedHistorialMedico() {
+        filePdf = DefaultStreamedContent.builder()
+                .name("HistorialMedico.pdf")
+                .contentType("image/pdf")
+                .stream(() -> FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/solicitudes/plantillaSolicitud/HistorialMedico.pdf"))
+                .build();
     }
 }
