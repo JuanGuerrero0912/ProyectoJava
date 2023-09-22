@@ -3,6 +3,7 @@ package Controller;
 
 import EJB.AdoptanteFacadeLocal;
 import Entity.Adoptante;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -11,6 +12,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 @ManagedBean
 @SessionScoped
@@ -20,6 +22,7 @@ public class ManagedAdoptante implements Serializable{
     private AdoptanteFacadeLocal adoptanteFacade;
     private List<Adoptante> listaAdoptante;
     private Adoptante adoptante;
+    private HttpServletRequest httpservelet;
     private String msj;
 
     public List<Adoptante> getListaAdoptante() {
@@ -41,6 +44,7 @@ public class ManagedAdoptante implements Serializable{
     
     @PostConstruct
     public void init(){
+        httpservelet = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         this.adoptante = new Adoptante();
     }
     
@@ -110,21 +114,48 @@ public class ManagedAdoptante implements Serializable{
     
     public String validar() {
         String ruta = "";
-        Adoptante valor;
-
+        FacesContext context = FacesContext.getCurrentInstance();
         try {
-            valor = this.adoptanteFacade.acceder(this.adoptante);
-            if (valor != null) {
-                System.out.println("per" + valor.getUsuario());
+            httpservelet = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            adoptante = adoptanteFacade.acceder(adoptante);
+            if (adoptante != null) {
+                context.getExternalContext().getSessionMap().put("adoptante", adoptante);
                 ruta = "inicioAdoptante";
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario NO registrado", "Admin"));
+                FacesMessage message;
+                message = new FacesMessage("Usuario y/o contraseña incorrecta.");
+                context.addMessage(null, message);
+                ruta = "LoginAdoptante";
             }
 
         } catch (Exception e) {
-            throw e;
+            e.printStackTrace();
+            this.msj = "Error " + e.getMessage();
         }
         return ruta;
     }
     
+    public void cerrarSesion(){
+        try{
+            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("LoginAdoptante.xhtml");
+            this.msj = "Sesion cerrada correctamente";
+        }catch(IOException e){
+            e.printStackTrace();
+            this.msj = "Error " + e.getMessage();
+        }
+    }
+    
+    public void verificarSesion(int id) throws IOException{
+        httpservelet = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        Adoptante r = (Adoptante) httpservelet.getSession().getAttribute("adoptante");
+        if(r != null){
+            if(r.getIdAdoptante() != id){
+                FacesContext.getCurrentInstance().getExternalContext().redirect("Permisos.xhtml");
+            }
+        }else{
+            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("Permisos.xhtml");
+        }
+    }
 }

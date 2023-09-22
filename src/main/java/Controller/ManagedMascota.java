@@ -58,16 +58,17 @@ public class ManagedMascota implements Serializable {
         this.mascota = new Mascota();
     }
 
-    public void registrar(){
-        String rutaCarpeta = "C:\\Users\\Danie\\Documents\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\Imagenes";
-        try{
+    public void registrar() {
+        String rutaCarpeta = "C:\\Users\\LAPTOP\\Documents\\NetBeansProjects\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\Imagenes";
+        //String rutaCarpeta = "C:\\Users\\Danie\\Documents\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\Imagenes"; Ruta de daniela
+        try {
             mascota.setNombreFoto(file.getFileName());
             mascota.setFotoMascota(file.getContent());
             mascotaFacade.create(mascota);
             this.msj = "Mascota creada correctamente";
-            escribirBytes(IOUtils.toByteArray(file.getInputStream()), rutaCarpeta,file.getFileName());
+            escribirBytes(IOUtils.toByteArray(file.getInputStream()), rutaCarpeta, file.getFileName());
             this.mascota = new Mascota();
-        }catch(IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
             this.msj = "Error " + ex.getMessage();
         }
@@ -96,13 +97,14 @@ public class ManagedMascota implements Serializable {
     }
 
     public void actualizar() {
-        String rutaCarpeta = "C:\\Users\\Danie\\Documents\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\Imagenes";
+        String rutaCarpeta = "C:\\Users\\LAPTOP\\Documents\\NetBeansProjects\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\Imagenes";
+//String rutaCarpeta = "C:\\Users\\Danie\\Documents\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\Imagenes";
         try {
             mascota.setNombreFoto(file.getFileName());
             mascota.setFotoMascota(file.getContent());
             this.mascotaFacade.edit(mascota);
             this.msj = "Actualizado correctamente";
-            escribirBytes(IOUtils.toByteArray(file.getInputStream()), rutaCarpeta,file.getFileName());
+            escribirBytes(IOUtils.toByteArray(file.getInputStream()), rutaCarpeta, file.getFileName());
             this.mascota = new Mascota();
         } catch (Exception e) {
             e.printStackTrace();

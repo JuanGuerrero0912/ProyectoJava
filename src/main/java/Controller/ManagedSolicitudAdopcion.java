@@ -3,7 +3,10 @@ package Controller;
 import EJB.SolicitudAdopcionFacadeLocal;
 import Entity.Mascota;
 import Entity.SolicitudAdopcion;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,6 +19,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.apache.poi.util.IOUtils;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.file.UploadedFile;
 
 @ManagedBean
@@ -27,6 +32,7 @@ public class ManagedSolicitudAdopcion implements Serializable {
     private List<SolicitudAdopcion> listaSolicitudAdopcion;
     private SolicitudAdopcion solicitudAdopcion;
     private UploadedFile file;
+    private StreamedContent file2;
     private Mascota mascota;
     private String msj;
 
@@ -63,6 +69,14 @@ public class ManagedSolicitudAdopcion implements Serializable {
         this.file = file;
     }
 
+    public StreamedContent getFile2() {
+        return file2;
+    }
+
+    public void setFile2(StreamedContent file2) {
+        this.file2 = file2;
+    }
+
     @PostConstruct
     public void init() {
         this.solicitudAdopcion = new SolicitudAdopcion();
@@ -76,7 +90,7 @@ public class ManagedSolicitudAdopcion implements Serializable {
             solicitudAdopcion.setNombreSolicitud(file.getFileName());
             solicitudAdopcion.setDocumentoSolicitudAdopcion(file.getContent());
             this.solicitudAdopcionFacade.create(solicitudAdopcion);
-            escribirBytes(IOUtils.toByteArray(file.getInputStream()), rutaCarpeta,file.getFileName());
+            escribirBytes(IOUtils.toByteArray(file.getInputStream()), rutaCarpeta, file.getFileName());
             this.msj = "Registro creado correctamente";
             this.solicitudAdopcion = new SolicitudAdopcion();
             this.mascota = new Mascota();
@@ -87,7 +101,7 @@ public class ManagedSolicitudAdopcion implements Serializable {
         FacesMessage mensaje = new FacesMessage(this.msj);
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
-    
+
     public void escribirBytes(byte[] bytes, String carpeta, String nombreFoto) {
         try {
             Path path = Paths.get(carpeta, nombreFoto);
@@ -104,20 +118,20 @@ public class ManagedSolicitudAdopcion implements Serializable {
         this.solicitudAdopcion = new SolicitudAdopcion();
         this.mascota = new Mascota();
     }
-    
-    public void cargarDatos(SolicitudAdopcion us){
+
+    public void cargarDatos(SolicitudAdopcion us) {
         this.mascota.setIdMascota(us.getMascota_idMascota().getIdMascota());
         this.solicitudAdopcion = us;
     }
-    
-    public void actualizar(){
+
+    public void actualizar() {
         String rutaCarpeta = "C:\\Users\\LAPTOP\\Documents\\NetBeansProjects\\Doggy\\ProyectoJava\\src\\main\\webapp\\resources\\solicitudes";
         try {
             this.solicitudAdopcion.setMascota_idMascota(mascota);
             solicitudAdopcion.setNombreSolicitud(file.getFileName());
             solicitudAdopcion.setDocumentoSolicitudAdopcion(file.getContent());
             this.solicitudAdopcionFacade.edit(solicitudAdopcion);
-            escribirBytes(IOUtils.toByteArray(file.getInputStream()), rutaCarpeta,file.getFileName());
+            escribirBytes(IOUtils.toByteArray(file.getInputStream()), rutaCarpeta, file.getFileName());
             this.msj = "Actualizado correctamente";
             this.solicitudAdopcion = new SolicitudAdopcion();
             this.mascota = new Mascota();
@@ -128,7 +142,7 @@ public class ManagedSolicitudAdopcion implements Serializable {
         FacesMessage mensaje = new FacesMessage(this.msj);
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
-    
+
     public void eliminar() {
         try {
             solicitudAdopcionFacade.remove(solicitudAdopcion);
@@ -143,4 +157,11 @@ public class ManagedSolicitudAdopcion implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
 
+    public void Descargas(){
+        file2 = DefaultStreamedContent.builder()
+                .name("Solicitud_adopcion.pdf")
+                .contentType("application/pdf")
+                .stream(() -> FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("SolicitudAdopcion.pdf"))
+                .build();
+    }
 }

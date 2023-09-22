@@ -84,7 +84,7 @@
             <h:form id="tabla" enctype="multipart/form-data">
                 <p:panelGrid columns="2" styleClass="ui-noborder">
                     <p:outputLabel for="txtEstado" value="Estado"  styleClass="col-sm-12 col-md-2 col-form-label"/>
-                    <p:selectOneMenu id="txtEstado" value="#{managedSolicitudAdopcion.solicitudAdopcion.estado}" required="true" requiredMessage="Campo Obligatorio!">
+                    <p:selectOneMenu id="txtEstado" value="#{managedSolicitudAdopcion.solicitudAdopcion.estado}">
                         <f:selectItem itemLabel="Aceptada" itemValue="Aceptada"/>
                         <f:selectItem itemLabel="Rechazada" itemValue="Rechazada"/>
                         <f:selectItem itemLabel="En tramite" itemValue="En tramite"/>

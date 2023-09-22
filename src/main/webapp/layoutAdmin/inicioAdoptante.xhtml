@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <!-- Basic Page Info -->
         <meta charset="utf-8"/>
@@ -31,6 +33,7 @@
 
                 gtag('config', 'UA-119386393-1');
         </script> -->
+        <f:event type="preRenderView" listener="#{managedAdoptante.verificarSesion(managedAdoptante.adoptante.idAdoptante)}"/>
     </h:head>
     <h:body>
         <div class="header">
@@ -73,11 +76,14 @@
                             <span class="user-icon">
                                 <img src="vendors/images/photo1.jpg" alt=""/>
                             </span>
-                            <span class="user-name">Usuario</span>
+                            <p:outputLabel style="margin-left: 0.5rem; padding-top: 0.5rem" styleClass="user-name" 
+                                           value="#{managedAdoptante.adoptante.nombresAdoptante}"/>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                             <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i>Perfil</a>	
-                            <a class="dropdown-item" href="../index.xhtml"><i class="dw dw-logout"></i>Cerrar Sesion</a>
+                            <h:form>
+                                <h:commandLink styleClass="dropdown-item" value="Cerrar Sesion" actionListener="#{managedAdoptante.cerrarSesion()}"><i class="dw dw-logout" style="margin-right: 0.5rem"></i></h:commandLink>
+                            </h:form>
                         </div>
                     </div>
                 </div>
@@ -177,7 +183,7 @@
                                 <span class="micon dw dw-library"></span><span class="mtext">Mascotas</span>
                             </a>
                             <ul class="submenu">
-                                <li><h:link>Mascotas</h:link></li>
+                                <li><h:link outcome="ListaMascotasAdoptante">Mascotas</h:link></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -185,7 +191,31 @@
                                 <span class="micon dw dw-apartment"></span><span class="mtext">Donaciones</span>
                             </a>
                             <ul class="submenu">
-                                <li><h:link>Donaciones</h:link></li>
+                                <li><h:link outcome="DonacionesAdoptante">Donaciones</h:link></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle">
+                                <span class="micon dw dw-apartment"></span><span class="mtext">Mis adopciones</span>
+                            </a>
+                            <ul class="submenu">
+                                <li><h:link outcome="AdopcionesAdoptante">Mis adopciones</h:link></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle">
+                                <span class="micon dw dw-apartment"></span><span class="mtext">Mis solicitudes</span>
+                            </a>
+                            <ul class="submenu">
+                                <li><h:link outcome="SolicitudAdopcionAdoptante">Mis solicitudes</h:link></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle">
+                                <span class="micon dw dw-apartment"></span><span class="mtext">Mis seguimientos</span>
+                            </a>
+                            <ul class="submenu">
+                                <li><h:link outcome="SeguimientoProcesoAdoptante">Mis seguimientos</h:link></li>
                             </ul>
                         </li>
                     </ul>
@@ -203,7 +233,10 @@
                         </div>
                         <div class="col-md-8">
                             <h4 class="font-20 weight-500 mb-10 text-capitalize">
-                                Bienvenido de nuevo <div class="weight-600 font-30 text-blue"></div>
+                                <p:outputLabel style="font-size: 25px" styleClass="font-20 weight-500 mb-10 text-capitalize"
+                                               value="Bienvenid@ de nuevo #{managedAdoptante.adoptante.nombresAdoptante}" >
+                                    <div class="weight-600 font-30 text-blue"></div>
+                                </p:outputLabel>
                             </h4>
                             <p class="font-18 max-width-600">Cuentanos que quieres hacer hoy</p>
                         </div>
@@ -228,11 +261,47 @@
                                 <div class="product-box">
                                     <div class="producct-img"><img style="height: 290px;" src="vendors/images/Donaciones.jpg" alt=""/></div>
                                     <div style="text-align: center;" class="product-caption">
-                                        <h4><h:link>Donaciones</h:link></h4>
+                                        <h4><h:link outcome="DonacionesAdoptante">Donaciones</h:link></h4>
                                         <div class="price">
                                             <ins>Apartado para realizar donaciones a la fundación, en insumos o dinero</ins>
                                         </div>
-                                        <h:link class="btn btn-outline-primary">Ir</h:link>
+                                        <h:link class="btn btn-outline-primary" outcome="DonacionesAdoptante">Ir</h:link>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="product-box">
+                                    <div class="producct-img"><img style="height: 290px;" src="vendors/images/AdopcionesAdmin.jpg" alt="AdoptanteAdmin"/></div>
+                                    <div style="text-align: center;" class="product-caption">
+                                        <h4><h:link outcome="AdopcionesAdoptante">Adopciones</h:link></h4>
+                                        <div class="price">
+                                            <ins>Consulta tus adopciones</ins>
+                                        </div>
+                                        <h:link class="btn btn-outline-primary" outcome="AdopcionesAdoptante">Ir</h:link>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="product-box">
+                                    <div class="producct-img"><img style="height: 290px;" src="vendors/images/Solicitud.jpg" alt=""/></div>
+                                    <div style="text-align: center;" class="product-caption">
+                                        <h4><h:link outcome="SolicitudAdopcionAdoptante">Solicitud Adopción</h:link></h4>
+                                        <div class="price">
+                                            <ins>Consulta tus solicitudes</ins>
+                                        </div>
+                                        <h:link class="btn btn-outline-primary" outcome="SolicitudAdopcionAdoptante">Ir</h:link>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="product-box">
+                                    <div class="producct-img"><img style="height: 290px;" src="vendors/images/Seguimiento.jpg" alt=""/></div>
+                                    <div style="text-align: center;" class="product-caption">
+                                        <h4><h:link outcome="SeguimientoProcesoAdoptante">Seguimiento Proceso</h:link></h4>
+                                        <div class="price">
+                                            <ins>Consulta tus seguimientos</ins>
+                                        </div>
+                                        <h:link class="btn btn-outline-primary" outcome="SeguimientoProcesoAdoptante">Ir</h:link>
                                     </div>
                                 </div>
                             </li>

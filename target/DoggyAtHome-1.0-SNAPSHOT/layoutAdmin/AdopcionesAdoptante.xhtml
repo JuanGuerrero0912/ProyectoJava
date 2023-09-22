@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <!-- Basic Page Info -->
+        <meta charset="utf-8"/>
+        <title>Adopciones</title>
+
+        <!-- Site favicon -->
+        <link rel="website icon" href="vendors/images/logoLigth.png"/>
+
+        <!-- Mobile Specific Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+        <!-- Google Font 
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"> -->
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="vendors/styles/core.css"/>
+        <link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css"/>
+        <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css"/>
+        <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css"/>
+        <link rel="stylesheet" type="text/css" href="vendors/styles/style.css"/>
+
+        <!-- comment Global site tag (gtag.js) - Google Analytics 
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+        <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'UA-119386393-1');
+        </script> -->
+        <f:event type="preRenderView" listener="#{managedAdoptante.verificarSesion(managedAdoptante.adoptante.idAdoptante)}"/>
+    </h:head>
+    <h:body>
+        <div class="container-fluid pt-5">
+            <div class="container">
+                <div class="text-center pb-2">
+                    <h1 class="mb-4">Adopciones <h:outputText value="#{managedAdoptante.adoptante.nombresAdoptante}"/></h1>
+                </div>
+                <div class="container">
+                    <h:link outcome="inicioAdoptante" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link><br/><br/>
+                    <p:growl id="msj" showDetail="true"/>
+                    <h:form id="form1">
+                        <p:fieldset legend="Adopciones" toggleable="true">
+                            <p:dataTable id="tabla" emptyMessage="No se ha registrado ninguna adopción" value="#{managedAdopciones.listaAdopciones}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
+                                <p:column headerText="Fecha" filterBy="#{usu.fecha}" filterMatchMode="contains">
+                                    <h:outputText value="#{usu.fecha}">
+                                        <f:convertDateTime parent="YYYY-MM-dd"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="Mascota" filterBy="#{usu.mascota_idMascota.nombre}" filterMatchMode="contains">
+                                    <h:outputText value="#{usu.mascota_idMascota.nombre}"/>
+                                </p:column>
+                                <p:column headerText="Usuario" filterBy="#{usu.adoptante_idAdoptante.usuario}" filterMatchMode="contains">
+                                    <h:outputText value="#{usu.adoptante_idAdoptante.usuario}"/>
+                                </p:column>
+                                <p:column headerText="Nombre y apellido" filterBy="#{usu.adoptante_idAdoptante.nombresAdoptante}  #{usu.adoptante_idAdoptante.apellidosAdoptante}" filterMatchMode="contains">
+                                    <h:outputText value="#{usu.adoptante_idAdoptante.nombresAdoptante}  #{usu.adoptante_idAdoptante.apellidosAdoptante}"/>
+                                </p:column>
+                                <p:column headerText="Estado" filterBy="#{usu.estadoAdopcion}" filterMatchMode="contains">
+                                    <h:outputText value="#{usu.estadoAdopcion}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:fieldset>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid py-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5">
+                        <h:graphicImage value="vendors/images/MascotaAdmin.jpg"/>
+                    </div>
+                    <div class="col-lg-7">
+
+                        <h1 style="" class="mb-4">Perritos que buscan hogar</h1>
+                        <div>
+                            <p style="text-align: justify;">
+                                Si pulsas en este botón te mostraremos mas perritos que buscan un hogar, 
+                                si ya adoptaste date la oprtunidad de conocer a otro de estos peludos, 
+                                si todavia no has adoptado, que estas esperando para hacerlo.<br/><br/>
+                                <h:link outcome="ListaMascotasAdoptante" class="btn btn-primary" style="border-color:  #4848d2; background-color: #4848d2; width: 110px; height: 40px; text-align: center; margin-left: 15rem" value="Ir"/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>

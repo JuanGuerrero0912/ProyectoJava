@@ -35,69 +35,67 @@
     </h:head>
     <h:body>
 
-      
-            <div class="container">
-                <div class="text-center pb-2">
-                    <h1 class="mb-4">Peluditos que buscan un hogar</h1><br/>
-                    <p style="color: black" class="mb-4 large">
-                        Date la oportuidad de conocer al proximo miembro de tu familia,
-                        brindale la oportunidad de tener un nuevo hogar a alguno de
-                        nuestros peluditos. <br/>
-                        Aqui en fundación Corazon peludo queremos salvaguardar y mejorar la v
-                        ida de los perros en situación de abandono, proporcionándoles refugio 
-                        seguro, atención médica adecuada y la oportunidad de encontrar un hogar 
-                        amoroso y permanente. Además, nos esforzamos por encontrar hogares responsables y 
-                        amorosos para cada uno de nuestros perros rescatados<br/><br/>
-                    </p>
-                    <h5> ¿Qué esperas para venir y conocer a tu proximo mejor amigo?</h5><br/><br/>
-                </div>
-                <h:link outcome="inicioAdoptante" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link><br/><br/>
-                <p:growl id="msj" showDetail="true"/>
-                <h:form id="principal" >
-                    <p:dataGrid  paginator="true" rows="6" paginatorPosition="bottom" var="dog" value="#{managedMascota.listaMascota}" id="dogs" styleClass="ui-noborder" >
-                        <p:panel styleClass="card border-0 bg-light shadow-sm pb-2" style="width: 300px; margin-left: 1.3rem" >
-                            <p:graphicImage styleClass="img-fluid rounded mb-5 mb-lg-0" library="Imagenes" name="#{dog.nombreFoto}"  style="height: 250px; width: 300px"/>
-                            <p:outputLabel style="margin-left: 7rem; padding-top: 0.5rem" styleClass="card-title" 
-                                           value="#{dog.nombre}"/>
-                            <div class="card border-0 bg-light shadow-sm pb-2">
-                                <div class=" bg-transparent py-4 px-5">
-                                    <div class="row border-bottom">
-                                        <div class="col-6 py-1 text-right border-right">
-                                            <strong>Edad</strong>
-                                        </div>
-                                        <h:outputText styleClass="col-6 py-1" value="#{dog.edad}"/>
-                                    </div>
 
-                                    <div class="row border-bottom">
-                                        <div class="col-6 py-1 text-right border-right">
-                                            <strong>Raza</strong>
-                                        </div>
-                                        <h:outputText  styleClass="col-6 py-1" value="#{dog.raza}"/><br/><br/><br/> 
-                                    </div>
-
-                                    <div class="row border-bottom">
-                                        <div class="col-6 py-1 text-right border-right">
-                                            <strong>Genero</strong>
-                                        </div>
-                                        <h:outputText styleClass="col-6 py-1" value="#{dog.sexo}"/>
-                                    </div>
-                                </div>   
-                                <p:panelGrid columns="2" styleClass="ui-noborder">
-                                    <p:commandButton value="Conoceme" style="border-color: #0059b2; background-color: #0059b2; width: 110px; height: 40px; text-align: center" actionListener="#{managedMascota.cargarDatos(dog)}" onclick="PF('valor').show();" update=":info"/>
-                                    <p:commandButton value="Adoptame" style="border-color:  #4848d2; background-color: #4848d2; width: 110px; height: 40px; text-align: center; margin-left: -1rem"/>
-                                </p:panelGrid>
-                                
-
-                            </div> 
-                        </p:panel><br/>
-                    </p:dataGrid>
-                </h:form>
+        <div class="container">
+            <div class="text-center pb-2">
+                <h1 class="mb-4">Peluditos que buscan un hogar</h1><br/>
+                <p style="color: black" class="mb-4 large">
+                    Date la oportuidad de conocer al proximo miembro de tu familia,
+                    brindale la oportunidad de tener un nuevo hogar a alguno de
+                    nuestros peluditos. <br/>
+                    Aqui en fundación Corazon peludo queremos salvaguardar y mejorar la v
+                    ida de los perros en situación de abandono, proporcionándoles refugio 
+                    seguro, atención médica adecuada y la oportunidad de encontrar un hogar 
+                    amoroso y permanente. Además, nos esforzamos por encontrar hogares responsables y 
+                    amorosos para cada uno de nuestros perros rescatados<br/><br/>
+                </p>
+                <h5> ¿Qué esperas para venir y conocer a tu proximo mejor amigo?</h5><br/><br/>
             </div>
-        
+            <h:link outcome="inicioAdoptante" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link><br/><br/>
+            <p:growl id="msj" showDetail="true"/>
+            <h:form id="principal" >
+                <p:dataGrid  paginator="true" rows="6" paginatorPosition="bottom" var="dog" value="#{managedMascota.listaMascota}" id="dogs" styleClass="ui-noborder" >
+                    <p:panel styleClass="card border-0 bg-light shadow-sm pb-2" style="width: 300px; margin-left: 1.3rem" >
+                        <p:graphicImage styleClass="img-fluid rounded mb-5 mb-lg-0" library="Imagenes" name="#{dog.nombreFoto}"  style="height: 250px; width: 300px"/>
+                        <p:outputLabel style="margin-left: 7rem; padding-top: 0.5rem" styleClass="card-title" 
+                                       value="#{dog.nombre}"/>
+                        <div class="card border-0 bg-light shadow-sm pb-2">
+                            <div class=" bg-transparent py-4 px-5">
+                                <div class="row border-bottom">
+                                    <div class="col-6 py-1 text-right border-right">
+                                        <strong>Edad</strong>
+                                    </div>
+                                    <h:outputText styleClass="col-6 py-1" value="#{dog.edad}"/>
+                                </div>
+
+                                <div class="row border-bottom">
+                                    <div class="col-6 py-1 text-right border-right">
+                                        <strong>Raza</strong>
+                                    </div>
+                                    <h:outputText  styleClass="col-6 py-1" value="#{dog.raza}"/><br/><br/><br/> 
+                                </div>
+
+                                <div class="row border-bottom">
+                                    <div class="col-6 py-1 text-right border-right">
+                                        <strong>Genero</strong>
+                                    </div>
+                                    <h:outputText styleClass="col-6 py-1" value="#{dog.sexo}"/>
+                                </div>
+                            </div>   
+                            <p:panelGrid columns="2" styleClass="ui-noborder">
+                                <p:commandButton value="Conoceme" style="border-color: #0059b2; background-color: #0059b2; width: 110px; height: 40px; text-align: center" actionListener="#{managedMascota.cargarDatos(dog)}" onclick="PF('valor').show();" update=":info"/>
+                                <p:commandButton value="Adoptame" style="border-color:  #4848d2; background-color: #4848d2; width: 110px; height: 40px; text-align: center; margin-left: -1rem" onclick="PF('valor2').show()"/>
+                            </p:panelGrid>
+                        </div> 
+                    </p:panel><br/>
+                </p:dataGrid>
+            </h:form>
+        </div>
+
         <p:dialog  widgetVar="valor" modal="true" resizable="true" closeOnEscape="true" draggable="false">
             <p:ajax event="close" listener="#{managedMascota.limpiar()}" update="info"/>
             <h:form  id="info">
-                    <h2 style="text-align: center; color: black" >Conoce más sobre mi</h2>
+                <h2 style="text-align: center; color: black" >Conoce más sobre mi</h2>
                 <p:panelGrid columns="2" styleClass="ui-noborder">
                     <p:outputLabel value="Nombre: "/>
                     <p:outputLabel value="#{managedMascota.mascota.nombre}"/>
@@ -114,6 +112,23 @@
                     <p:outputLabel value="Edad: "/>
                     <p:outputLabel value="#{managedMascota.mascota.edad}"/>
                     <p:commandButton style="float: left; background-color:  #004085; border-color: #004085" value="Volver" immediate="true" onclick="PF('valor').hide();"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+        <p:dialog widgetVar="valor2" header="Solicitud de adopción" modal="true" resizable="true" closeOnEscape="true" draggable="false">
+            <p:ajax event="close" listener="#{managedSolicitudAdopcion.limpar()}" update="tabla"/>
+            <h:form id="tabla" enctype="multipart/form-data">
+                <p:panelGrid columns="2" styleClass="ui-noborder">
+                    <p:outputLabel for="txtFecha" value="Fecha solicitud" styleClass="col-sm-12 col-md-2 col-form-label"  />
+                    <p:calendar id="txtFecha" value="#{managedSolicitudAdopcion.solicitudAdopcion.fechaSolicitud}" required="true" requiredMessage="Campo Obligatorio!"/>
+                    <p:outputLabel for="txtDocumento" value="Solicitud" styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:fileUpload id="txtDocumento" value="#{managedSolicitudAdopcion.file}" accept=".pdf" mode="simple" skinSimple="true"/>
+                    <p:outputLabel for="txtMascota" value="Mascota"  styleClass="col-sm-12 col-md-2 col-form-label"/>
+                    <p:selectOneMenu id="txtMascota" value="#{managedSolicitudAdopcion.mascota.idMascota}" required="true" requiredMessage="Campo Obligatorio!">
+                        <f:selectItems value="#{managedMascota.listaMascota}" var="re" itemValue="#{re.idMascota}" itemLabel="#{re.nombre}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton style="float: right" value="Registrar" update=":msj" actionListener="#{managedSolicitudAdopcion.registrar()}" rendered="#{managedSolicitudAdopcion.solicitudAdopcion.idSolicitudAdopcion == 0}" oncomplete="PF('valor2').hide();"/>
+                    <p:commandButton style="float: left; background-color: red; border-color: red" value="Cancelar" immediate="true" onclick="PF('valor2').hide();"/>
                 </p:panelGrid>
             </h:form>
         </p:dialog>

@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="utf-8"/>
+        <title>Solicitudes</title>
+
+        <!-- Site favicon -->
+        <link rel="website icon" href="vendors/images/logoLigth.png"/>
+
+        <!-- Mobile Specific Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+        <!-- Google Font 
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"> -->
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="vendors/styles/core.css"/>
+        <link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css"/>
+        <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css"/>
+        <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css"/>
+        <link rel="stylesheet" type="text/css" href="vendors/styles/style.css"/>
+
+        <!-- comment Global site tag (gtag.js) - Google Analytics 
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+        <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'UA-119386393-1');
+        </script> -->
+        <f:event type="preRenderView" listener="#{managedAdoptante.verificarSesion(managedAdoptante.adoptante.idAdoptante)}"/>
+    </h:head>
+    <h:body>
+        <div class="container-fluid pt-5">
+            <div class="container">
+                <div class="text-center pb-2">
+                    <h1 class="mb-4">Solicitudes de Adopción <h:outputText value="#{managedAdoptante.adoptante.nombresAdoptante}"/></h1>
+                </div>
+                <div class="container">
+                    <h:link outcome="inicioAdoptante" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link><br/><br/>
+                    <p:growl id="msj" showDetail="true"/>
+                    <h:form id="form1">
+                        <p:fieldset legend="Solicitudes de adopción" toggleable="true">
+                            <p:dataTable id="tabla" emptyMessage="No se ha registrado ninguna mascota" value="#{managedSolicitudAdopcionPorAdoptante.listaSolicitudAdopcionPorAdoptante}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
+                                <p:column headerText="Fecha" filterBy="#{usu.solicitudAdopcion_idSolicitudAdopcion.fechaSolicitud}" filterMatchMode="contains">
+                                    <h:outputText value="#{usu.solicitudAdopcion_idSolicitudAdopcion.fechaSolicitud}">
+                                        <f:convertDateTime parent="YYYY-MM-dd"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="Estado" filterBy="#{usu.solicitudAdopcion_idSolicitudAdopcion.estado}" filterMatchMode="contains">
+                                    <h:outputText value="#{usu.solicitudAdopcion_idSolicitudAdopcion.estado}"/>
+                                </p:column>
+                                <p:column headerText="Mascota" filterBy="#{usu.solicitudAdopcion_idSolicitudAdopcion.mascota_idMascota.nombre}" filterMatchMode="contains">
+                                    <h:outputText value="#{usu.solicitudAdopcion_idSolicitudAdopcion.mascota_idMascota.nombre}"/>
+                                </p:column>
+                                <p:column headerText="Estado" filterBy="#{usu.adoptante_idAdoptante.usuario}" filterMatchMode="contains">
+                                    <h:outputText value="#{usu.adoptante_idAdoptante.usuario}"/>
+                                </p:column>
+                                <p:column headerText="Nombre y apellido" filterBy="#{usu.adoptante_idAdoptante.nombresAdoptante}  #{usu.adoptante_idAdoptante.apellidosAdoptante}" filterMatchMode="contains">
+                                    <h:outputText value="#{usu.adoptante_idAdoptante.nombresAdoptante}  #{usu.adoptante_idAdoptante.apellidosAdoptante}"/>
+                                </p:column>
+                                <p:column headerText="Estado" filterBy="#{usu.solicitudAdopcion_idSolicitudAdopcion.estadoSolicitud}" filterMatchMode="contains">
+                                    <h:outputText value="#{usu.solicitudAdopcion_idSolicitudAdopcion.estadoSolicitud}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:fieldset>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid py-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5">
+                        <h:graphicImage value="vendors/images/Solicitud.jpg"/>
+                    </div>
+                    <div class="col-lg-7">
+
+                        <h1 style="" class="mb-4">Plantilla de solicitud</h1>
+                        <div>
+                            <p style="text-align: justify;">
+                                Esta plantilla es para que la llenes con tus datos para realizar la solicitud de adopción
+                                <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false"
+                                          resizable="false">
+                                    <i class="pi pi-spinner pi-spin" style="font-size:3rem"></i>
+                                </p:dialog>
+                                <h:form>
+                                    <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);"
+                                                     icon="pi pi-arrow-down" styleClass="mr-2">
+                                        <p:fileDownload value="#{managedSolicitudAdopcion.file2}"/>
+                                    </p:commandButton>
+                                </h:form>
+                                <script>
+                                    //<![CDATA[
+                                    function start() {
+                                        PF('statusDialog').show();
+                                    }
+
+                                    function stop() {
+                                        PF('statusDialog').hide();
+                                    }
+                                    //]]>
+                                </script>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
