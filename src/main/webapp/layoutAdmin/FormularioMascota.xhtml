@@ -49,7 +49,7 @@
                     <h:graphicImage value="vendors/images/excel.png" width="40" style="margin-left: 1rem"/>
                     <p:dataExporter type="xls" target="tabla" fileName="Usuariosexcel"/>
                 </h:commandLink>
-                <p:commandButton styleClass="btn btn-primary" style="margin-left: 53.5rem; height: 45px" value="Nueva mascota" onclick="PF('valor').show();"/>
+                <p:commandButton styleClass="btn btn-primary" style="margin-left: 45rem; height: 45px" value="Nueva mascota" onclick="PF('valor').show();"/>
 
                 <p:dataTable id="tabla" emptyMessage="No se ha registrado ninguna mascota" value="#{managedMascota.listaMascota}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
                     <p:column headerText="Id" filterBy="#{usu.idMascota}" filterMatchMode="contains">

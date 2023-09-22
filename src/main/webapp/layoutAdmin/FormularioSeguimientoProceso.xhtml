@@ -38,8 +38,8 @@
         <p:growl id="msj"/>
         <h:form id="principal" style="background-color:">
             <p:fieldset legend="Seguimiento proceso" toggleable="true">
-                <h1 style="font-family: Nunito; color: #1b00ff; text-align: center">Bienvenido al apartado de seguimiento de proceso</h1>
-                <h5 style="text-align: center; ">¿Que quieres hacer hoy?</h5><br/>
+                <h1 style="font-family: Nunito; color: #1b00ff; text-align: center">Bienvenido al apartado de seguimiento de proceso</h1><br/>
+                <h5 style="text-align: center; ">¿Que quieres hacer hoy?</h5><br/><br/>
                 <h:link outcome="Adopciones" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link>
                 <h:commandLink>
                     <h:graphicImage value="vendors/images/pdf.png" width="30" style="margin-left: 1rem"/>
@@ -49,7 +49,7 @@
                     <h:graphicImage value="vendors/images/excel.png" width="40" style="margin-left: 1rem"/>
                     <p:dataExporter type="xls" target="tabla" fileName="Usuariosexcel"/>
                 </h:commandLink>
-                <p:commandButton styleClass="btn btn-primary" style="margin-left: 51.5rem; height: 45px" value="Nuevo seguimiento" onclick="PF('valor').show();"/>
+                <p:commandButton styleClass="btn btn-primary" style="margin-left: 51.5rem; height: 45px; margin-left: 45rem" value="Nuevo seguimiento" onclick="PF('valor').show();"/>
 
                 <p:dataTable id="tabla" emptyMessage="No se ha registrado ningun usuario" value="#{managedSeguimientoProceso.listaSeguimientoProceso}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
                     <p:column headerText="Id" filterBy="#{usu.idSeguimientoProceso}" filterMatchMode="contains">

@@ -51,7 +51,7 @@
                 </p>
                 <h5> ¿Qué esperas para venir y conocer a tu proximo mejor amigo?</h5><br/><br/>
             </div>
-            <h:link outcome="inicioAdoptante" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link><br/><br/>
+            <h:link outcome="Adopciones" class="btn btn-primary"  style="border-color: brown; background-color: brown; width: 173px; height: 40px; text-align: center">Volver</h:link><br/><br/>
             <p:growl id="msj" showDetail="true"/>
             <h:form id="principal" >
                 <p:dataGrid  paginator="true" rows="6" paginatorPosition="bottom" var="dog" value="#{managedMascota.listaMascota}" id="dogs" styleClass="ui-noborder" >
@@ -82,10 +82,8 @@
                                     <h:outputText styleClass="col-6 py-1" value="#{dog.sexo}"/>
                                 </div>
                             </div>   
-                            <p:panelGrid columns="2" styleClass="ui-noborder">
-                                <p:commandButton value="Conoceme" style="border-color: #0059b2; background-color: #0059b2; width: 110px; height: 40px; text-align: center" actionListener="#{managedMascota.cargarDatos(dog)}" onclick="PF('valor').show();" update=":info"/>
-                                <p:commandButton value="Adoptame" style="border-color:  #4848d2; background-color: #4848d2; width: 110px; height: 40px; text-align: center; margin-left: -1rem" onclick="PF('valor2').show()"/>
-                            </p:panelGrid>
+                                <p:commandButton value="Conoceme" style="border-color: #0059b2; background-color: #0059b2; width: 110px; height: 40px; text-align: center; margin-left: 5rem" actionListener="#{managedMascota.cargarDatos(dog)}" onclick="PF('valor').show();" update=":info"/>
+
                         </div> 
                     </p:panel><br/>
                 </p:dataGrid>
@@ -115,22 +113,6 @@
                 </p:panelGrid>
             </h:form>
         </p:dialog>
-        <p:dialog widgetVar="valor2" header="Solicitud de adopción" modal="true" resizable="true" closeOnEscape="true" draggable="false">
-            <p:ajax event="close" listener="#{managedSolicitudAdopcion.limpar()}" update="tabla"/>
-            <h:form id="tabla" enctype="multipart/form-data">
-                <p:panelGrid columns="2" styleClass="ui-noborder">
-                    <p:outputLabel for="txtFecha" value="Fecha solicitud" styleClass="col-sm-12 col-md-2 col-form-label"  />
-                    <p:calendar id="txtFecha" value="#{managedSolicitudAdopcion.solicitudAdopcion.fechaSolicitud}" required="true" requiredMessage="Campo Obligatorio!"/>
-                    <p:outputLabel for="txtDocumento" value="Solicitud" styleClass="col-sm-12 col-md-2 col-form-label"/>
-                    <p:fileUpload id="txtDocumento" value="#{managedSolicitudAdopcion.file}" accept=".pdf" mode="simple" skinSimple="true"/>
-                    <p:outputLabel for="txtMascota" value="Mascota"  styleClass="col-sm-12 col-md-2 col-form-label"/>
-                    <p:selectOneMenu id="txtMascota" value="#{managedSolicitudAdopcion.mascota.idMascota}" required="true" requiredMessage="Campo Obligatorio!">
-                        <f:selectItems value="#{managedMascota.listaMascota}" var="re" itemValue="#{re.idMascota}" itemLabel="#{re.nombre}"/>
-                    </p:selectOneMenu>
-                    <p:commandButton style="float: right" value="Registrar" update=":msj" actionListener="#{managedSolicitudAdopcion.registrar()}" rendered="#{managedSolicitudAdopcion.solicitudAdopcion.idSolicitudAdopcion == 0}" oncomplete="PF('valor2').hide();"/>
-                    <p:commandButton style="float: left; background-color: red; border-color: red" value="Cancelar" immediate="true" onclick="PF('valor2').hide();"/>
-                </p:panelGrid>
-            </h:form>
-        </p:dialog>
+        
     </h:body>
 </html>

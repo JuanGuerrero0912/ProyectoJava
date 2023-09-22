@@ -50,7 +50,7 @@
                     <p:dataExporter type="xls" target="tabla" fileName="Usuariosexcel"/>
                 </h:commandLink>
                 
-                <p:commandButton styleClass="btn btn-primary" style="margin-left: 53.8rem; height: 45px" value="Nuevo usuario" onclick="PF('valor').show();"/>
+                <p:commandButton styleClass="btn btn-primary" style="margin-left: 50rem; height: 45px" value="Nuevo usuario" onclick="PF('valor').show();"/>
 
                 <p:dataTable id="tabla" emptyMessage="No se ha registrado ningun usuario" value="#{managedUsuario.listaUsuario}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
                     <p:column headerText="Id" filterBy="#{usu.idUsuario}" filterMatchMode="contains">

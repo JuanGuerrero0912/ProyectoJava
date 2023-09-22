@@ -50,7 +50,7 @@
                     <p:dataExporter type="xls" target="tabla" fileName="Donacionesexcel"/>
                 </h:commandLink>
                 
-                <p:commandButton styleClass="btn btn-primary" style="margin-left: 52.8rem; height: 45px" value="Nueva Donación" onclick="PF('valor').show();"/>
+                <p:commandButton styleClass="btn btn-primary" style="margin-left: 50rem; height: 45px" value="Nueva Donación" onclick="PF('valor').show();"/>
 
                 <p:dataTable id="tabla" emptyMessage="No se ha registrado ninguna donación" value="#{managedDonaciones.listaDonaciones}" var="usu" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom" style="align-content: center; background-color: #1b00ff">
                     <p:column headerText="Id" filterBy="#{usu.idDonaciones}" filterMatchMode="contains">
