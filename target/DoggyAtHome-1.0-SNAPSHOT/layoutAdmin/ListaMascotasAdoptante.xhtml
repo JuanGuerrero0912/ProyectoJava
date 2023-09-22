@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <meta charset="utf-8"/>
         <title>Mascotas</title>
@@ -80,21 +81,38 @@
                                         </div>
                                         <h:outputText styleClass="col-6 py-1" value="#{dog.sexo}"/>
                                     </div>
-                                </div>        
-                                <p:commandButton value="Conoceme" class="btn btn-primary px-4 mx-auto mb-4" actionListener="#{managedMascota.cargarDatos(dog)}" onclick="PF('valor').show();"/>
+                                </div>   
+                                <p:panelGrid columns="2" styleClass="ui-noborder">
+                                    <p:commandButton value="Conoceme" style="border-color: #0059b2; background-color: #0059b2; width: 110px; height: 40px; text-align: center" actionListener="#{managedMascota.cargarDatos(dog)}" onclick="PF('valor').show();" update=":info"/>
+                                    <p:commandButton value="Adoptame" style="border-color:  #4848d2; background-color: #4848d2; width: 110px; height: 40px; text-align: center; margin-left: -1rem"/>
+                                </p:panelGrid>
+                                
+
                             </div> 
                         </p:panel><br/>
                     </p:dataGrid>
                 </h:form>
             </div>
         
-        <p:dialog widgetVar="valor" header="Salidas" modal="true" resizable="true" closeOnEscape="true" draggable="false">
-            <p:ajax event="close" listener="#{managedMascota.limpiar()}" update="tabla"/>
-            <h:form id="tabla">
+        <p:dialog  widgetVar="valor" modal="true" resizable="true" closeOnEscape="true" draggable="false">
+            <p:ajax event="close" listener="#{managedMascota.limpiar()}" update="info"/>
+            <h:form  id="info">
+                    <h2 style="text-align: center; color: black" >Conoce más sobre mi</h2>
                 <p:panelGrid columns="2" styleClass="ui-noborder">
-                    
-                    <p:outputLabel style="font-size: 18px; color: #007bff" value="Nombre: #{managedMascota.mascota.nombre}"/>
-                    
+                    <p:outputLabel value="Nombre: "/>
+                    <p:outputLabel value="#{managedMascota.mascota.nombre}"/>
+                    <p:outputLabel value="Caracteristicas "/>
+                    <p:outputLabel value="#{managedMascota.mascota.caracteristicas}"/>
+                    <p:outputLabel value="Mi Fecha Ingreso: "/>
+                    <p:outputLabel value="#{managedMascota.mascota.fechaIngreso}">
+                        <f:convertDateTime parent="YYYY-MM-dd"/>
+                    </p:outputLabel>
+                    <p:outputLabel value="Mi estado Perrito: "/>
+                    <p:outputLabel value="#{managedMascota.mascota.estadoMascota}"/>
+                    <p:outputLabel value="Raza: "/>
+                    <p:outputLabel value="#{managedMascota.mascota.raza}"/>
+                    <p:outputLabel value="Edad: "/>
+                    <p:outputLabel value="#{managedMascota.mascota.edad}"/>
                     <p:commandButton style="float: left; background-color:  #004085; border-color: #004085" value="Volver" immediate="true" onclick="PF('valor').hide();"/>
                 </p:panelGrid>
             </h:form>
