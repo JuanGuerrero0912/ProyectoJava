@@ -34,7 +34,7 @@
     </h:head>
     <h:body>
 
-        <div class="container-fluid pt-5">
+      
             <div class="container">
                 <div class="text-center pb-2">
                     <h1 class="mb-4">Peluditos que buscan un hogar</h1><br/>
@@ -87,27 +87,17 @@
                     </p:dataGrid>
                 </h:form>
             </div>
-        </div>
-
-        <p:dialog widgetVar="valor" header="¿Quieres conocerme un poco más?" modal="true" resizable="true" closeOnEscape="true" draggable="false">
-            <p:ajax event="close" listener="#{managedMascota.limpiar()}" update="info"/>
-            <h:form id="info">
-                
-                <p:panelGrid  columns="2" styleClass="ui-noborder">
+        
+        <p:dialog widgetVar="valor" header="Salidas" modal="true" resizable="true" closeOnEscape="true" draggable="false">
+            <p:ajax event="close" listener="#{managedMascota.limpiar()}" update="tabla"/>
+            <h:form id="tabla">
+                <p:panelGrid columns="2" styleClass="ui-noborder">
                     
-                    <p:outputLabel value="Caracteristicas: " />
-                    <p:outputLabel value="#{managedMascota.mascota.caracteristicas}" />
-                    <p:outputLabel value="Fecha Ingreso: "  />
-                    <p:outputLabel value="#{managedMascota.mascota.fechaIngreso}"  />
-                    <p:outputLabel value="Estado Perrito:" />
-                    <p:outputLabel value="#{managedMascota.mascota.estadoMascota}"  />
-                    <p:outputLabel value="Raza: " />
-                    <p:outputLabel value="#{managedMascota.mascota.raza}"   />
-
-                    <p:commandButton style="float: left; background-color: #0059b2; border-color: #0059b2" value="Volver" onclick="PF('valor').hide();" immediate="true"/>
+                    <p:outputLabel style="font-size: 18px; color: #007bff" value="Nombre: #{managedMascota.mascota.nombre}"/>
+                    
+                    <p:commandButton style="float: left; background-color:  #004085; border-color: #004085" value="Volver" immediate="true" onclick="PF('valor').hide();"/>
                 </p:panelGrid>
             </h:form>
         </p:dialog>
-
     </h:body>
 </html>
